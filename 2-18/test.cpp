@@ -3,7 +3,7 @@
 // //C++兼容C的语法
 // int main(int argc, char const *argv[])
 // {
-//     cout << "hello wordld" << endl;
+//     cout << "hello world" << endl;
 //     return 0;
 // }
 
@@ -87,7 +87,7 @@
 // C++兼容C的语法
 //  int main(int argc, char const *argv[])
 //  {
-//      cout << "hello wordld" << endl;
+//      cout << "hello world" << endl;
 //      system("pause");
 //      return 0;
 //  }
@@ -111,13 +111,98 @@
 
 #include <iostream>
 #include <windows.h>
-
+#include "List.h"
 using namespace std;
-int main(int argc, char const *argv[])
+// struct Person
+// {
+//     char name[10];
+//     int age;
+// };
+// int main(int argc, char const *argv[])
+// {
+//     cout << "hello world" << endl;
+//     //对比C语言printf scanf 优势: 自动识别类型
+//     // int a = 10;
+//     // int *p = &a;
+//     //自动识别类型 原理与函数重载+运算符重载
+//     // cout << a << "," << p << endl;
+//     // char str[10];
+//     // cin>>a;
+//     // cin>>str;
+//     // cout<<a<<str<<endl;
+
+//     struct Person p = {"小李", 10};
+//     printf("name:%s\n age:%d\n", p.name,p.age); //格式化输出时用printf更舒服反而
+//     cout<<"name:"<<p.name<<endl<<"age:"<<p.age<<endl;
+//     system("pause");
+//     return 0;
+// }
+
+void TestFun(int a = 10, int b = 20, int c = 30)
 {
-    cout << "hello world" << endl;
-    //对比C语言printf scanf 优势: 自动识别类型
-    int a = 10;
-    system("pause");
-    return 0;
+    cout << a << endl;
+    cout << b << endl;
+    cout << c << endl
+         << endl;
 }
+// int main(int argc, char const *argv[])
+// {
+//     TestFun(1, 2, 3);
+//     TestFun();
+//     TestFun(1);
+//     TestFun(1, 2);
+//     system("pause");
+//     return 0;
+// }
+#include <stdlib.h>
+struct Stack
+{
+    int *a;
+    int size;
+    int capacity;
+};
+void StackInit(struct Stack *ps, int InitCapacity = 4)
+{
+    ps->a = (int *)malloc(sizeof(int) * 100);
+    ps->size = 0;
+    ps->capacity = InitCapacity;
+}
+int Add(int left = 10, int right = 20)
+{
+	return left + right;
+}
+
+char Add(char left, char right)
+{
+	return left + right;
+}
+
+double Add(double left, double right)
+{
+	return left + right;
+}
+
+int main()
+{
+	cout << Add() << endl;//30
+	cout << Add(1, 2) << endl;  //3 字面量  给的整形默认算常量
+	cout << Add('1', '2') << endl;//c 49 + 50 --> 99 也就是'c'
+	cout << Add(1.1, 2.2) << endl;//3.3
+	return 0;
+}
+// int main(int argc, char const *argv[])
+// {
+//     struct Stack st1;
+//     //假设知道栈里面存100个数据
+//     StackInit(&st1, 100);
+
+//     struct Stack st2;
+//     //假设知道栈里面存10个数据
+//     StackInit(&st1, 10);
+
+//     struct Stack st3;
+//     //假设不知道栈里可能要存多少数据
+//     StackInit(&st3);
+//     system("pause");
+//     return 0;
+// }
