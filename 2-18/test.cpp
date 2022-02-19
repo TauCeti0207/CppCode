@@ -169,27 +169,47 @@ void StackInit(struct Stack *ps, int InitCapacity = 4)
 }
 int Add(int left = 10, int right = 20)
 {
-	return left + right;
+    return left + right;
 }
 
 char Add(char left, char right)
 {
-	return left + right;
+    return left + right;
 }
 
 double Add(double left, double right)
 {
-	return left + right;
+    return left + right;
 }
 
-int main()
+void f(int a, int b, int c = 1)
 {
-	cout << Add() << endl;//30
-	cout << Add(1, 2) << endl;  //3 字面量  给的整形默认算常量
-	cout << Add('1', '2') << endl;//c 49 + 50 --> 99 也就是'c'
-	cout << Add(1.1, 2.2) << endl;//3.3
-	return 0;
+    ;
 }
+void f(int a, int b)
+{
+    ;
+}
+void swap(int *a, int *b)
+{
+    // ...
+}
+
+void swap(double *a, double *b)
+{
+    // ...
+}
+
+// int main()
+// {
+//     cout << Add() << endl;         // 30
+//     cout << Add(1, 2) << endl;     // 3 字面量  给的整形默认算常量
+//     cout << Add('1', '2') << endl; // c 49 + 50 --> 99 也就是'c'
+//     cout << Add(1.1, 2.2) << endl; // 3.3
+//     f(1, 2, 3);
+//     //f(1, 2);
+//     return 0;
+// }
 // int main(int argc, char const *argv[])
 // {
 //     struct Stack st1;
@@ -206,3 +226,28 @@ int main()
 //     system("pause");
 //     return 0;
 // }
+
+// int main(int argc, char const *argv[])
+// {
+//     int a = 10;
+//     // b是a的引用(别名)
+//     int &b = a;
+//     b = 20;
+//     //还可以继续取别名
+//     int &c = b;
+//     c = 30;
+//     return 0;
+// }
+void Swap(int &r1, int &r2)
+{
+    int tmp = r1;
+    r1 = r2;
+    r2 = tmp;
+}
+int main(int argc, char const *argv[])
+{
+    int a = 10;
+    int b = 20;
+    Swap(a, b);
+    return 0;
+}
