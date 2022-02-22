@@ -1,0 +1,12 @@
+[
+{
+  "directory": "D:/code/2022code/Cpp_Code/2-22-Class&object/build",
+  "command": "D:\\PROGRA~1\\gcc\\mingw64\\bin\\X86_64~2.EXE   -g -o CMakeFiles\\Date.dir\\src\\Date.obj -c \"D:\\code\\2022code\\Cpp_Code\\2-22-Class&object\\src\\Date.cpp\"",
+  "file": "D:/code/2022code/Cpp_Code/2-22-Class&object/src/Date.cpp"
+},
+{
+  "directory": "D:/code/2022code/Cpp_Code/2-22-Class&object/build",
+  "command": "D:\\PROGRA~1\\gcc\\mingw64\\bin\\X86_64~2.EXE   -g -o CMakeFiles\\Date.dir\\src\\test.obj -c \"D:\\code\\2022code\\Cpp_Code\\2-22-Class&object\\src\\test.cpp\"",
+  "file": "D:/code/2022code/Cpp_Code/2-22-Class&object/src/test.cpp"
+}
+]

@@ -1,0 +1,3 @@
+"D:\Program Files (x86)\cmake\cmake-3.22.2-windows-x86_64\bin\cmake.exe" -E rm -f CMakeFiles\Da.dir/objects.a
+D:\PROGRA~1\gcc\mingw64\bin\ar.exe qc CMakeFiles\Da.dir/objects.a @CMakeFiles\Da.dir\objects1.rsp
+D:\PROGRA~1\gcc\mingw64\bin\X86_64~2.EXE -g -Wl,--whole-archive CMakeFiles\Da.dir/objects.a -Wl,--no-whole-archive -o Da.exe -Wl,--out-implib,libDa.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Da.dir\linklibs.rsp
