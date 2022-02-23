@@ -1,0 +1,3 @@
+D:/code/2022code/Cpp_Code/2-23 file operations/build/CMakeFiles/File.dir
+D:/code/2022code/Cpp_Code/2-23 file operations/build/CMakeFiles/edit_cache.dir
+D:/code/2022code/Cpp_Code/2-23 file operations/build/CMakeFiles/rebuild_cache.dir
