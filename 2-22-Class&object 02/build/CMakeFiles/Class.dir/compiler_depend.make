@@ -136,7 +136,10 @@ CMakeFiles/Class.dir/src/test.obj: ../src/test.cpp \
   D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/bits/basic_ios.tcc \
   D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/bits/ostream.tcc \
   D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/istream \
-  D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/bits/istream.tcc
+  D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/bits/istream.tcc \
+  D:/Program\ Files\ (x86)/gcc/mingw64/x86_64-w64-mingw32/include/string.h \
+  D:/Program\ Files\ (x86)/gcc/mingw64/x86_64-w64-mingw32/include/sec_api/string_s.h \
+  D:/Program\ Files\ (x86)/gcc/mingw64/x86_64-w64-mingw32/include/assert.h
 
 
 D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/bits/istream.tcc:
@@ -410,3 +413,9 @@ D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/bits/locale_facets.tcc:
 D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/bits/basic_ios.tcc:
 
 D:/Program\ Files\ (x86)/gcc/mingw64/include/c++/11.2.0/istream:
+
+D:/Program\ Files\ (x86)/gcc/mingw64/x86_64-w64-mingw32/include/string.h:
+
+D:/Program\ Files\ (x86)/gcc/mingw64/x86_64-w64-mingw32/include/sec_api/string_s.h:
+
+D:/Program\ Files\ (x86)/gcc/mingw64/x86_64-w64-mingw32/include/assert.h:
