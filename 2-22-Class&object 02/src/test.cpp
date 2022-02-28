@@ -332,16 +332,246 @@ istream &operator>>(istream &in, Date &d)
 //     case         //在写case语句的时候自动把 break写上。
 // // 如果定义的 stuff过长，可以分成几行写，除了最后一行外，每行的后面都加一个反斜杠(续行符)。
 // #define DEBUG_PRINT printf("file:%s\tline:%d\tdate:%s\ttime:%s\n", __FILE__, __LINE__, __DATE__, __TIME__)
-#define PRINT(n) printf("the value of "#n" is %d\n",n)
-#define CAT(c,num) c##num
+// #define PRINT(n) printf("the value of " #n " is %d\n", n)
+// #define CAT(c, num) c##num
+// #define MAX(x, y) ((x) > (y)) ? (x) : (y)
+// #define MALLOC(num,type) (type*)malloc(num*sizeof(type))
+// int main(int argc, char const *argv[])
+// {
+//     // int a = 10;
+//     // int b = 20;
+//     // PRINT(a);//the value of a is 10
+//     // PRINT(b);//the value of b is 20
+//     // int Class104 = 10000;
+//     // printf("%d\n",CAT(Class,104));//Class104  10000
+
+//     // getchar();
+//     // // fgetc();//读取一个字符同时就会拿走那个字符
+//     // int a = 2;
+//     // int b = ++a; // b=3,a=3  副作用
+//     // int c = a + 1;//b=3,a=2  无副作用
+
+//     // int a = 3;
+//     // int b = 5;
+//     // int m = MAX(a++,b++);
+//     // //实际上是直接把a++，b++替换进去的
+//     // //int m = ((a++)>(b++))?(a++):(b++)
+//     // printf("%d\n",m);//6
+//     // printf("%d %d\n",a,b);//4 7
+//     int* p2 = MALLOC(10,int);//函数的参数可不能传类型，宏才可以
+//     system("pause");
+//     return 0;
+// }
+// #define MAX(x,y) ((x)>(y))?(x):(y)
+// int main(int argc, char const *argv[])
+// {
+// #undef MAX
+//     int a = 3;
+//     int b = 5;
+//     //int m = MAX(a,b);//err 不能用了
+//     printf("%d\n",m);
+//     system("pause");
+//     return 0;
+// }
+
+// #include <stdio.h>
+// #define M 0
+// int main()
+// {
+// //     int i = 0;
+// //     int arr[10] = {0};
+// //     for (i = 0; i < 10; i++)
+// //     {
+// //         arr[i] = i;
+
+// // #if 1
+// //         printf("%d\n", arr[i]); //为了观察数组是否赋值成功。
+// // #endif
+// //     }
+// #if defined(M)
+//     printf("hehe\n");
+// #endif
+
+// #ifdef M
+//     printf("haha\n");
+// #endif
+
+// #if !defined(M)
+//     printf("hehe\n");
+// #endif
+
+// #ifndef M
+//     printf("haha\n");
+// #endif
+
+//     system("pause");
+//     return 0;
+// }
+// 1.
+// #if 常量表达式
+// //...
+// #endif
+//     //常量表达式由预处理器求值。
+//     如：
+// #define __DEBUG__ 1
+// #if __DEBUG__
+// //..
+// #endif
+//     2.多个分支的条件编译
+// #if 常量表达式
+// //...
+// #elif 常量表达式
+// //...
+// #else
+// //...
+// #endif
+//     3.判断是否被定义
+// #if defined(symbol)
+// #ifdef symbol
+// #if !defined(symbol)
+// #ifndef symbol
+//     4.嵌套指令
+// #if defined(OS_UNIX)
+// #ifdef OPTION1
+//     unix_version_option1();
+// #endif
+// #ifdef OPTION2
+// unix_version_option2();
+// #endif
+// #elif defined(OS_MSDOS)
+// #ifdef OPTION2
+//     msdos_version_option2();
+// #endif
+// #endif
+
+// #include <stdio.h>
+// #include <assert.h>
+// #include <ctype.h>
+// enum State
+// {
+//     INVALID, //非法
+//     VALID    //合法
+// };
+// enum State status = INVALID;
+// int MyAtoi(const char *str)
+// {
+//     assert(str);
+//     //空字符串
+//     if (*str == '\0')
+//         return 0; //此时的status全局变量是INVALID
+//     //跳过空白字符
+//     while (isspace(*str))
+//     {
+//         str++;
+//     }
+//     //正负号
+//     int flag = 1;
+//     if (*str == '+')
+//     {
+//         flag = 1;
+//         str++;
+//     }
+//     else if (*str == '-')
+//     {
+//         flag = -1;
+//         str++;
+//     }
+//     //只遍历数字字符
+//     long long n = 0;
+//     while (isdigit(*str))
+//     {
+//         n = n * 10 + flag * (*str - '0');
+//         //处理越界的值
+//         if (n > INT_MAX || n < INT_MIN)
+//         {
+//             return 0; //没法转换了
+//         }
+//         str++;
+//     }
+//     if (*str == '\0')
+//     {
+//         status = VALID; //正常情况的返回
+//         return (int)n;
+//     }
+
+//     //其他情况都是非法返回
+//     return n;
+// }
+// // 1.空指针
+// // 2.空字符串，空白字符
+// // 3.+-
+// // 4.非数字字符
+// // 5.超大数字
+// int main(int argc, char const *argv[])
+// {
+//     int ret = MyAtoi("  -123");
+//     if (status == VALID)
+//         printf("%d\n", ret);
+//     else
+//         printf("非法返回\n");
+//     system("pause");
+//     return 0;
+// }
+
+// 10
+// 00000000000000000000000000001010  -10
+// 01010101010101010101010101010101  按位与就能保留所有的奇数位，偶数位置0
+// 0x55555555
+// 01010101010101010101010101010101  按位与就能保留所有的偶数位，奇数位置0，
+// 0xAAAAAAAA
+//分别<< >> 即可，二者再相加即可
+// #define SWAPODDEVEN(x) ((x) = (((x & 0x55555555) << 1) + ((x & 0xAAAAAAAA) >> 1)))
+// int main(int argc, char const *argv[])
+// {
+//     int x = 10;
+//     SWAPODDEVEN(x);
+//     printf("%d\n", x);
+//     system("pause");
+//     return 0;
+// }
+#include <stddef.h>
+#include <stdio.h>  
+struct S
+{
+    char c;
+    int a;
+    double d;
+};
+
+//计算结构体中某变量相对于首地址的偏移
+#define OFFSETOF(sName, mName) (int)&(((sName*)0)->mName)
 int main(int argc, char const *argv[])
 {
-    // int a = 10;
-    // int b = 20;
-    // PRINT(a);//the value of a is 10
-    // PRINT(b);//the value of b is 20
-    int Class104 = 10000;
-    printf("%d\n",CAT(Class,104));//Class104  10000
+    // struct S s = {0};
+    // printf("%d\n",OFFSETOF(struct S, c));//0
+    // printf("%d\n",offsetof(struct S, c));//0
+    // printf("%d\n",OFFSETOF(struct S, a));//4
+    // printf("%d\n",offsetof(struct S, a));//4
+    // printf("%d\n",OFFSETOF(struct S, d));//8
+    // printf("%d\n",offsetof(struct S, d));//8
+    // int a = -3;
+    // unsigned int b = 2;
+    // long c = a + b;
+    // printf("%ld\n",c);
+    char a =0,ch;
+    while ((ch=getchar())!='\n')
+    {
+        if(a%2 != 0 && (ch >='a') && ch <='z')
+        {
+            ch = ch - 'a' + 'A';
+        }
+        a++;
+        putchar(ch);
+    }
+    printf("\n");
+    
     system("pause");
     return 0;
 }
+
+// 10000000000000000000000000000011
+// 11111111111111111111111111111100
+// 11111111111111111111111111111101
+
+// 00000000000000000000000000000010
+// 11111111111111111111111111111111
