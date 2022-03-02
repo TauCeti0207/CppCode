@@ -660,34 +660,50 @@
 // // }
 #include <iostream>
 using namespace std;
-int ComDiv(int x,int y)
+// int ComDiv(int x,int y)
+// {
+//   int tmp = x>y?y:x;
+//   while(tmp > 0)
+//   {
+//     if(x % tmp == 0 && y % tmp == 0)
+//     {
+//       break;
+//     }
+//     tmp--;
+//   }
+//   return tmp;
+// }
+// int main()
+// {
+//   // 请在此输入您的代码
+//   int count = 0;
+//   for(int i = 1; i <= 2020; i++)
+//   {
+//     for(int j = 1; j <= 2020; j++)
+//     {
+//       if(ComDiv(i,j)==1)
+//       {
+//         count++;
+//       }
+//     }
+//   }
+//   cout << count << endl;
+//   system("pause");
+//   return 0;
+// }
+
+class Person
 {
-  int tmp = x>y?y:x;
-  while(tmp > 0)
-  {
-    if(x % tmp == 0 && y % tmp == 0)
-    {
-      break;
-    }
-    tmp--;
-  }
-  return tmp;
-}
-int main()
+public:
+    void PrintPersonInfo();
+private:
+    char _name[20];
+    char _gender[3];
+    int _age;
+};
+
+void test()
 {
-  // 请在此输入您的代码
-  int count = 0;
-  for(int i = 1; i <= 2020; i++)
-  {
-    for(int j = 1; j <= 2020; j++)
-    {
-      if(ComDiv(i,j)==1)
-      {
-        count++;
-      }
-    }
-  }
-  cout << count << endl;
-  system("pause");
-  return 0;
+    Person man;   //类的实例化
+    man.PrintPersonInfo();
 }
