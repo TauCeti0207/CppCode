@@ -692,18 +692,213 @@ using namespace std;
 //   return 0;
 // }
 
-class Person
-{
-public:
-    void PrintPersonInfo();
-private:
-    char _name[20];
-    char _gender[3];
-    int _age;
-};
+// class Person
+// {
+// public:
+//     void PrintPersonInfo();
+// private:
+//     char _name[20];
+//     char _gender[3];
+//     int _age;
+// };
 
-void test()
+// void test()
+// {
+//     Person man;   //类的实例化
+//     man.PrintPersonInfo();
+// }
+
+// class A
+// {
+// public:
+//     A(int x = 0)
+//     {
+//         cout << "A(int x = 0)" << endl;
+//         _x = x;
+//     }
+
+// private:
+//     int _x;
+// };
+
+// class Date
+// {
+// public:
+//     friend void operator<<(ostream &out, const Date &d);
+//     // Date(int year = 0, int month = 1, int day = 1)
+//     // {
+//     //     _year = year;
+//     //     _month = month;
+//     //     _day = day;
+//     // }
+
+//     //一个对象的单个成员变量，在初始化列表是它的定义的阶段
+//     Date(int year = 0, int month = 1, int day = 1)
+//         : _year(year), _month(month) //这里的_year _month _day 定义时可以不初始化
+//           ,
+//           _n(10), _ref(year)
+//     {
+//         _day = day;
+//     }
+//     // int GetYear() const
+//     // {
+//     //     return _year;
+//     // }
+
+// private:
+//     //这里仅仅是成员变量的声明
+//     int _year;
+//     int _month;
+//     int _day;
+
+//     //它们必须在定义的时候初始化
+//     const int _n;
+//     int &_ref;
+//     A _a; //自定义类型，会自动调用它的默认构造函数，因此初始化列表里不写也行
+// };
+// class A
+// {
+// public:
+//     A(int x)
+//     {
+//         cout << "A(int x = 0)" << endl;
+//         _x = x;
+//     }
+
+// private:
+//     int _x;
+// };
+
+// class Date
+// {
+// public:
+//     //一个对象的单个成员变量，在初始化列表是它的定义的阶段
+//     Date(int year = 0, int month = 1, int day = 1)
+//         : _year(year), _month(month) //这里的_year _month _day 定义时可以不初始化
+//           ,
+//           _n(10), _ref(year), _a(1)//显示去调用
+//     {
+//         _day = day;
+//     }
+
+// private:
+//     //这里仅仅是成员变量的声明
+//     int _year;
+//     int _month;
+//     int _day;
+
+//     //它们必须在定义的时候初始化
+//     const int _n;
+//     int &_ref;
+//     A _a; //自定义类型，会自动调用它的默认构造函数，因此初始化列表里不写也行
+// };
+
+// void operator<<(ostream &out, const Date &d)
+// {
+//     out << d._year << "-" << d._month << "-" << d._day << endl;
+//     // out << d.GetYear() << "-" << d._month << "-" << d._day << endl;
+// }
+
+// int main(int argc, char const *argv[])
+// {
+//     Date d1(2022, 2, 22);
+//     // const Date d2(2022, 2, 22);
+//     // &d2;
+//     // cout << d1;
+//     system("pause");
+//     return 0;
+// }
+// class A
+// {
+// private:
+//     int _a;
+
+// public:
+//     A(int a) // construction
+//     : _a(a)
+//     {
+//         cout << "A(int a)//construction" << endl;
+//     }
+//     A(const A &aa) // copy construction
+//     : _a(aa._a)
+//     {
+//         cout << " A(const A& aa)//copy construction" << endl;
+//     }
+//     ~A()
+//     {
+//         cout << "~A()" << endl;
+//     }
+// };
+// // int main(int argc, char const *argv[])
+// // {
+// //     A aa1(1);
+// //     A aa2(aa1); //拷贝构造，编译器自动生成的就够用了，只有内置类型
+// //     // A aa3 = 2;
+// //     const A &aa3 = 2; //单参数的构造函数，支持隐式类型转换
+// //     //语法意义上，先构造再拷贝
+// //     //相当于 早期的编译器--> A tmp(2)  A aa3(tmp)
+// //     //现在的编译器做了优化，直接调用构造函数 -->A aa3(2)
+// //     //打印结果是 A(int a)//construction
+
+// //     //类似：
+// //     int i = 0;
+// //     const double &d = i; //引用的是临时变量，需要加const
+// //     system("pause");
+// //     return 0;
+// // }
+// int main()
+// {
+//     A aa1(1);  //标准的构造函数调用，定义有名对象
+//     A aa2 = 2; //隐式类型转换，现代编译器优化后，也是直接调用的构造函数
+//     A(3);      //构造匿名对象，生命周期只在这一行，这一行结束后就会调用析构函数
+//     A aa3(2);
+//     system("pause");
+//     return 0;
+// }
+
+class A
 {
-    Person man;   //类的实例化
-    man.PrintPersonInfo();
+    public:
+    //every time construction or copy_construction --> ++_n 
+    A()
+    {
+        cout << "  A()" << endl;
+        ++_n;   
+    }
+    A(const A&a)
+    {
+        ++_n;
+    }
+    int GetN()
+    {
+        return _n;
+    }
+private:
+//This is just a declaration that it is not initialized in the constructor, but in the global location outside the class
+    static int _n; //only the first can change
+    //Special case, not restricted by access qualifiers
+};
+//静态成员变量定义初始化
+int A::_n = 0;
+void f(A a)
+{
+    
+}
+int main(int argc, char const *argv[])
+{
+    // A a1;
+    // A a2;
+    // A();
+    // f(a1);//call copy constructions
+    // cout << sizeof(A) << endl;
+    // // cout << A::_n << endl; // if public  4  a1 1times a2 1times A()1times f(a1)1times
+    // // cout << a1._n << endl; // if public  4
+    // // cout << a2._n << endl; // if public  4
+    // // cout << A()._n << endl; // if public 5 A()._n create an anonymous object call constructions
+    
+    // cout << a1.GetN() << endl; // if private 4
+    // cout << A().GetN() << endl; // if private 5
+    A aa[20];
+    system("pause");
+    return 0;
 }
