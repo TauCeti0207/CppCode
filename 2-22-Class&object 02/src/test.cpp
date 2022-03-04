@@ -856,49 +856,205 @@ using namespace std;
 //     return 0;
 // }
 
-class A
+// class A
+// {
+//     public:
+//     //every time construction or copy_construction --> ++_n
+//     A()
+//     {
+//         cout << "  A()" << endl;
+//         ++_n;
+//     }
+//     A(const A&a)
+//     {
+//         ++_n;
+//     }
+//     int GetN()
+//     {
+//         return _n;
+//     }
+// private:
+// //This is just a declaration that it is not initialized in the constructor, but in the global location outside the class
+//     static int _n; //only the first can change
+//     //Special case, not restricted by access qualifiers
+// };
+// //静态成员变量定义初始化
+// int A::_n = 0;
+// void f(A a)
+// {
+
+// }
+// int main(int argc, char const *argv[])
+// {
+//     // A a1;
+//     // A a2;
+//     // A();
+//     // f(a1);//call copy constructions
+//     // cout << sizeof(A) << endl;
+//     // // cout << A::_n << endl; // if public  4  a1 1times a2 1times A()1times f(a1)1times
+//     // // cout << a1._n << endl; // if public  4
+//     // // cout << a2._n << endl; // if public  4
+//     // // cout << A()._n << endl; // if public 5 A()._n create an anonymous object call constructions
+
+//     // cout << a1.GetN() << endl; // if private 4
+//     // cout << A().GetN() << endl; // if private 5
+//     A aa[20];
+//     system("pause");
+//     return 0;
+// }
+#include <string>
+// class B
+// {
+// public:
+//     B(int x = 0)
+//         : _x(x)
+//     {
+//         cout << " B()" << endl;
+//     }
+
+// private:
+//     int _x;
+// };
+// // C++11 针对之前内置类型不做处理的缺陷做了改进
+// class A
+// {
+// private:
+//     // declaration
+//     int _a = 0;
+//     int *_p = nullptr; //这里不是初始化，只是缺省值
+//     int* arr = (int*)malloc(sizeof(int)*10);
+//     B _b = 6;//这其实是一个先构造再拷贝，但被编译器优化成直接构造了
+
+// public:
+//     A(int a = 1, int *p = nullptr)
+//         : _a(a), _p(p)//初始化给值了，就不会再去用声明时的缺省值
+//     {
+//     }
+// };
+
+// int main(int argc, char const *argv[])
+// {
+//     A aa; //会去调用默认构造函数
+//     system("pause");
+//     return 0;
+// }
+
+// class A
+// {
+// public:
+//     A(int k, int h)
+//     {
+//         this->_k = k;
+//         this->_h = h;
+//     }
+
+// private:
+//     static int _k;
+//     int _h;
+
+// public:
+//     class B // B天生就是A的友元
+//     {
+//     public:
+//         void foo(const A &a)
+//         {
+//             cout << _k << endl;   // OK  a._k也ok
+//             cout << a._h << endl; // OK
+//         }
+//     };
+// };
+
+// int A::_k = 1;
+
+// int main()
+// {
+//     A::B bb;
+//     bb.foo(A(2, 10));
+//     system("pause");
+//     return 0;
+// }
+
+// class Solution
+// {
+//     class Add // Add是Solution的友元
+//     {
+//     public:
+//         Add()
+//         {
+//             _ret += _i;
+//             _i++;
+//         }
+//     };
+
+// public:
+//     int sumNums(int n)
+//     {
+//         _ret = 0; //每次进来时要重置_i _ret避免上一次结果残留    直接调用公有成员变量
+//        _i = 1;
+//         Add arr[n];
+//         return _ret;
+//     }
+
+// private:
+//     static int _i;
+//     static int _ret;
+// };
+// int Solution::_i = 1;
+// int Solution::_ret = 0;
+
+//用C实现一个栈
+struct StackC
 {
-    public:
-    //every time construction or copy_construction --> ++_n 
-    A()
-    {
-        cout << "  A()" << endl;
-        ++_n;   
-    }
-    A(const A&a)
-    {
-        ++_n;
-    }
-    int GetN()
-    {
-        return _n;
-    }
-private:
-//This is just a declaration that it is not initialized in the constructor, but in the global location outside the class
-    static int _n; //only the first can change
-    //Special case, not restricted by access qualifiers
+    int *a;
+    int _top;
+    int _capacity;
 };
-//静态成员变量定义初始化
-int A::_n = 0;
-void f(A a)
+void StackInit(struct StackC *ps, int n);
+void StackDestroy(struct StackC *ps);
+void StackPush(struct StackC *ps, int x);
+
+void TestStackC()
 {
-    
+    struct StackC st;
+    StackInit(&st, 4);
+    StackPush(&st, 1);
+    StackPush(&st, 2);
+    StackPush(&st, 3);
+    StackPush(&st, 4);
+    st.a[st._top++] = 5; //不合法的插入，可能越界了
+
+    StackDestroy(&st);
 }
-int main(int argc, char const *argv[])
+
+// C++实现一个栈
+class StackCpp
 {
-    // A a1;
-    // A a2;
-    // A();
-    // f(a1);//call copy constructions
-    // cout << sizeof(A) << endl;
-    // // cout << A::_n << endl; // if public  4  a1 1times a2 1times A()1times f(a1)1times
-    // // cout << a1._n << endl; // if public  4
-    // // cout << a2._n << endl; // if public  4
-    // // cout << A()._n << endl; // if public 5 A()._n create an anonymous object call constructions
-    
-    // cout << a1.GetN() << endl; // if private 4
-    // cout << A().GetN() << endl; // if private 5
-    A aa[20];
-    system("pause");
-    return 0;
+private:
+    int *a;
+    int _top;
+    int _capacity;
+
+public:
+    StackCpp(int n = 4)
+    {
+        //...
+    }
+    ~StackCpp()
+    {
+        //../
+    }
+    void Push(int x)
+    {
+        //...
+    }
+};
+
+void TestStackCpp()
+{
+    StackCpp st; //自动构造，自动析构
+    st.Push(1);
+    st.Push(2);
+    st.Push(3);
+    st.Push(4);
+    // st._a; 无法这样操作
 }
