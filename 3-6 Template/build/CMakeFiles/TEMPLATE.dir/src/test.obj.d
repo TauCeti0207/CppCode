@@ -134,5 +134,4 @@ CMakeFiles/TEMPLATE.dir/src/test.obj: \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\basic_ios.tcc \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\ostream.tcc \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\istream \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\istream.tcc \
- d:\progra~1\gcc\mingw64\x86_64-w64-mingw32\include\memory.h
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\istream.tcc

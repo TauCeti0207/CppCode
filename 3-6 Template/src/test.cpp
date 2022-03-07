@@ -1,25 +1,188 @@
-// #include <iostream>
-// using namespace std;
+#include <iostream>
+using namespace std;
+#include <vector>
+#include <assert.h>
 
 // //函数模板
-// template <class T, class T2> // Type
-// void Swap(T &x1, T &x2)
-// {
-//     T tmp = x1;
-//     x1 = x2;
-//     x2 = tmp;
-// }
-// T Add(T x1, T x2)
+// template <class T> // Type
+// // void Swap(T &x1, T &x2)
+// // {
+// //     T tmp = x1;
+// //     x1 = x2;
+// //     x2 = tmp;
+// // }
+// T Add(const T &x1, const T &x2)
 // {
 //     return x1 + x2;
 // }
+// // int main(int argc, char const *argv[])
+// // {
+// //     int a = 10, b = 20;
+// //     double c = 1.2, d = 3.4;
+// //     Swap(a, b);
+// //     Swap(c, d);
+// //     system("pause");
+// //     return 0;
+// // }
 // int main(int argc, char const *argv[])
 // {
 //     int a = 10, b = 20;
 //     double c = 1.2, d = 3.4;
-//     Swap(a, b);
-//     Swap(c, d);
+//     Add(a, b);
+//     Add(c, d);
+
+//     //cout << Add(a, c) << endl; //err
+//     //不让编译器推演泪腺，显示指定类型
+//     //显示实例化
+//     cout << Add<int>(a, c) << endl;
+//     cout << Add<double>(a, c) << endl;
 //     system("pause");
+//     return 0;
+// }
+
+// //专门处理int的加法函数
+// int Add(int left, int right)
+// {
+//     return left + right;
+// }
+
+// // 通用加法函数
+// template <class T>
+// T Add(T left, T right)
+// {
+//     return left + right;
+// }
+
+// int main()
+// {
+//     Add(1, 2);      // 与非模板函数匹配，编译器不需要特化
+//     Add<int>(1, 2); // 调用编译器特化的Add版本
+//     return 0;
+// }
+
+// int Add(int left, int right)
+// {
+// 	return left + right;
+// }
+
+// // 通用加法函数
+// template<class T1, class T2>
+// T1 Add(T1 left, T2 right)
+// {
+// 	return left + right;
+// }
+
+// // 模板调用，有现成匹配函数，绝对不去实例化模板
+// // 有更匹配的，优先匹配类型最合适的
+// int main()
+// {
+// 	Add(1, 2);     // 与非函数模板类型完全匹配，不需要函数模板实例化
+// 	Add(1, 2.0);   // 模板函数可以生成更加匹配的版本，编译器根据实参生成更加匹配的Add函数
+//     return 0;
+// }
+
+// typedef double VDataType;
+
+//类模板
+// namespace yzq
+// {
+//     template <class T>
+//     class vector
+//     {
+//     public:
+//         vector()
+//             : _a(nullptr), _size(0), _capacity(0)
+//         {
+//         }
+//         ~vector()
+//         {
+//             delete[] _a;
+//             _a = nullptr;
+//             _size = _capacity = 0;
+//         }
+//         void push_back(const T &x)
+//         {
+//             if (_size == _capacity)
+//             {
+//                 int newcapacity = _capacity == 0 ? 4 : _capacity * 2;
+//                 T *tmp = new T[newcapacity];
+//                 if (_a)
+//                 {
+//                     memcpy(tmp, _a, sizeof(T) * _size);
+//                     delete[] _a;
+//                 }
+//                 _a = tmp;
+//                 _capacity = newcapacity;
+//             }
+//             _a[_size] = x;
+//             ++_size;
+//         }
+//         T &operator[](size_t pos); //传引用返回可以修改值也能减少拷贝
+
+//         size_t size();
+
+//     private:
+//         T *_a;
+//         int _size;
+//         int _capacity;
+//     };
+//     template <class T>
+//     T &vector<T>::operator[](size_t pos)
+//     {
+//         assert(pos < _size); //越界检查
+//         return _a[pos];
+//     }
+
+//     template <class T>
+//     size_t vector<T>::size()
+//     {
+//         return _size;
+//     }
+// }
+// int main()
+// {
+//     yzq::vector<int> v1; // int
+//     v1.push_back(1);
+//     v1.push_back(2);
+//     v1.push_back(3);
+//     v1.push_back(4);
+//     for (size_t i = 0; i < v1.size(); i++)
+//     {
+//         v1[i] *= 2;
+//     }
+
+//     for (size_t i = 0; i < v1.size(); i++)
+//     {
+//         cout << v1[i] << " ";
+//     }
+//     cout << endl;
+
+//     //等价 v1.operator[](3);
+//     cout << v1[3] << endl;
+//     std::vector<double> v2; // double
+//     v2.push_back(1.1);
+//     v2.push_back(2.2);
+//     v2.push_back(2.2);
+//     v2.push_back(2.2);
+//     return 0;
+// }
+
+// int main()
+// {
+//     //先算有多少天,考虑闰年
+//     int day = 0;
+//     for (int i = 1901; i <= 2000; i++)
+//     {
+//         if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0)
+//         {
+//             day += 366;
+//         }
+//         else
+//         {
+//             day += 365;
+//         }
+//     }
+//     cout << day / 7 << endl;
 //     return 0;
 // }
 
@@ -137,9 +300,9 @@
 //     }
 //     return 0;
 // }
-#include <iostream>
-#include <memory.h>
-using namespace std;
+// #include <iostream>
+// #include <memory.h>
+// using namespace std;
 // //二维数组模拟矩阵
 // int main(int argc, char const *argv[])
 // {
@@ -203,8 +366,8 @@ using namespace std;
 //     return 0;
 // }
 
-int main(int argc, char const *argv[])
-{
-    int md[11] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    return 0;
-}
+// int main(int argc, char const *argv[])
+// {
+//     int md[11] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+//     return 0;
+// }
