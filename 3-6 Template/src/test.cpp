@@ -366,8 +366,8 @@ using namespace std;
 //     return 0;
 // }
 
-// int main(int argc, char const *argv[])
-// {
-//     int md[11] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-//     return 0;
-// }
+int main(int argc, char const *argv[])
+{
+    int md[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    return 0;
+}
