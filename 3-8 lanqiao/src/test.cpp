@@ -870,22 +870,139 @@
 //     return 0;
 // }
 
+// #include <iostream>
+// using namespace std;
+// int main(int argc, char const *argv[])
+// {
+//     long long n = 59084709587505;
+//     int count = 0;
+//     for (long long i = 1; i <= n; i *= 3)
+//     {
+//         for (long long j = 1; i * j <= n; j *= 5)
+//         {
+//             for (long long k = 1; i * j * k <= n; k *= 7)
+//             {
+//                 count++;
+//             }
+//         }
+//     }
+//     cout << count - 1 << endl;
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <algorithm>
+// using namespace std;
+// const int N = 1e6 + 10;
+// int n;
+// int q[N], tmp[N];
+// // void QuickSort(int q[], int l, int r)
+// // {
+// //     if (l >= r)
+// //         return;                         //当区间里没有数或者只有一个数时，表示已经排好序，用l == r也行的
+// //     int x = q[l], i = l - 1, j = r + 1; //不管如何，先让2个指针移动一次，因此指针指向数组外面，避免产生越界
+// //     while (i < j)
+// //     {
+// //         do
+// //             i++;
+// //         while (q[i] < x);
+// //         do
+// //             j--;
+// //         while (q[j] > x);
+// //         if (i < j)
+// //             swap(q[i], q[j]);
+// //     }
+// //     QuickSort(q, l, j);
+// //     QuickSort(q, j + 1, r);
+// // }
+// void QuickSort(int q[], int l, int r)
+// {
+//     if (l <= r)
+//         return;
+//     int x = q[l], i = l - 1, j = r + 1;
+//     while (i < j)
+//     {
+//         do
+//             i++;
+//         while (q[i] < x);
+//         do
+//             j--;
+//         while (q[j] > x);
+//         if (i < j)
+//             swap(q[i], q[j]);
+//         QuickSort(q, l, j);
+//         QuickSort(q, j + 1, r);
+//     }
+// }
+// void MergeSort(int q[], int l, int r)
+// {
+//     if (l >= r)
+//         return;
+//     int mid = ((r - l) >> 1) + l;
+//     MergeSort(q, l, mid), MergeSort(q, mid + 1, r);
+//     int k = 0, i = l, j = mid + 1;
+//     while (i <= mid && j <= r)
+//     {
+//         if (q[i] <= q[j])
+//             tmp[k++] = q[i++];
+//         else
+//             tmp[k++] = q[j++];
+//     }
+//     //总有一方先走完，还没走完的，要继续放到tmp里面
+//     while (i <= mid)
+//         tmp[k++] = q[i++];
+//     while (j <= r)
+//         tmp[k++] = q[j++];
+//     for (int i = l, j = 0; i <= r; i++, j++)
+//         q[i] = tmp[j];
+// }
+// int main()
+// {
+//     scanf("%d", &n); //当读取数据比较大时，要用scanf读取
+//     for (int i = 0; i < n; i++)
+//         scanf("%d", &q[i]);
+//     // QuickSort(q, 0, n - 1);
+//     MergeSort(q, 0, n - 1);
+//     for (int i = 0; i < n; i++)
+//         printf("%d ", q[i]);
+//     return 0;
+// }
 #include <iostream>
+#include <algorithm>
 using namespace std;
-int main(int argc, char const *argv[])
+const int N = 1e5 + 10;
+int n, d, k;
+int nowLike[N];
+struct node
 {
-    long long n = 59084709587505;
-    int count = 0;
-    for (long long i = 1; i <= n; i *= 3)
+    int ts;
+    int id;
+};
+node arr[N];
+bool isHot[N];
+bool Cmp(node x, node y)
+{
+    return x.ts < y.ts;
+}
+int main()
+{
+    cin >> n >> d >> k;
+    for (int i = 1; i <= n; i++)
     {
-        for (long long j = 1; i * j <= n; j *= 5)
-        {
-            for (long long k = 1; i * j * k <= n; k *= 7)
-            {
-                count++;
-            }
-        }
+        scanf("%d%d", &arr[i].ts, &arr[i].id);
     }
-    cout << count - 1 << endl;
+    sort(arr + 1, arr + 1 + n, Cmp);
+    int l = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        nowLike[arr[i].id]++;
+        while (arr[i].ts >= arr[l].ts + d)
+            nowLike[arr[l++].id]--;
+        if (nowLike[arr[i].id] >= k)
+            isHot[arr[i].id] = true;
+    }
+    for (int i = 0; i <= 100005; i++)
+        if (isHot[i])
+            printf("%d\n", i);
     return 0;
 }
