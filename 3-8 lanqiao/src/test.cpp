@@ -967,42 +967,58 @@
 //         printf("%d ", q[i]);
 //     return 0;
 // }
+// #include <iostream>
+// #include <algorithm>
+// using namespace std;
+// const int N = 1e5 + 10;
+// int n, d, k;
+// int nowLike[N];
+// struct node
+// {
+//     int ts;
+//     int id;
+// };
+// node arr[N];
+// bool isHot[N];
+// bool Cmp(node x, node y)
+// {
+//     return x.ts < y.ts;
+// }
+// int main()
+// {
+//     cin >> n >> d >> k;
+//     for (int i = 1; i <= n; i++)
+//     {
+//         scanf("%d%d", &arr[i].ts, &arr[i].id);
+//     }
+//     sort(arr + 1, arr + 1 + n, Cmp);
+//     int l = 1;
+//     for (int i = 1; i <= n; i++)
+//     {
+//         nowLike[arr[i].id]++;
+//         while (arr[i].ts >= arr[l].ts + d)
+//             nowLike[arr[l++].id]--;
+//         if (nowLike[arr[i].id] >= k)
+//             isHot[arr[i].id] = true;
+//     }
+//     for (int i = 0; i <= 100005; i++)
+//         if (isHot[i])
+//             printf("%d\n", i);
+//     return 0;
+// }
+
 #include <iostream>
-#include <algorithm>
 using namespace std;
-const int N = 1e5 + 10;
-int n, d, k;
-int nowLike[N];
-struct node
-{
-    int ts;
-    int id;
-};
-node arr[N];
-bool isHot[N];
-bool Cmp(node x, node y)
-{
-    return x.ts < y.ts;
-}
 int main()
 {
-    cin >> n >> d >> k;
-    for (int i = 1; i <= n; i++)
+    for (long long i = 1; i <= 1000000007; i++)
     {
-        scanf("%d%d", &arr[i].ts, &arr[i].id);
+        if (i * 2021 % 1000000007 == 999999999)
+        {
+            cout << i << endl;
+            return 0;
+        }
     }
-    sort(arr + 1, arr + 1 + n, Cmp);
-    int l = 1;
-    for (int i = 1; i <= n; i++)
-    {
-        nowLike[arr[i].id]++;
-        while (arr[i].ts >= arr[l].ts + d)
-            nowLike[arr[l++].id]--;
-        if (nowLike[arr[i].id] >= k)
-            isHot[arr[i].id] = true;
-    }
-    for (int i = 0; i <= 100005; i++)
-        if (isHot[i])
-            printf("%d\n", i);
     return 0;
 }
+

@@ -134,33 +134,4 @@ CMakeFiles/LANQIAO.dir/src/test.obj: \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\basic_ios.tcc \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\ostream.tcc \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\istream \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\istream.tcc \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\algorithm \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\utility \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\stl_relops.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\stl_algo.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\algorithmfwd.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\stl_heap.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\stl_tempbuf.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\uniform_int_dist.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\pstl\glue_algorithm_defs.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\functional \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\tuple \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\array \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\uses_allocator.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\invoke.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\refwrap.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\std_function.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\unordered_map \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\ext\aligned_buffer.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\hashtable.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\hashtable_policy.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\node_handle.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\unordered_map.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\erase_if.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\vector \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\stl_uninitialized.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\stl_vector.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\stl_bvector.h \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\vector.tcc \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\pstl\execution_defs.h
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\istream.tcc
