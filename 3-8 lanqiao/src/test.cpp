@@ -1276,38 +1276,209 @@
 //     return 0;
 // }
 
-#include <iostream>
-using namespace std;
-int a[10], book[10], n;//全局变量默认初始为0
-void dfs(int step)//在第step个盒子面前，往里面放第i张扑克牌
-{
-    int i;
-    //结束条件,前面n个盒子已经放好了
-    if(step == n+1)
-    {
-        //打印
-        for(i = 1; i <= n; i++)
-            printf("%d ",a[i]);
-        cout << endl;
-        return;
-    }
-    for(i = 1; i <= n; i++)
-    {
-        if(book[i] == 0)
-        {
-            //说明i号卡片还在手里，需要放入step号盒子里
-            a[step] = i;
-            book[i] = 1;//标记，表示i号卡片已经用过
-            dfs(step+1);//继续放下一个盒子
-            book[i] = 0;//走到此处说明，dfs调用结束，所有卡片都用完了，需要重新收回卡片
-        }
-    }
-    return;
-}
-int main()
-{
-    cin >> n;
-    dfs(1);
-    system("pause");
-    return 0;
-}
+// #include <iostream>
+// using namespace std;
+// int a[10], book[10], n;//全局变量默认初始为0
+// void dfs(int step)//在第step个盒子面前，往里面放第i张扑克牌
+// {
+//     int i;
+//     //结束条件,前面n个盒子已经放好了
+//     if(step == n+1)
+//     {
+//         //打印
+//         for(i = 1; i <= n; i++)
+//             printf("%d ",a[i]);
+//         cout << endl;
+//         return;
+//     }
+//     for(i = 1; i <= n; i++)
+//     {
+//         if(book[i] == 0)
+//         {
+//             //说明i号卡片还在手里，需要放入step号盒子里
+//             a[step] = i;
+//             book[i] = 1;//标记，表示i号卡片已经用过
+//             dfs(step+1);//继续放下一个盒子
+//             book[i] = 0;//走到此处说明，dfs调用结束，所有卡片都用完了，需要重新收回卡片
+//         }
+//     }
+//     return;
+// }
+// int main()
+// {
+//     cin >> n;
+//     dfs(1);
+//     system("pause");
+//     return 0;
+// }
+
+// #include <iostream>
+// using std::cin;
+// using std::cout;
+// using std::endl;
+// int visit[51][51], a[51][51];
+// int n, m, p, q;
+// int min = 99999; // p q是终点坐标，min表示最少的步数
+// int startX, startY;
+// int next[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}}; //方向数组
+
+// void dfs(int x, int y, int step) // step表示走的步数
+// {
+//     int tx, ty; //当前坐标
+//     if (x == p && y == q)
+//     {
+//         if (step < min)
+//             min = step;
+//         return;
+//     }
+//     for (int k = 0; k < 3; k++)
+//     {
+//         //下一步坐标
+//         tx = x + next[k][0];
+//         ty = y + next[k][1];
+//         //判断坐标是否越界，越界就重新循环
+//         if (tx < 1 || tx > n || ty < 1 || ty > m)
+//             continue;
+//         if (a[tx][ty] == 0 && visit[tx][ty] == 0) // a[tx][ty] == 0表示没有障碍
+//         {
+//             visit[tx][ty] = 1;     //标记为1表示访问过
+//             dfs(tx, ty, step + 1); //下一步
+//             visit[tx][ty] = 0;     //回溯
+//         }
+//     }
+//     return;
+// }
+// int main(int argc, char const *argv[])
+// {
+//     std::cin >> n >> m; //输入迷宫大小，n行m列
+//     for (int i = 1; i <= n; i++)
+//         for (int j = 1; j <= m; j++)
+//             scanf("%d", &a[i][j]); // scanf快一点
+//     scanf("%d %d", &startX, &startY);
+//     scanf("%d %d", &p, &q);    //终点坐标
+//     visit[startX][startY] = 1; //起始点标记，就不会回到这个点了
+//     dfs(startX, startY, 0);
+//     cout << min << endl;
+//     system("pause");
+//     return 0;
+// }
+
+// #include <iostream>
+// using namespace std;
+// const int N = 10;
+// int n;
+// int path[N];
+// bool st[N]; //默认是0也就是false，表示没用过
+// //用一颗搜索树来想象
+// void dfs(int u)
+// {
+//     //到达叶子节点
+//     if (u == n)
+//     {
+//         for (int i = 0; i < n; i++)
+//             printf("%d ", path[i]);
+//         cout << endl;
+//         return;
+//     }
+//     for (int i = 1; i <= n; i++)
+//     {
+//         if (!st[i])
+//         {
+//             path[u] = i;
+//             st[i] = true; // true表示用过
+//             dfs(u + 1);
+//             st[i] = false; // dfs递归已结束就要回溯
+//         }
+//     }
+// }
+// int main()
+// {
+//     cin >> n;
+//     dfs(0);
+//     system("pause");
+//     return 0;
+// }
+
+// #include <iostream>
+// using namespace std;
+// const int N = 20; //考虑对角线的位置
+// int n;            // n行n列的棋盘
+// char g[N][N];
+// bool col[N], leftDiagonal[N], rightDiagonal[N];
+
+// void dfs(int u)
+// {
+//     if (u == n)
+//     {
+//         for (int i = 0; i < n; i++)
+//             puts(g[i]);
+//         puts(""); //换行
+//         return;
+//     }
+//     for(int i =0;i < n; i++)
+//     {
+//         if(!col[i]&&!leftDiagonal[u+i]&&!rightDiagonal[n-u+i])//剪枝
+//         {
+//             g[u][i] = 'Q';
+//             col[i] = leftDiagonal[u+i] = rightDiagonal[n-u+i] = true;
+//             dfs(u+1);
+//             col[i] = leftDiagonal[u+i] = rightDiagonal[n-u+i] = false;
+//             g[u][i] = '.';//回溯
+//         }
+//     }
+// }
+// int main()
+// {
+//     cin >> n;
+//     for(int i = 0; i<n; i++)
+//         for(int j = 0; j < n; j++)
+//             g[i][j] = '.';
+//     dfs(0);
+//     system("pause");
+//     return 0;
+// }
+
+// #include <iostream>
+// using namespace std;
+// const int N = 20; //考虑对角线的位置
+// int n;            // n行n列的棋盘
+// char g[N][N];
+// bool col[N], row[N], leftDiagonal[N], rightDiagonal[N];
+
+// void dfs(int x, int y, int sum)
+// {
+//     if (y == n) // y出界
+//     {
+//         y = 0;
+//         x++; //去到下一行
+//     }
+//     if (x == n) // x越界
+//     {
+//         if (sum == n) //放了n个皇后就可以打印了
+//         {
+//             for (int i = 0; i < n; i++)
+//                 puts(g[i]);
+//             puts("");
+//         }
+//         return;
+//     }
+//     dfs(x,y+1,sum);//不放皇后
+//     if(!row[x]&&!col[y]&&!leftDiagonal[x+y]&&!rightDiagonal[x-y+n])
+//     {
+//         g[x][y] = 'Q';
+//         row[x] = col[y] = leftDiagonal[x+y] = rightDiagonal[x-y+n] = true;
+//         dfs(x,y+1,sum+1);
+//         row[x] = col[y] = leftDiagonal[x+y] = rightDiagonal[x-y+n] = false;
+//         g[x][y] = '.';//回溯
+//     }
+// }
+// int main()
+// {
+//     cin >> n;
+//     for (int i = 0; i < n; i++)
+//         for (int j = 0; j < n; j++)
+//             g[i][j] = '.';
+//     dfs(0, 0, 0);
+//     system("pause");
+//     return 0;
+// }
