@@ -1,0 +1,3 @@
+D:/code/2022code/Cpp_Code/3-21 String/build/CMakeFiles/STRING.dir
+D:/code/2022code/Cpp_Code/3-21 String/build/CMakeFiles/edit_cache.dir
+D:/code/2022code/Cpp_Code/3-21 String/build/CMakeFiles/rebuild_cache.dir
