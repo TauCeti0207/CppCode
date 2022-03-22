@@ -1490,28 +1490,88 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };*/
 
-// 一种最佳打水方案是，将N个人按照Ti从小到大的顺序依次分配到M个龙头打水。
-// 例如样例中，Ti从小到大排序为1，2，3，4，5，6，7，将他们依次分配到3个龙头，则去龙头一打水的为1，4，7；去龙头二打水的为2,5；去第三个龙头打水的为3,6。
-// 第一个龙头打水的人总等待时间  =  0  +  1  +  (1  +  4)  =  6
-// 第二个龙头打水的人总等待时间  =  0  +  2  =  2
-// 第三个龙头打水的人总等待时间  =  0  +  3  =  3
-// 所以总的等待时间  =  6  +  2  +  3  =  11
+// // 一种最佳打水方案是，将N个人按照Ti从小到大的顺序依次分配到M个龙头打水。
+// // 例如样例中，Ti从小到大排序为1，2，3，4，5，6，7，将他们依次分配到3个龙头，则去龙头一打水的为1，4，7；去龙头二打水的为2,5；去第三个龙头打水的为3,6。
+// // 第一个龙头打水的人总等待时间  =  0  +  1  +  (1  +  4)  =  6
+// // 第二个龙头打水的人总等待时间  =  0  +  2  =  2
+// // 第三个龙头打水的人总等待时间  =  0  +  3  =  3
+// // 所以总的等待时间  =  6  +  2  +  3  =  11
+// #include <iostream>
+// using namespace std;
+// #include <algorithm>
+// int a[10010];
+// int main()
+// {
+//     int n, m;
+//     cin >> n >> m;//n个人，m个水龙头
+//     for(int i = 0; i < n; i++)
+//     {
+//         cin>>a[i];
+//     }
+//     //让慢的人最后打，让快的人先打
+//     sort(a, a+n);
+//     //m个水龙头，让最快的前m个人先打，第一个人等待时间为0，第二个人等待时间为第一个人的打水时间
+//     int sum = 0;
+//     for()
+//     return 0;
+// }
+
 #include <iostream>
+#include <vector>
 using namespace std;
-#include <algorithm>
-int a[10010];
+const int N = 10;
+vector<int> ans;
+bool st[N];
+
+//计算n位数
+int cal(int l, int r)
+{
+    int sum = 0;
+    for (int i = l; i < r; ++i)
+    {
+        sum *= 10;
+        sum += ans[i];
+    }
+    return sum;
+}
+void check(vector<int> ans)
+{
+    // 0不能为首位
+    if (ans[0] == 0 || ans[4] == 0 || ans[8] == 0)
+        return;
+    int a = cal(0, 4);
+    int b = cal(4, 8);
+    int c = cal(8, 10);
+    if ((a - b) * c == 900)
+    {
+        printf("(%d-%d)*%d=900", a, b, c);
+        return;
+    }
+}
+
+void dfs(int level)
+{
+    // 0~9 level从0开始
+    if (level == 10)
+    {
+        check(ans);
+        return;
+    }
+    for (int i = 0; i <= 9; ++i)
+    {
+        if (!st[i])
+        {
+            st[i] = true;
+            ans.push_back(i);
+            dfs(level + 1);
+            ans.pop_back();
+            st[i] = false; //回溯
+        }
+    }
+}
+
 int main()
 {
-    int n, m;
-    cin >> n >> m;//n个人，m个水龙头
-    for(int i = 0; i < n; i++)
-    {
-        cin>>a[i];
-    }
-    //让慢的人最后打，让快的人先打
-    sort(a, a+n);
-    //m个水龙头，让最快的前m个人先打，第一个人等待时间为0，第二个人等待时间为第一个人的打水时间
-    int sum = 0;
-    for()
+    dfs(0);
     return 0;
 }
