@@ -134,4 +134,23 @@ CMakeFiles/LANQIAO.dir/src/test.obj: \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\basic_ios.tcc \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\ostream.tcc \
  d:\progra~1\gcc\mingw64\include\c++\11.2.0\istream \
- d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\istream.tcc
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\istream.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\math.h \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\cmath \
+ d:\progra~1\gcc\mingw64\x86_64-w64-mingw32\include\math.h \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\bits\specfun.h \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\limits \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\gamma.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\special_function_util.h \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\bessel_function.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\beta_function.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\ell_integral.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\exp_integral.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\hypergeometric.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\legendre_function.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\modified_bessel_func.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\poly_hermite.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\poly_laguerre.tcc \
+ d:\progra~1\gcc\mingw64\include\c++\11.2.0\tr1\riemann_zeta.tcc \
+ d:\progra~1\gcc\mingw64\x86_64-w64-mingw32\include\string.h \
+ d:\progra~1\gcc\mingw64\x86_64-w64-mingw32\include\sec_api\string_s.h

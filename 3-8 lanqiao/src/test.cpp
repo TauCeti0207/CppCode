@@ -1516,65 +1516,65 @@
 // //     return 0;
 // // }
 
-#include <iostream>
-#include <vector>
-using namespace std;
-const int N = 10;
-vector<int> ans;
-bool st[N];
+// #include <iostream>
+// #include <vector>
+// using namespace std;
+// const int N = 10;
+// vector<int> ans;
+// bool st[N];
 
-//计算n位数
-int cal(int l, int r)
-{
-    int sum = 0;
-    for (int i = l; i < r; ++i)
-    {
-        sum *= 10;
-        sum += ans[i];
-    }
-    return sum;
-}
-void check(vector<int> ans)
-{
-    // 0不能为首位
-    if (ans[0] == 0 || ans[4] == 0 || ans[8] == 0)
-        return;
-    int a = cal(0, 4);
-    int b = cal(4, 8);
-    int c = cal(8, 10);
-    if ((a - b) * c == 900)
-    {
-        printf("(%d-%d)*%d=900", a, b, c);
-        return;
-    }
-}
+// //计算n位数
+// int cal(int l, int r)
+// {
+//     int sum = 0;
+//     for (int i = l; i < r; ++i)
+//     {
+//         sum *= 10;
+//         sum += ans[i];
+//     }
+//     return sum;
+// }
+// void check(vector<int> ans)
+// {
+//     // 0不能为首位
+//     if (ans[0] == 0 || ans[4] == 0 || ans[8] == 0)
+//         return;
+//     int a = cal(0, 4);
+//     int b = cal(4, 8);
+//     int c = cal(8, 10);
+//     if ((a - b) * c == 900)
+//     {
+//         printf("(%d-%d)*%d=900", a, b, c);
+//         return;
+//     }
+// }
 
-void dfs(int level)
-{
-    // 0~9 level从0开始
-    if (level == 10)
-    {
-        check(ans);
-        return;
-    }
-    for (int i = 0; i <= 9; ++i)
-    {
-        if (!st[i])
-        {
-            st[i] = true;
-            ans.push_back(i);
-            dfs(level + 1);
-            ans.pop_back();
-            st[i] = false; //回溯
-        }
-    }
-}
+// void dfs(int level)
+// {
+//     // 0~9 level从0开始
+//     if (level == 10)
+//     {
+//         check(ans);
+//         return;
+//     }
+//     for (int i = 0; i <= 9; ++i)
+//     {
+//         if (!st[i])
+//         {
+//             st[i] = true;
+//             ans.push_back(i);
+//             dfs(level + 1);
+//             ans.pop_back();
+//             st[i] = false; //回溯
+//         }
+//     }
+// }
 
-int main()
-{
-    dfs(0);
-    return 0;
-}
+// int main()
+// {
+//     dfs(0);
+//     return 0;
+// }
 
 // #include <iostream>
 // #include <string.h>
@@ -1644,3 +1644,24 @@ int main()
 //     }
 //     return 0;
 // }
+
+#include <iostream>
+#include <math.h>
+#include <string.h>
+using namespace std;
+// 任意2个字符相减的绝对值即为字母边距
+
+int main(int argc, char const *argv[])
+{
+    int ans = 0;
+    string str = "LANQIAO";
+    for(int i = 0; i < str.size(); ++i)
+    {
+        for(int j = i + 1; j < str.size(); ++j)
+        {
+            ans += abs(str[i]-str[j]);
+        }
+    }
+    cout << ans << endl;
+    return 0;
+}
