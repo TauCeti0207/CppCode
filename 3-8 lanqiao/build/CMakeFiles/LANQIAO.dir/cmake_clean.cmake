@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/LANQIAO.dir/src/4-9.obj"
+  "CMakeFiles/LANQIAO.dir/src/4-9.obj.d"
   "CMakeFiles/LANQIAO.dir/src/test.obj"
   "CMakeFiles/LANQIAO.dir/src/test.obj.d"
   "LANQIAO.exe"

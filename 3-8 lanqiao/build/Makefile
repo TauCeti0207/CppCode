@@ -129,6 +129,21 @@ LANQIAO/fast:
 .PHONY : LANQIAO/fast
 
 # target to build an object file
+src/4-9.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LANQIAO.dir\build.make CMakeFiles/LANQIAO.dir/src/4-9.obj
+.PHONY : src/4-9.obj
+
+# target to preprocess a source file
+src/4-9.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LANQIAO.dir\build.make CMakeFiles/LANQIAO.dir/src/4-9.i
+.PHONY : src/4-9.i
+
+# target to generate assembly for a file
+src/4-9.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\LANQIAO.dir\build.make CMakeFiles/LANQIAO.dir/src/4-9.s
+.PHONY : src/4-9.s
+
+# target to build an object file
 src/test.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\LANQIAO.dir\build.make CMakeFiles/LANQIAO.dir/src/test.obj
 .PHONY : src/test.obj
@@ -152,6 +167,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... LANQIAO
+	@echo ... src/4-9.obj
+	@echo ... src/4-9.i
+	@echo ... src/4-9.s
 	@echo ... src/test.obj
 	@echo ... src/test.i
 	@echo ... src/test.s

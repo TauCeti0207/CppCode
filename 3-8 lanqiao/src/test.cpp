@@ -1645,23 +1645,98 @@
 //     return 0;
 // }
 
-#include <iostream>
-#include <math.h>
-#include <string.h>
-using namespace std;
-// 任意2个字符相减的绝对值即为字母边距
+// #include <iostream>
+// #include <math.h>
+// #include <string.h>
+// using namespace std;
+// // 任意2个字符相减的绝对值即为字母边距
 
-int main(int argc, char const *argv[])
+// int main(int argc, char const *argv[])
+// {
+//     int ans = 0;
+//     string str = "LANQIAO";
+//     for(int i = 0; i < str.size(); ++i)
+//     {
+//         for(int j = i + 1; j < str.size(); ++j)
+//         {
+//             ans += abs(str[i]-str[j]);
+//         }
+//     }
+//     cout << ans << endl;
+//     return 0;
+// }
+
+// #include <iostream>
+// using namespace std;
+// int arr[200000];
+// int main()
+// {
+//     int n;
+//     cin >> n;
+//     for (int i = 0; i < n; ++i)
+//     {
+//         scanf("%d", &arr[i]);
+//     }
+//     long long sum = 0;
+//     for (int i = 0; i < n; ++i)
+//     {
+//         for (int j = i + 1; j < n; ++j)
+//         {
+//             sum += arr[i] * arr[j];
+//         }
+//     }
+//     cout << sum << endl;
+//     return 0;
+// }
+
+// #include <iostream>
+// using namespace std;
+// int arr[100000];
+// // 存放下标
+// int lArr[100000], rArr[100000];
+// void Judge(int l, int r, long long x)
+// {
+//     for (int k = l - 1; k < r; ++k)
+//     {
+//         for (int j = k + 1; j < r; ++j)
+//         {
+//             if ((arr[k] ^ arr[j]) == x)
+//             {
+//                 cout << "yes" << endl;
+//                 return;
+//             }
+//         }
+//     }
+//     cout << "no" << endl;
+//     return;
+// }
+// int main()
+// {
+//     long long n, m, x;
+//     cin >> n >> m >> x;
+//     int k, i, j;
+//     int l, r;
+//     for (int i = 0; i < n; ++i)
+//     {
+//         scanf("%d", &arr[i]);
+//     }
+//     for (i = 0; i < m; ++i)
+//     {
+//         cin >> lArr[i] >> rArr[i];
+//     }
+//     for (i = 0; i < m; ++i)
+//     {
+//         Judge(lArr[i], rArr[i], x);
+//     }
+//     return 0;
+// }
+
+#include <iostream>
+using namespace std;
+int main()
 {
-    int ans = 0;
-    string str = "LANQIAO";
-    for(int i = 0; i < str.size(); ++i)
-    {
-        for(int j = i + 1; j < str.size(); ++j)
-        {
-            ans += abs(str[i]-str[j]);
-        }
-    }
-    cout << ans << endl;
+    cout << 15 << endl;
+    cout << 6 << endl;
+    cout << "UNKNOWN" << endl;
     return 0;
 }

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "D:/code/2022code/Cpp_Code/3-8 lanqiao/src/4-9.cpp" "CMakeFiles/LANQIAO.dir/src/4-9.obj" "gcc" "CMakeFiles/LANQIAO.dir/src/4-9.obj.d"
   "D:/code/2022code/Cpp_Code/3-8 lanqiao/src/test.cpp" "CMakeFiles/LANQIAO.dir/src/test.obj" "gcc" "CMakeFiles/LANQIAO.dir/src/test.obj.d"
   )
 
