@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <time.h>
 
 typedef int HPDataType;
 typedef struct Heap
@@ -27,7 +29,8 @@ HPDataType HeapTop(Heap* hp);
 // 堆的数据个数
 int HeapSize(Heap* hp);
 // 堆的判空
-int HeapEmpty(Heap* hp);
+bool HeapEmpty(Heap* hp);
+
 
 // TopK问题：找出N个数里面最大/最小的前K个问题。
 // 比如：未央区排名前10的泡馍，西安交通大学王者荣耀排名前10的韩信，全国排名前10的李白。等等问题都是Topk问题，
@@ -36,4 +39,3 @@ int HeapEmpty(Heap* hp);
 // 找最小的前K个，建立K个数的大堆
 void PrintTopK(int* a, int n, int k);
 void TestTopk();
-void HeapPrint(Heap* hp);
