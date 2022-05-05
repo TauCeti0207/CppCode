@@ -139,19 +139,75 @@
 //	return 0;
 //}
 
-#include <iostream>
-using namespace std;
-void f(double a, int b)
-{
+//#include <iostream>
+//using namespace std;
+////void f(double a, int b)
+////{
+////
+////}
 
-}
 
-int main()
-{
-	cout << "hello world" << endl;
-	f(1.1, 2);
-	return 0;
-}
+//// 告诉编译器，extern "C" 声明的函数是C库，要用C的方式去调用。
+//extern "C"
+//{
+//	#include "../5-4Stack_c/Stack.h"
+//}
+//
+//bool isValid(const char* s) {
+//	// 入进去的是字符，需要将int改成char
+//	Stack st;
+//	StackInit(&st);
+//	while (*s)
+//	{
+//		// 左括号入栈
+//		if (*s == '(' || *s == '[' || *s == '{')
+//		{
+//			StackPush(&st, *s);
+//			++s;
+//		}
+//		// 右括号出栈，判断是否匹配
+//		else
+//		{
+//			// 为空，说明没有左括号，只有右括号
+//			if (StackEmpty(&st))
+//			{
+//				StackDestroy(&st);
+//				return false;
+//			}
+//			char top = StackTop(&st);
+//			StackPop(&st);// 取完了要pop掉
+//			if ((top == '[' && *s != ']')
+//				|| (top == '(' && *s != ')')
+//				|| (top == '{' && *s != '}'))
+//			{
+//				StackDestroy(&st); // 返回之前一定要销毁，不然会有内存泄露
+//				return false;
+//			}
+//			// 匹配了就继续判断
+//			else
+//				++s;
+//		}
+//	}
+//	// 如果只有左括号，while循环一直在第一个if里面，无法在循环里面return false 因此得在循环外面处理，只有左括号，Stack不为空，返回的是false
+//	bool ret = StackEmpty(&st);
+//	StackDestroy(&st);
+//	return ret;
+//}
+//
+//
+//int main()
+//{
+//	printf("%d\n", isValid("[]{}"));
+//	printf("%d\n", isValid("[{]}()"));
+//}
+
+
+//int main()
+//{
+//	//cout << "hello world" << endl;
+//	//f(1.1, 2);
+//	return 0;
+//}
 
 
 //// main.cpp
@@ -176,3 +232,23 @@ int main()
 //{
 //	printf("double,int\n");
 //}
+
+
+#include <iostream>
+using namespace std;
+
+void Swap(int& r1, int& r2)
+{
+	int tmp = r1;
+	r1 = r2;
+	r2 = tmp;
+}
+
+int main()
+{
+	int x = 1, y = 2;
+	cout << x << " " << y << endl;
+	Swap(x, y);
+	cout << x << " " << y << endl;
+	return 0;
+}

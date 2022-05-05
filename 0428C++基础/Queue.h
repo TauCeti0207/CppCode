@@ -3,8 +3,8 @@
 
 //#include <assert.h
 
-#include <iostream>
-#include <cassert> // cpp包含到命名空间
-using namespace std;
-
-void QueueInit(int n = 10);
+//#include <iostream>
+//#include <cassert> // cpp包含到命名空间
+//using namespace std;
+//
+//void QueueInit(int n = 10);
