@@ -244,11 +244,148 @@ void Swap(int& r1, int& r2)
 	r2 = tmp;
 }
 
+//int main()
+//{
+//	int x = 1, y = 2;
+//	cout << x << " " << y << endl;
+//	Swap(x, y);
+//	cout << x << " " << y << endl;
+//	return 0;
+//}
+
+void func(const int& x)
+{
+
+}
+//int main()
+//{
+//	//int a = 10;
+//	//int& b = a;
+//
+//	//const int x = 20;
+//	////int& y = x;
+//	//const int& y = x;
+//
+//	//int c = 30;
+//	//const int& d = c; // 可以成功编译
+//
+//	//double d = 2.2;
+//	//int f = d; // 这里也是把d的整数部分截断，赋值给一个临时变量，临时变量再赋值给f
+//	//const int& e = d;
+//	//// 发生了隐式类型转换，把d的整数部分截出来给一个临时变量，临时变量再赋给f，而临时变量具有常性
+//	//// 也就是，e其实引用的是临时变量，所以加const才能正常引用
+//	//// 也就是说，e其实不是d的引用，e只是那个临时变量的别名，e 和 d 地址不一样的。
+//	int a = 10;
+//	int& b = a;
+//	const int& c = 20;
+//	double d = 2.2;
+//	func(a);
+//	func(10);
+//	func(c);
+//	func(d); // 隐私类型转换
+//	// 统统传不过去，常量是只读的，而形参只是int& x 会放大权限，形参得用const int& x
+//	return 0;
+//}
+
+
+
+//#include <time.h>
+//struct A
+//{
+//	int a[10000];
+//};
+//
+//void TestFunc1(A a)
+//{
+//
+//}
+//void TestFunc2(A& a) {}
+//void TestRefAndValue()
+//{
+//	A a;
+//	// 以值作为函数参数
+//	size_t begin1 = clock();
+//	for (size_t i = 0; i < 10000; ++i)
+//		TestFunc1(a);
+//	size_t end1 = clock();
+//	// 以引用作为函数参数
+//	size_t begin2 = clock();
+//	for (size_t i = 0; i < 10000; ++i)
+//		TestFunc2(a);
+//	size_t end2 = clock();
+//	// 分别计算两个函数运行结束后的时间
+//	cout << "TestFunc1(A)-time:" << end1 - begin1 << endl;
+//	cout << "TestFunc2(A&)-time:" << end2 - begin2 << endl;
+//}
+
+//struct A
+//{
+//    int a[100000];
+//};
+//
+//A a;//定义的是全局变量
+//
+//// 值返回
+//A TestFunc1()
+//{
+//    return a;
+//}
+//
+//// 引用返回
+//A& TestFunc2()
+//{
+//    return a;
+//}
+//
+//void TestReturnByRefOrValue()
+//{
+//    // 以值作为函数的返回值类型
+//    size_t begin1 = clock();
+//    for (size_t i = 0; i < 100000; ++i)
+//        TestFunc1();
+//    size_t end1 = clock();
+//
+//    // 以引用作为函数的返回值类型
+//    size_t begin2 = clock();
+//    for (size_t i = 0; i < 100000; ++i)
+//        TestFunc2();
+//    size_t end2 = clock();
+//
+//    // 计算两个函数运算完成之后的时间
+//    cout << "TestFunc1 time:" << end1 - begin1 << endl;
+//    cout << "TestFunc2 time:" << end2 - begin2 << endl;
+//}
+//
+//int main()
+//{
+//    TestReturnByRefOrValue();
+//    // TestFunc1 time:907
+//    // TestFunc2 time:0
+//    //效率差异挺大
+//    return 0;
+//}
+
+// 实现ADD宏
+#define ADD(int x, int y) return x + y;
+#define ADD(x, y) return x + y;
+#define ADD(x, y) (x + y);
+#define ADD(x, y) x + y
+#define ADD(x, y) ((x) + (y))
+
+int Count()
+{
+	static int n = 0;
+	n++;
+	// ...
+	return n;
+}
+
 int main()
 {
-	int x = 1, y = 2;
-	cout << x << " " << y << endl;
-	Swap(x, y);
-	cout << x << " " << y << endl;
+	cout << Count() << endl;
+	cout << Count() << endl;
+	cout << Count() << endl;
+	// 结果为1 1 1 静态变量只会初始化一次
 	return 0;
 }
+
