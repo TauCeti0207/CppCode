@@ -234,15 +234,7 @@
 //}
 
 
-#include <iostream>
-using namespace std;
 
-void Swap(int& r1, int& r2)
-{
-	int tmp = r1;
-	r1 = r2;
-	r2 = tmp;
-}
 
 //int main()
 //{
@@ -253,10 +245,7 @@ void Swap(int& r1, int& r2)
 //	return 0;
 //}
 
-void func(const int& x)
-{
 
-}
 //int main()
 //{
 //	//int a = 10;
@@ -365,27 +354,265 @@ void func(const int& x)
 //    return 0;
 //}
 
-// 实现ADD宏
-#define ADD(int x, int y) return x + y;
-#define ADD(x, y) return x + y;
-#define ADD(x, y) (x + y);
-#define ADD(x, y) x + y
-#define ADD(x, y) ((x) + (y))
+//// 实现ADD宏
+//#define ADD(int x, int y) return x + y;
+//#define ADD(x, y) return x + y;
+//#define ADD(x, y) (x + y);
+//#define ADD(x, y) x + y
+//#define ADD(x, y) ((x) + (y))
+//
+//int Count()
+//{
+//	static int n = 0;
+//	n++;
+//	// ...
+//	return n;
+//}
+//
+//int main()
+//{
+//	cout << Count() << endl;
+//	cout << Count() << endl;
+//	cout << Count() << endl;
+//	// 结果为1 1 1 静态变量只会初始化一次
+//	return 0;
+//}
 
-int Count()
+
+
+//int main(int argc, char const* argv[])
+//{
+//	//int a = 10;
+//
+//	//// b是a的引用(别名)
+//	//int& b = a;
+//	//b = 20;
+//
+//	//int* p = &b; // p指向b，也就是p里面是b的地址，也就是a的地址。
+//
+//	////还可以继续取别名
+//	//int& c = b;
+//	//c = 30;
+//
+//	//int e = 20;
+//	//b = e;
+//
+//	//const int a = 10;
+//	//int& ra = a; // 该语句编译时会出错，a为常量 ra引用a属于权限放大
+// //  // a被const修饰，表示a是只读的，如果 int& ra = a; 修饰，就变成可读可写的了。
+//	//const int& ra = a;  //常引用 权限不变
+//
+//
+//	//double d = 2.2;
+//	//int& e = d; //err： double 不能转换成 int
+//
+//	//// 加个const为什么就可以了呢？
+//	//const int& e = d;
+//
+//
+//	double d = 2.2;
+//	int f = d; // 这里也是把d的整数部分截断，赋值给一个临时变量，临时变量再赋值给f
+//	const int& e = d;
+//	// 发生了隐式类型转换，把d的整数部分截出来给一个临时变量，临时变量再赋给f，而临时变量具有常性
+//	// 也就是，e其实引用的是临时变量，所以加const才能正常引用
+//	// 也就是说，e其实不是d的引用，e只是那个临时变量的别名，e 和 d 地址不一样的。
+//
+//	return 0;
+//}
+//// a b c地址相同的
+
+
+//void func(int& x)
+//{
+//
+//}
+//int main()
+//{
+//	int a = 10;
+//	int& b = a;
+//	const int& c = 20;
+//	double d = 2.2;
+//	const int& e = d;
+//	func(a);
+//	func(10);
+//	func(c);
+//	func(d); // 隐式类型转换
+//	func(e);
+//	// 统统传不过去，常量是只读的，而形参只是int& x 会放大权限，形参得用 const int& x
+//	return 0;
+//}
+
+
+#include <time.h>
+#include <iostream>
+using namespace std;
+
+//void Swap(int& r1, int& r2)
+//{
+//	int tmp = r1;
+//	r1 = r2;
+//	r2 = tmp;
+//}
+//
+//struct A
+//{
+//	int a[10000];
+//};
+//void TestFunc1(A a)
+//{
+//
+//}
+//void TestFunc2(A& aa) 
+//{
+//
+//}
+//void TestFunc3(A* paa)
+//{
+//
+//}
+//void TestRefAndValue()
+//{
+//	A a;
+//
+//	// 以值作为函数参数
+//	size_t begin1 = clock();
+//	// 把实参拷贝给形参，10000Byte拷贝100000次，
+//	for (size_t i = 0; i < 100000; ++i)
+//		TestFunc1(a);
+//	size_t end1 = clock();
+//
+//	// 以引用作为函数参数
+//	size_t begin2 = clock();
+//	for (size_t i = 0; i < 100000; ++i)
+//		TestFunc2(a);
+//	size_t end2 = clock();
+//
+//	// 传地址
+//	size_t begin3 = clock();
+//	for (size_t i = 0; i < 100000; ++i)
+//		TestFunc3(&a);
+//	size_t end3 = clock();
+//
+//	// 分别计算运行结束后的时间
+//	cout << "TestFunc1(A)-time:" << end1 - begin1 << endl;
+//	cout << "TestFunc2(A&)-time:" << end2 - begin2 << endl;
+//	cout << "TestFunc3(A*)-time:" << end3 - begin3 << endl;
+//}
+//
+//int main()
+//{
+//	TestRefAndValue();
+//	return 0;
+//}
+
+
+//int& Count()
+//{
+//	int n = 0;
+//	n++;
+//
+//	// 证明地址都一样
+//	cout << "&n:" << &n << endl;
+//	// ...
+//	return n;
+//}
+//
+//int main()
+//{
+//	int& ret = Count();
+//	cout << ret << endl;
+//	cout << "ret:" << &ret << endl;
+//	cout << ret << endl;
+//	return 0;
+//}
+
+//int& Add(int a, int b)
+//{
+//	int c = 0;
+//	c = a + b;
+//	return c;
+//}
+//
+//int main()
+//{
+//	int& ret = Add(1, 2);
+//	Add(3, 4);
+//	cout << "Add(3, 4) is :" << ret << endl;
+//	cout << "Add(3, 4) is :" << ret << endl;
+//	cout << "Add(3, 4) is :" << ret << endl;
+//	cout << "Add(3, 4) is :" << ret << endl;
+//	cout << "Add(3, 4) is :" << ret << endl;
+//	return 0;
+//}
+//// 输出结果是多少呢？
+
+
+//struct A
+//{
+//	int a[100000];
+//};
+//
+//A a;//定义的是全局变量
+//
+//// 值返回
+//A TestFunc1()
+//{
+//	return a;
+//}
+//// 引用返回
+//A& TestFunc2()
+//{
+//	return a;
+//}
+//
+//void TestReturnByRefOrValue()
+//{
+//	// 以值作为函数的返回值类型
+//	size_t begin1 = clock();
+//	for (size_t i = 0; i < 10000; ++i)
+//		TestFunc1();
+//	size_t end1 = clock();
+//
+//	// 以引用作为函数的返回值类型
+//	size_t begin2 = clock();
+//	for (size_t i = 0; i < 10000; ++i)
+//		TestFunc2();
+//	size_t end2 = clock();
+//
+//	// 计算两个函数运算完成之后的时间
+//	cout << "TestFunc1 time:" << end1 - begin1 << endl;
+//	cout << "TestFunc2 time:" << end2 - begin2 << endl;
+//}
+//
+//int main()
+//{
+//	TestReturnByRefOrValue();
+//	return 0;
+//}
+
+
+//int main(int argc, char const* argv[])
+//{
+//	int a = 10;
+//	//语法上，这里给a这块空间取了个别名，没有新开空间
+//	int& ra = a;
+//	ra = 20;
+//
+//	//语法上，这里定义一个pa指针变量，开辟4个字节空间，存储a的地址
+//	int* pa = &a; // int* 表示解引用时访问4个字节的空间
+//	*pa = 20;
+//
+//	// 但从底层的角度而言：他们是一样的实现，也就是他们会转换成一样的汇编代码。
+//	return 0;
+//}
+
+// C++ 推荐频繁调用的小函数 定义成inline，没有栈帧开销。
+inline int Add(int x, int y)
 {
-	static int n = 0;
-	n++;
-	// ...
-	return n;
+	return x + y;
 }
-
-int main()
+int main(int argc, char const* argv[])
 {
-	cout << Count() << endl;
-	cout << Count() << endl;
-	cout << Count() << endl;
-	// 结果为1 1 1 静态变量只会初始化一次
+	int c = Add(1, 2);
 	return 0;
 }
-
