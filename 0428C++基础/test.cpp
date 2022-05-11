@@ -607,12 +607,74 @@ using namespace std;
 //}
 
 // C++ 推荐频繁调用的小函数 定义成inline，没有栈帧开销。
-inline int Add(int x, int y)
+//inline int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//int main(int argc, char const* argv[])
+//{
+//	int c = Add(1, 2);
+//	return 0;
+//}
+
+#include <map>
+#include <string>
+
+
+//int TestAuto()
+//{
+//	return 10;
+//}
+//
+//int main()
+//{
+//	int a = 10;
+//	auto b = a;
+//	auto c = 'a';
+//	auto d = TestAuto();
+//	
+//	// 打印变量的类型
+//	cout << typeid(a).name() << endl;
+//	cout << typeid(b).name() << endl;
+//	cout << typeid(c).name() << endl;
+//	cout << typeid(d).name() << endl;
+//	return 0;
+//}
+
+
+// atuo 的实际应用
+//int main()
+//{
+//	std::map<std::string, std::string> dict;
+//	dict["sort"] = "排序";
+//	dict["string"] = "字符串";
+//
+//	std::map<std::string, std::string>::iterator it1 = dict.begin();
+//
+//	// 用auto来写，大幅度缩短代码量
+//	// 类型很长时不想写，可以用auto自动推导
+//	auto it2 = dict.begin();
+//	return 0;
+//}
+
+
+//int main()
+//{
+//	int arr[] = { 1,2,3,4,5 };
+//	for (auto& e : arr)
+//		e *= 2;
+//	for (auto e : arr)
+//		cout << e << " ";
+//	cout << endl;
+//
+//	for (int e : arr)
+//		cout << e << " ";
+//	cout << endl;
+//	return 0;
+//}
+
+int main()
 {
-	return x + y;
-}
-int main(int argc, char const* argv[])
-{
-	int c = Add(1, 2);
+	int* p1 = nullptr;
 	return 0;
 }
