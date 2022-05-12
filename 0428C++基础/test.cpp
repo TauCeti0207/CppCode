@@ -1,4 +1,4 @@
-//#define _CRT_SECURE_NO_WARNINGS 1
+#define _CRT_SECURE_NO_WARNINGS 1
 //#include <stdio.h>
 //#include <iostream>
 ////#include <assert.h>
@@ -673,8 +673,29 @@ using namespace std;
 //	return 0;
 //}
 
-int main()
-{
-	int* p1 = nullptr;
-	return 0;
-}
+//int main()
+//{
+//	int* p1 = nullptr;
+//	return 0;
+//
+
+//int main(int argc, char const* argv[])
+//{
+//    int x = 10;
+//    auto a = &x;// int*
+//    auto* b = &x;// int*  强制指定了b是一个指针
+//    // auto* b = x; // err 必须给b赋值地址
+//    int& y = x;// y的类型是int
+//    auto c = y;// 推出来的c也是int
+//    auto& d = x;// d的类型是int 但这里强制指定了d是x的引用
+//
+//
+//    // 打印变量类型 返回的是类型的字符串
+//    cout << typeid(x).name() << endl;// int
+//    cout << typeid(y).name() << endl;// int
+//    cout << typeid(a).name() << endl;// int* 
+//    cout << typeid(b).name() << endl;// int*
+//    cout << typeid(c).name() << endl;// int
+//    return 0;
+//}
+
