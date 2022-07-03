@@ -731,12 +731,31 @@ void Func(Date& d)
 	//...
 }
 
-int main()
-{
-	Date d1(2022, 5, 20);
-	Func(d1);
-	return 0;
-}
+//int main()
+//{
+//	Date d1(2022, 5, 20);
+//	Func(d1);
+//	return 0;
+//}
+
+//int Count()
+//{
+//	static int n = 0; // 静态变量只会初始化一次。
+//	n++;
+//	// ...
+//	return n;
+//}
+// 静态的局部变量，虽然作用域只在Count里面，但生命周期是全局的。
+// n的地址初始化之后地址就不变了。
+
+//int main()
+//{
+//	cout << Count() << endl;
+//	cout << Count() << endl;
+//	cout << Count() << endl;
+//	// 结果为1 2 3 静态变量只会初始化一次。
+//	return 0;
+//}
 
 
 //int main()
@@ -745,3 +764,14 @@ int main()
 //	Date d2(d1);// 拷贝出一个一样的对象
 //	return 0;
 //}
+int main(int argc, char const* argv[])
+{
+	int array[] = { 1, 2, 3, 4, 5 };
+	for (auto& e : array) //必须用引用或者指针, 而 auto e : array 只是把array中的值拷贝给e
+		e *= 2;
+	//自动遍历，依次取出array中的元素，赋值给e，直到结束
+	for (auto e : array)
+		cout << e << " ";
+	cout << endl;//4 8 12 16 20
+	return 0;
+}
