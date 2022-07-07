@@ -1,7 +1,9 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//#include <assert.h>
+
+//using namespace std;
 
 //class Student
 //{
@@ -502,7 +504,6 @@ using namespace std;
 //	return 0;
 //}
 
-#include <assert.h>
 
 //class Stack
 //{
@@ -660,76 +661,76 @@ using namespace std;
 //	return 0;
 //}
 
-class Stack
-{
-public:
-	Stack(int capacity = 10)
-	{
-		_a = (int*)malloc(sizeof(int) * capacity);
-		assert(_a);
-
-		_top = 0;
-		_capacity = capacity;
-	}
-
-	// st2(st1)
-	// 只能深拷贝实现
-	/*Stack(const Stack& st)
-	{
-	_a = st._a;
-	_top = st._top;
-	_capacity = st._capacity;
-	}*/
-
-	~Stack()
-	{
-		cout << "~Stack():" << this << endl;
-
-		free(_a);
-		_a = nullptr;
-		_top = _capacity = 0;
-	}
-private:
-	int* _a;
-	int _top;
-	int _capacity;
-};
-
-
-class Date
-{
-public:
-	Date(int year = 1, int month = 1, int day = 1)
-	{
-		_year = year;
-		_month = month;
-		_day = day;
-	}
-
-	// Date d2(d1) d2赋值给this指针，d1赋值给d
-	// Date(Date d) // 非法，必须传引用，传值会引发无穷递归
-	// 调用拷贝构造函数，要先传参，传参又是一个拷贝构造，子子孙孙无穷尽也
-	Date(const Date& d)
-	{
-		_year = d._year;
-		_month = d._month;
-		_day = d._day;
-	}
-	void Print()
-	{
-		cout << _year << "-" << _month << "-" << _day << endl;
-	}
-
-private:
-	int _year; // 年
-	int _month; // 月
-	int _day; // 日
-};
-
-void Func(Date& d)
-{
-	//...
-}
+//class Stack
+//{
+//public:
+//	Stack(int capacity = 10)
+//	{
+//		_a = (int*)malloc(sizeof(int) * capacity);
+//		assert(_a);
+//
+//		_top = 0;
+//		_capacity = capacity;
+//	}
+//
+//	// st2(st1)
+//	// 只能深拷贝实现
+//	/*Stack(const Stack& st)
+//	{
+//	_a = st._a;
+//	_top = st._top;
+//	_capacity = st._capacity;
+//	}*/
+//
+//	~Stack()
+//	{
+//		cout << "~Stack():" << this << endl;
+//
+//		free(_a);
+//		_a = nullptr;
+//		_top = _capacity = 0;
+//	}
+//private:
+//	int* _a;
+//	int _top;
+//	int _capacity;
+//};
+//
+//
+//class Date
+//{
+//public:
+//	Date(int year = 1, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//
+//	// Date d2(d1) d2赋值给this指针，d1赋值给d
+//	// Date(Date d) // 非法，必须传引用，传值会引发无穷递归
+//	// 调用拷贝构造函数，要先传参，传参又是一个拷贝构造，子子孙孙无穷尽也
+//	Date(const Date& d)
+//	{
+//		_year = d._year;
+//		_month = d._month;
+//		_day = d._day;
+//	}
+//	void Print()
+//	{
+//		cout << _year << "-" << _month << "-" << _day << endl;
+//	}
+//
+//private:
+//	int _year; // 年
+//	int _month; // 月
+//	int _day; // 日
+//};
+//
+//void Func(Date& d)
+//{
+//	//...
+//}
 
 //int main()
 //{
@@ -764,14 +765,154 @@ void Func(Date& d)
 //	Date d2(d1);// 拷贝出一个一样的对象
 //	return 0;
 //}
+//int main(int argc, char const* argv[])
+//{
+//	int array[] = { 1, 2, 3, 4, 5 };
+//	for (auto& e : array) //必须用引用或者指针, 而 auto e : array 只是把array中的值拷贝给e
+//		e *= 2;
+//	//自动遍历，依次取出array中的元素，赋值给e，直到结束
+//	for (auto e : array)
+//		cout << e << " ";
+//	cout << endl;//4 8 12 16 20
+//	return 0;
+//}
+
+// 1.下面程序能编译通过吗？
+// 2.下面程序会崩溃吗？在哪里崩溃
+//class A
+//{
+//public:
+//	void PrintA()
+//	{
+//		cout << _a << endl;
+//	}
+//
+//	void Show()
+//	{
+//		cout << this << endl;
+//		cout << "Show()" << endl;
+//	}
+//private:
+//	int _a;
+//};
+//
+////可以编译通过
+//int main()
+//{
+//	A* p = nullptr; // 可以类比Date* p = &d1;
+//	//p->PrintA(); // 实际上是p->PrintA(p); 把p传给了this指针。
+//	// 要去指针指向的空间去寻找需要的成员变量
+//	// 空指针解引用崩溃，Print要访问对象里的成员变量，而p指向的是空，找不到相关成员变量。
+//	// 真正崩溃的原因是 this->_a this指针是nullptr。
+//
+//	p->Show();     // 正常运行，没有涉及到成员变量，就和普通的调用函数一样，去call函数的地址。
+//}
+
+//class Date
+//{
+//public:
+//	Date(int year = 2000, int month = 0, int day = 0)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	bool operator<(const Date& d)
+//	{
+//		if (_year < d._year
+//			|| (_year == d._year && _month < d._month)
+//			|| (_year == d._year && _month == d._month && _day < d._day))
+//		{
+//			return true;
+//		}
+//		else
+//		{
+//			return false;
+//		}
+//	}
+//
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+
+
+#include "Date.h"
+
+void DateTest1()
+{
+	Date d1(2022, 7, 21);
+	Date d2(2022, 7, 22);
+	Date d3(2022, 7, 22);
+	cout << (d2 != d3) << endl;
+	cout << (d2 > d3) << endl;
+	cout << (d2 == d3) << endl;
+	cout << (d2 < d3) << endl;
+	cout << (d2 <= d3) << endl;
+}
+
+void DateTest2()
+{
+	Date d1(2022, 7, 7);
+	Date d2(2022, 7, 10);
+	Date d3 = d1 + 30; // 这里是拷贝构造，等价于 Date d3(d1+30) 
+	// 注意，两个已经存在的对象才是赋值
+	d3.Print();
+	Date d4;
+	d4 = d1; // 这才是赋值
+	d4.Print();
+	Date d5(2022, 5, 18);
+	d5 += 10000;
+	d5.Print();
+
+	d5 -= 10000;
+	d5.Print();
+
+	d5 -= -100;
+	d5.Print();
+}
+
+void DateTest3()
+{
+	Date d1(2022, 7, 7);
+	Date d2(2022, 7, 7);
+	Date ret1 = ++d1; // 相当于 d1.operator++()
+	ret1.Print();// 2022年7月8日
+	d1.Print();// 2022年7月8日
+
+	Date ret2 = d2++;// 相当于 d1.operator++(0) 编译器会自动传一个实参以便区分前置后置
+	ret2.Print();// 2022年7月7日
+	d2.Print();// 2022年7月8日
+}
+
+void DateTest4()
+{
+	Date d1(2022, 7, 7);
+	Date d2(2020, 2, 4);
+	cout << "被疫情偷走了：" << (d1 - d2) << "天" << endl; //884
+}
+
+void Func(const Date& d)
+{
+	d.Print();
+}
+void DateTest5()
+{
+	Date d1(2022, 7, 7);
+	d1.Print();
+	Func(d1);
+}
+
+void DateTest6()
+{
+	Date d1, d2;
+	cin >> d1 >> d2;
+	cout << d1 << d2 << endl;
+	// 等价于operator<<(cout, d1)
+}
 int main(int argc, char const* argv[])
 {
-	int array[] = { 1, 2, 3, 4, 5 };
-	for (auto& e : array) //必须用引用或者指针, 而 auto e : array 只是把array中的值拷贝给e
-		e *= 2;
-	//自动遍历，依次取出array中的元素，赋值给e，直到结束
-	for (auto e : array)
-		cout << e << " ";
-	cout << endl;//4 8 12 16 20
+	DateTest6();
 	return 0;
 }
