@@ -53,7 +53,7 @@ namespace yzq
 			, _endofstorage(nullptr)
 		{
 			reserve(n);
-			for (int i = 0; i < n; ++i)
+			for (size_t i = 0; i < n; ++i)
 			{
 				push_back(val);
 			}
@@ -66,7 +66,6 @@ namespace yzq
 			std::swap(_endofstorage, v._endofstorage);
 		}
 
-		//vector(const vector& v)
 		vector(const vector<T>& v)
 			: _start(nullptr)
 			, _finish(nullptr)
@@ -77,7 +76,6 @@ namespace yzq
 			//this->swap(tmp); 等价
 		}
 
-		//vector& operator=(vector v)
 		vector<T>& operator=(vector<T> v)
 		{
 			this->swap(v);
@@ -132,12 +130,12 @@ namespace yzq
 				T* tmp = new T[n];
 				if (_start) // 有数据才拷贝
 				{
-					//memcpy(tmp, _start, size() * sizeof(T)); 存在浅拷贝问题 要一个一个拷贝
+					//mcpy(tmp, _start, size() * sizeof(T)); 存在浅拷贝问题 要一个一个拷贝
 					for (size_t i = 0; i < size(); ++i)
 					{
 						tmp[i] = _start[i]; // 如果涉及深拷贝，会去调用自己的赋值重载完成深拷贝
 					}
-						delete[] _start;
+					delete[] _start;
 				}
 				_start = tmp;
 			}
@@ -173,6 +171,7 @@ namespace yzq
 			}
 		}
 
+		// 传引用减少开销，不改变就加const
 		void push_back(const T& x)
 		{
 			/*

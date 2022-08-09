@@ -590,8 +590,40 @@ void test_yzq_vector9()
 	}
 }
 
+class Solution4 {
+	string _numToStr[10] = { "", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+public:
+	void _letterCombinations(string digits, vector<string>& retV, size_t di, string combinStr)
+	{
+		if (di == digits.size())
+		{
+			retV.push_back(combinStr);
+			return;
+		}
+		int num = digits[di] - '0';
+		string str = _numToStr[num];
+		for (auto ch : str)
+		{
+			_letterCombinations(digits, retV, di + 1, combinStr + ch);
+		}
+	}
+	vector<string> letterCombinations(string digits) {
+		size_t i = 0;
+		vector<string> retV;
+		string combinStr;
+		_letterCombinations(digits, retV, i, combinStr);
+
+		return retV;
+	}
+};
+
+void test_yzq_vector10()
+{
+	Solution4().letterCombinations("2");
+}
+
 int main()
 {
-	test_yzq_vector9();
+	test_yzq_vector10();
 	return 0;
 }
