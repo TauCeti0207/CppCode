@@ -954,3 +954,153 @@ namespace key_value
 		countTree.InOrder();
 	}
 }
+
+namespace bit
+{
+	template<class K, class V>
+	struct BSTreeNode
+	{
+		BSTreeNode<K, V>* _left;
+		BSTreeNode<K, V>* _right;
+		const K _key;
+		V _value;
+
+		BSTreeNode(const K& key, const V& value)
+			: _left(nullptr)
+			, _right(nullptr)
+			, _key(key)
+			, _value(value)
+		{}
+	};
+
+	template<class K, class V>
+	class BSTree
+	{
+		typedef BSTreeNode<K, V> Node;
+	public:
+		bool Insert(const K& key, const V& value)
+		{
+			return _Insert(_root, key, value);
+		}
+		Node* Find(const K& key) // 要允许修改
+		{
+			return _Find(_root, key);
+		}
+		bool Erase(const K& key)
+		{
+			return _Erase(_root, key);
+		}
+		void InOrder()
+		{
+			_InOrder(_root);
+		}
+	private:
+		bool _Insert(Node*& root, const K& key, const V& value)
+		{
+			if (root == nullptr)
+			{
+				root = new Node(key, value);
+				return true;
+			}
+			if (root->_key < key)
+				return _Insert(root->_right, key, value);
+			else if (root->_key > key)
+				return _Insert(root->_left, key, value);
+			else
+				return false; // 不允许插入冗余数据
+		}
+
+		Node* _Find(Node* root, const K& key)
+		{
+			if (root == nullptr)
+				return nullptr;
+			if (root->_key < key)
+				return _Find(root->_right, key);
+			else if (root->_key > key)
+				return _Find(root->_left, key);
+			else
+				return root;
+		}
+
+		bool _Erase(Node*& root, const K& key)
+		{
+			if (root == nullptr) // 找不到
+				return false; 
+			if (root->_key < key)
+				return _Erase(root->_right, key);
+			else if (root->_key > key)
+				return _Erase(root->_left, key);
+			else // 找到了
+			{
+				Node* del = root;
+				if (root->_left == nullptr) // 左为空
+					root = root->_right; //root 同时是上一个节点的指针的引用
+				else if (root->_right == nullptr) //右为空
+					root = root->_left;
+				else // 2个孩子 替换法
+				{
+					Node* minRight = root->_right;
+					while (minRight->_left)
+					{
+						minRight = minRight->_left;
+					}
+					swap(root->_value, minRight->_value); 
+					return _Erase(root->_right, key); // 只会在右子树
+				}
+				delete del;
+				return true; //成功删除
+			}
+		}
+
+		void _InOrder(Node* root)
+		{
+			if (root == nullptr)
+				return;
+			_InOrder(root->_left);
+			cout << root->_key << ": " << root->_value << endl;
+			_InOrder(root->_right);
+		}
+
+		Node* _root = nullptr;
+	};
+
+	void TestBSTree()
+	{
+		BSTree<string, string> dict;
+		dict.Insert("insert", "插入");
+		dict.Insert("erase", "删除");
+		dict.Insert("left", "左边");
+		dict.Insert("string", "字符串");
+
+		/*string str;
+		while (cin >> str)
+		{
+			auto ret = dict.Find(str);
+			if (ret)
+			{
+				cout << str << ":" << ret->_value << endl;
+			}
+			else
+			{
+				cout << "单词拼写错误" << endl;
+			}
+		}*/
+
+		string strs[] = { "苹果", "西瓜", "苹果", "樱桃", "苹果", "樱桃", "苹果", "樱桃", "苹果" };
+		// 统计水果出现的次
+		BSTree<string, int> countTree;
+		for (auto str : strs)
+		{
+			auto ret = countTree.Find(str);
+			if (ret == NULL)
+			{
+				countTree.Insert(str, 1);
+			}
+			else
+			{
+				ret->_value++;
+			}
+		}
+		countTree.InOrder();
+	}
+}

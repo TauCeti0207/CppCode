@@ -218,6 +218,7 @@ int main()
 {
 	//BST::TestBSTree5();
 	//key_value::TestBSTree2();
-	LeetCode::test();
+	//LeetCode::test();
+	bit::TestBSTree();
 	return 0;
 }
