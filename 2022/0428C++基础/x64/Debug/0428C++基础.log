@@ -1,0 +1,4 @@
+﻿  test.cpp
+D:\code\2022code\Cpp_Code\0428C++基础\test.cpp(1,1): warning C4828: 文件包含在偏移 0x288d 处开始的字符，该字符在当前源字符集中无效(代码页 936)。
+D:\code\2022code\Cpp_Code\0428C++基础\test.cpp(532): warning C4172: 返回局部变量或临时变量的地址: c
+  0428C++基础.vcxproj -> D:\code\2022code\Cpp_Code\0428C++基础\x64\Debug\0428C++基础.exe
