@@ -1,3 +1,0 @@
-D:/code/2022code/Cpp_Code/2-22 test multifile/build/CMakeFiles/MYDATE.dir
-D:/code/2022code/Cpp_Code/2-22 test multifile/build/CMakeFiles/edit_cache.dir
-D:/code/2022code/Cpp_Code/2-22 test multifile/build/CMakeFiles/rebuild_cache.dir

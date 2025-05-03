@@ -1,3 +1,0 @@
-"D:\Program Files (x86)\cmake\cmake-3.22.2-windows-x86_64\bin\cmake.exe" -E rm -f CMakeFiles\MYDATE.dir/objects.a
-D:\PROGRA~1\gcc\mingw64\bin\ar.exe qc CMakeFiles\MYDATE.dir/objects.a @CMakeFiles\MYDATE.dir\objects1.rsp
-D:\PROGRA~1\gcc\mingw64\bin\X86_64~2.EXE -g -Wl,--whole-archive CMakeFiles\MYDATE.dir/objects.a -Wl,--no-whole-archive -o MYDATE.exe -Wl,--out-implib,libMYDATE.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\MYDATE.dir\linklibs.rsp
