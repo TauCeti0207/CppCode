@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【C++掌中宝】走进C++引用的世界：从基础到应用</title>
+</head>
+<body>
+<h1>【C++掌中宝】走进C++引用的世界：从基础到应用</h1>
+<article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+                <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p><img src="https://i-blog.csdnimg.cn/direct/dac9c24898c54466a9e8dad9b45ebcd5.gif#pic_center" alt="在这里插入图片描述"></p> 
+<p></p> 
+<div class="toc"> 
+ <h4>文章目录</h4> 
+ <ul><li></li><li></li><li></li><li></li><li><ul><li></li><li></li><li></li><li></li></ul> 
+  </li><li></li><li></li><li></li><li></li></ul> 
+</div> 
+<p></p> 
+<h2>引言</h2> 
+<p>C++ 引用是编写高效、简洁代码的重要工具。与指针类似，引用允许程序员以<font color="red">间接方式</font>访问数据，但其使用方式更为安全和简便。在这篇博客中，我们将深入探讨 C++ 中引用的概念、特性以及使用方式，帮助你更好地理解和使用引用。</p> 
+<h2>1. 基础概念</h2> 
+<p>引用不是新定义一个变量，而是给已存在变量取了一个别名，编译器不会为引用变量开辟内存空间，它和它引用的变量<font color="red">共用同一块内存空间</font>。比如：水浒传中李逵，宋江叫"铁牛"，江湖上人称"黑旋风"；林冲，外号豹子头；</p> 
+<p><img src="https://i-blog.csdnimg.cn/direct/294e54d057fa4447a98cb777c1519332.png#pic_center" alt="在这里插入图片描述"></p> 
+<p>因此对引用的任何操作都会直接影响原变量。格式如下：</p> 
+<blockquote> 
+ <p>类型&amp; 引用别名 = 引用对象;</p> 
+</blockquote> 
+<p>引用使用 <code>&amp;</code> 符号声明，例如：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span><span class="token operator">&amp;</span> ref <span class="token operator">=</span> a<span class="token punctuation">;</span>
+</code></pre> 
+<p>在上面的例子中，<code>ref</code> 是 <code>a</code> 的引用，二者共享同一块内存区域。修改 <code>ref</code> 的值会直接改变 <code>a</code> 的值。</p> 
+<blockquote> 
+ <p>引用的核心特性：</p> 
+ <ul><li><strong>必须初始化</strong>：引用在声明时必须绑定到某个变量，且不能更改绑定的对象。</li><li><strong>多引用</strong>：一个变量可以有多个引用</li><li><strong>不占用额外内存</strong>：引用和原变量共用同一内存空间。</li><li><strong>引用与变量操作一致</strong>：对引用的操作会反映在其绑定的变量上。</li></ul> 
+</blockquote> 
+<h2>2. 引用与指针的区别</h2> 
+<p>C++中指针和引用就像两个性格迥异的亲兄弟，指针是哥哥，引用是弟弟，在实践中他们相辅相成，功能有重叠性，但是各有自己的特点，互相不可替代。</p> 
+<p>引用与指针都能实现间接访问，但二者存在以下不同点：</p> 
+<table><thead><tr><th>区别</th><th>引用</th><th>指针</th></tr></thead><tbody><tr><td>初始化</td><td>必须初始化</td><td>可以延迟初始化</td></tr><tr><td>是否可更改指向</td><td>不可更改</td><td>可以更改</td></tr><tr><td>是否可为空</td><td>不能为空（NULL）</td><td>可以为空（NULL）</td></tr><tr><td>使用方式</td><td>无需解引用符号</td><td>需使用解引用符号</td></tr><tr><td>sizeof中的含义</td><td>结果为引用类型的大小</td><td>始终是地址空间所占字节个数（32位平台下占4个字节，64位平台下占8个字节）</td></tr></tbody></table> 
+<p>引用的优势在于语法简洁且更<font color="ligblue">安全</font>，而指针则更<font color="ligblue">灵活</font>，但容易引发空指针或野指针问题。（<strong>从底层汇编的角度来看，引用也是用指针实现的，在底层实现上引用实际是有空间的</strong>）</p> 
+<p>我们来看看引用和指针的汇编代码<strong>对比</strong>：</p> 
+<p><img src="https://i-blog.csdnimg.cn/direct/141e72a57bc1430186aaa390c67d67e0.png#pic_center" alt="在这里插入图片描述"></p> 
+<h2>3. 引用的应用场景</h2> 
+<p>引用在 C++ 编程中有广泛应用，尤其是在函数<strong>参数传递和返回值</strong>中。以下是几个常见应用场景：</p> 
+<h3>3.1 引用作为函数参数</h3> 
+<p>引用传递能避免值传递时的拷贝操作，提升效率，尤其在处理大对象时。例如：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">void</span> <span class="token function">modify</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    x <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>  <span class="token comment">// 修改外部变量</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>函数 <code>modify</code> 直接修改了实参 <code>x</code>，而不是传递一个副本。</p> 
+<h3>3.2 引用作为函数返回值</h3> 
+<p>函数返回引用能够避免创建副本，直接操作外部数据：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span><span class="token operator">&amp;</span> <span class="token function">getElement</span><span class="token punctuation">(</span><span class="token keyword">int</span> arr<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token keyword">return</span> arr<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>返回数组元素的引用，使外部可以直接修改数组内容。</p> 
+<p><strong>总结</strong>：</p> 
+<ul><li> <p>引用在实践中主要是于引用传参和引用做返回值中减少拷贝提高效率和改变引用对象时同时改变被引用对象。</p> </li><li> <p>引用传参跟指针传参功能是类似的，引用传参相对更方便一些。</p> </li><li> <p>引用返回值的场景相对比较复杂，我们在这里简单讲了一下场景，还有一些内容后续类和对象章节中会继续深入讲解。</p> </li><li> <p>引用和指针在实践中相辅相成，功能有重叠性，但是各有特点，互相不可替代。C++的引用跟其他语言的引用(如Java)是有很大的区别的，除了用法，最大的点，C++引用定义后不能改变指向，Java的引用可以改变指向。</p> </li><li> <p>一些主要用C代码实现版本数据结构教材中，使用C++引用替代指针传参，目的是简化程序，避开复杂的指针，但是很多同学没学过引用，导致一头雾水。</p> </li></ul> 
+<h3>3.3 常引用（const引用）的使用</h3> 
+<p>常引用 (<code>const</code>) 用于避免修改原数据，可以理解为<strong>只读型</strong>同时可以引用常量或临时对象。例如：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    std<span class="token double-colon punctuation">::</span>cout <span class="token operator"><<</span> x <span class="token operator"><<</span> std<span class="token double-colon punctuation">::</span>endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>常引用保证了传递的数据不会被修改。</p> 
+<hr> 
+<p><strong>权限放大</strong>：</p> 
+<pre><code class="prism language-c"><span class="token comment">//只读型(const)</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">//可读可写型  报错！</span>
+<span class="token keyword">int</span> <span class="token operator">&amp;</span>b<span class="token operator">=</span> a<span class="token punctuation">;</span>      × × ×
+ 
+<span class="token comment">//权限平移</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>c <span class="token operator">=</span> a<span class="token punctuation">;</span>   √ √ √ 
+</code></pre> 
+<p><strong>权限缩小</strong>：</p> 
+<pre><code class="prism language-c"><span class="token comment">//可读可写型</span>
+<span class="token keyword">int</span> e <span class="token operator">=</span> <span class="token number">30</span><span class="token punctuation">;</span>
+ 
+<span class="token comment">//只读型</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>f <span class="token operator">=</span> e<span class="token punctuation">;</span>     √ √ √
+</code></pre> 
+<hr> 
+<p><strong>临时变量具有常属性</strong>：</p> 
+<table><tbody><tr><td bgcolor="red">类型转换，并不会改变变量类型，中间都会产生一个临时变量！！</td></tr></tbody></table> 
+<pre><code class="prism language-c"><span class="token comment">//临时变量具有常属性 --- 相当于被const修饰了</span>
+<span class="token keyword">int</span> ii <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token comment">//发生 -- 隐式转换 -- </span>
+<span class="token keyword">double</span> dd <span class="token operator">=</span> ii<span class="token punctuation">;</span>        <span class="token comment">//隐式类型转换是语法允许的</span>
+ 
+<span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>
+ 
+<span class="token comment">//报错   权限被放大</span>
+<span class="token keyword">double</span> <span class="token operator">&amp;</span>rdd <span class="token operator">=</span> ii<span class="token punctuation">;</span>      <span class="token comment">// × × × 权限被放大了</span>
+<span class="token comment">//权限的平移</span>
+<span class="token keyword">const</span> <span class="token keyword">double</span> <span class="token operator">&amp;</span>rdd <span class="token operator">=</span> ii<span class="token punctuation">;</span>
+</code></pre> 
+<p><img src="https://i-blog.csdnimg.cn/direct/a4f9daba02f240b088eef00e41bd1871.png#pic_center" alt="在这里插入图片描述"></p> 
+<hr> 
+<p><strong>使用反例</strong>：</p> 
+<pre><code class="prism language-c"><span class="token keyword">void</span> <span class="token function">func1</span><span class="token punctuation">(</span><span class="token keyword">int</span>  n<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span>
+<span class="token keyword">void</span> <span class="token function">func2</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">&amp;</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span>
+<span class="token keyword">void</span> <span class="token function">func3</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">int</span><span class="token operator">&amp;</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span>
+ 
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+	<span class="token keyword">const</span> <span class="token keyword">int</span> b <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+	<span class="token function">func1</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">func1</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">func1</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+	<span class="token function">func2</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ 
+	<span class="token comment">//权限被放大   -- 报错 --</span>
+	<span class="token function">func2</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//权限被放大   -- 报错 --</span>
+	<span class="token function">func2</span><span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token keyword">double</span> d <span class="token operator">=</span> <span class="token number">2.22</span><span class="token punctuation">;</span>
+	<span class="token comment">//权限被放大   -- 报错 --</span>
+	<span class="token function">func2</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token comment">//语法允许</span>
+	<span class="token function">func3</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p><strong>总结</strong>：</p> 
+<ul><li> <p>可以引用一个const对象，但是必须用const引用。const引用也可以引用普通对象，<font color="red">因为对象的访问权限在引用过程中可以缩小，但是不能放大</font>。</p> </li><li> <p>权限放大和缩小<font color="red">只针对引用和指针</font>。</p> </li><li> <p>不需要注意的是类似 <code>int&amp; rb = a*3; double d = 12.34; int&amp; rd = d; </code>这样一些场景下<code>a*3</code>的和结果保存在一个临时对象中， <code>int&amp; rd = d</code> 也是类似，在类型转换中会产生临时对象存储中间值，也就是时，rb和rd引用的都是临时对象，而C++规定<font color="red">临时对象具有常性</font>，所以这里就触发了权限放大，必须要用常引用才可以。</p> </li><li> <p>所谓临时对象就是编译器需要一个空间暂存表达式的求值结果时临时创建的一个未命名的对象，C++中把这个未命名对象叫做临时对象。</p> </li></ul> 
+<h3>3.4 引用与多态</h3> 
+<p>在多态场景中，引用可以<font color="red">通过基类指向派生类</font>，实现多态行为：</p> 
+<pre><code class="prism language-c">class Base <span class="token punctuation">{<!-- --></span>
+public<span class="token operator">:</span>
+    virtual <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span> std<span class="token operator">::</span>cout <span class="token operator"><<</span> <span class="token string">"Base"</span> <span class="token operator"><<</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+class Derived <span class="token operator">:</span> public Base <span class="token punctuation">{<!-- --></span>
+public<span class="token operator">:</span>
+    <span class="token keyword">void</span> <span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span> override <span class="token punctuation">{<!-- --></span> std<span class="token operator">::</span>cout <span class="token operator"><<</span> <span class="token string">"Derived"</span> <span class="token operator"><<</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">display</span><span class="token punctuation">(</span>Base <span class="token operator">&amp;</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    obj<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 基类引用可指向派生类</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<h2>4. C++ 引用的优缺点</h2> 
+<p><strong>优点</strong>：</p> 
+<ul><li>语法简化，操作更加直观。</li><li>避免空指针或野指针问题。</li><li>减少拷贝，提高函数调用效率。</li></ul> 
+<p><strong>缺点</strong>：</p> 
+<ul><li>必须在声明时初始化，灵活性不如指针。</li><li>一旦初始化不能更改指向对象。</li><li>使用不当时可能导致悬空引用。</li></ul> 
+<h2>5. 引用的注意事项与常见陷阱</h2> 
+<ul><li><strong>不要返回局部变量的引用</strong>：局部变量在函数结束后会被销毁，返回其引用会导致悬空引用。</li><li><strong>避免引用无效内存</strong>：确保引用指向合法的内存空间，避免运行时错误。</li><li><strong>引用与指针的混用</strong>：引用虽然简化了很多操作，但并不能完全替代指针，特别是在涉及<font color="red">动态内存管理</font>时。</li></ul> 
+<h2>6. 总结</h2> 
+<p>C++ 引用是简化代码、提高程序效率的重要工具，特别是在参数传递、返回值优化等场景中发挥了重要作用。与指针相比，引用更加简洁、安全，但在灵活性上有所限制。通过正确理解和使用引用，可以让你的 C++ 代码更加高效、稳健。</p> 
+<h2>结语</h2> 
+<p>希望这篇博客能帮助你深入理解 C++ 中的引用。祝你在编程的旅途中不断进步！如有任何问题或需要进一步讨论的内容，欢迎在评论区留言交流！</p> 
+<p>今天的分享到这里就结束啦！如果觉得文章还不错的话，可以<font color="blue">三连</font>支持一下。</p> 
+<p>也可以点点关注，避免以后找不到我哦！</p> 
+<p>还有很多有趣的文章，欢迎小伙伴们前去点评，您的支持就是作者前进的动力！</p> 
+<p><img src="https://i-blog.csdnimg.cn/direct/22c2a3c678214441835c3700d70e0f5d.gif#pic_center" alt="在这里插入图片描述"></p> 
+<p>参考：</p>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-a5d25dd831.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-e504d6a974.css" rel="stylesheet">
+        </div>
+    </article></body>
+</html>

@@ -4,5 +4,11 @@
   "command": "/usr/bin/clang++   -g -arch arm64 -o CMakeFiles/01.dir/main.cpp.o -c /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/01CPP入门/main.cpp",
   "file": "/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/01CPP入门/main.cpp",
   "output": "01CPP入门/CMakeFiles/01.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/01CPP入门",
+  "command": "/usr/bin/clang++   -g -arch arm64 -o CMakeFiles/01.dir/singleList.cpp.o -c /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/01CPP入门/singleList.cpp",
+  "file": "/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/01CPP入门/singleList.cpp",
+  "output": "01CPP入门/CMakeFiles/01.dir/singleList.cpp.o"
 }
 ]

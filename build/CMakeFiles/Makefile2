@@ -104,12 +104,12 @@ clean: 01CPP入门/clean
 01CPP入门/CMakeFiles/01.dir/all:
 	$(MAKE) $(MAKESILENT) -f 01CPP入门/CMakeFiles/01.dir/build.make 01CPP入门/CMakeFiles/01.dir/depend
 	$(MAKE) $(MAKESILENT) -f 01CPP入门/CMakeFiles/01.dir/build.make 01CPP入门/CMakeFiles/01.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/CMakeFiles --progress-num=1,2 "Built target 01"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/CMakeFiles --progress-num=1,2,3 "Built target 01"
 .PHONY : 01CPP入门/CMakeFiles/01.dir/all
 
 # Build rule for subdir invocation for target.
 01CPP入门/CMakeFiles/01.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 01CPP入门/CMakeFiles/01.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/CMakeFiles 0
 .PHONY : 01CPP入门/CMakeFiles/01.dir/rule
@@ -121,7 +121,7 @@ clean: 01CPP入门/clean
 # codegen rule for target.
 01CPP入门/CMakeFiles/01.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f 01CPP入门/CMakeFiles/01.dir/build.make 01CPP入门/CMakeFiles/01.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/CMakeFiles --progress-num=1,2 "Finished codegen for target 01"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target 01"
 .PHONY : 01CPP入门/CMakeFiles/01.dir/codegen
 
 # clean rule for target.

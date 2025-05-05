@@ -1,0 +1,2279 @@
+
+main.o:	file format mach-o arm64
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <ltmp0>:
+; 	{
+       0: d10043ff     	sub	sp, sp, #0x10
+       4: b9000fe0     	str	w0, [sp, #0xc]
+       8: b9000be1     	str	w1, [sp, #0x8]
+; 		return (a + b) * 10;
+       c: b9400fe8     	ldr	w8, [sp, #0xc]
+      10: b9400be9     	ldr	w9, [sp, #0x8]
+      14: 0b090108     	add	w8, w8, w9
+      18: 52800149     	mov	w9, #0xa                ; =10
+      1c: 1b097d00     	mul	w0, w8, w9
+      20: 910043ff     	add	sp, sp, #0x10
+      24: d65f03c0     	ret
+
+0000000000000028 <__ZN3yzq14AddWithDefaultEii>:
+; 	{
+      28: d10043ff     	sub	sp, sp, #0x10
+      2c: b9000fe0     	str	w0, [sp, #0xc]
+      30: b9000be1     	str	w1, [sp, #0x8]
+; 		return (a + b);
+      34: b9400fe8     	ldr	w8, [sp, #0xc]
+      38: b9400be9     	ldr	w9, [sp, #0x8]
+      3c: 0b090100     	add	w0, w8, w9
+      40: 910043ff     	add	sp, sp, #0x10
+      44: d65f03c0     	ret
+
+0000000000000048 <__ZN3yzq11defaultFun1Ei>:
+; 	{
+      48: d10083ff     	sub	sp, sp, #0x20
+      4c: a9017bfd     	stp	x29, x30, [sp, #0x10]
+      50: 910043fd     	add	x29, sp, #0x10
+      54: b81fc3a0     	stur	w0, [x29, #-0x4]
+; 		std::cout << "defaultFun1:" << a << std::endl;
+      58: 90000000     	adrp	x0, 0x0 <ltmp0>
+      5c: f9400000     	ldr	x0, [x0]
+      60: 90000001     	adrp	x1, 0x0 <ltmp0>
+      64: 91000021     	add	x1, x1, #0x0
+      68: 94000000     	bl	0x68 <__ZN3yzq11defaultFun1Ei+0x20>
+      6c: b85fc3a1     	ldur	w1, [x29, #-0x4]
+      70: 94000000     	bl	0x70 <__ZN3yzq11defaultFun1Ei+0x28>
+      74: 90000001     	adrp	x1, 0x0 <ltmp0>
+      78: 91000021     	add	x1, x1, #0x0
+      7c: 94000000     	bl	0x7c <__ZN3yzq11defaultFun1Ei+0x34>
+; 	}
+      80: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+      84: 910083ff     	add	sp, sp, #0x20
+      88: d65f03c0     	ret
+
+000000000000008c <__ZNSt3__1lsB8ne190102INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc>:
+; _LIBCPP_HIDE_FROM_ABI basic_ostream<char, _Traits>& operator<<(basic_ostream<char, _Traits>& __os, const char* __str) {
+      8c: d100c3ff     	sub	sp, sp, #0x30
+      90: a9027bfd     	stp	x29, x30, [sp, #0x20]
+      94: 910083fd     	add	x29, sp, #0x20
+      98: f81f83a0     	stur	x0, [x29, #-0x8]
+      9c: f9000be1     	str	x1, [sp, #0x10]
+;   return std::__put_character_sequence(__os, __str, _Traits::length(__str));
+      a0: f85f83a8     	ldur	x8, [x29, #-0x8]
+      a4: f90007e8     	str	x8, [sp, #0x8]
+      a8: f9400be8     	ldr	x8, [sp, #0x10]
+      ac: f90003e8     	str	x8, [sp]
+      b0: f9400be0     	ldr	x0, [sp, #0x10]
+      b4: 94000000     	bl	0xb4 <__ZNSt3__1lsB8ne190102INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc+0x28>
+      b8: f94003e1     	ldr	x1, [sp]
+      bc: aa0003e2     	mov	x2, x0
+      c0: f94007e0     	ldr	x0, [sp, #0x8]
+      c4: 94000000     	bl	0xc4 <__ZNSt3__1lsB8ne190102INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc+0x38>
+      c8: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+      cc: 9100c3ff     	add	sp, sp, #0x30
+      d0: d65f03c0     	ret
+
+00000000000000d4 <__ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEElsB8ne190102EPFRS3_S4_E>:
+;   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 basic_ostream& operator<<(basic_ostream& (*__pf)(basic_ostream&)) {
+      d4: d10083ff     	sub	sp, sp, #0x20
+      d8: a9017bfd     	stp	x29, x30, [sp, #0x10]
+      dc: 910043fd     	add	x29, sp, #0x10
+      e0: f90007e0     	str	x0, [sp, #0x8]
+      e4: f90003e1     	str	x1, [sp]
+      e8: f94007e0     	ldr	x0, [sp, #0x8]
+;     return __pf(*this);
+      ec: f94003e8     	ldr	x8, [sp]
+      f0: d63f0100     	blr	x8
+      f4: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+      f8: 910083ff     	add	sp, sp, #0x20
+      fc: d65f03c0     	ret
+
+0000000000000100 <__ZNSt3__14endlB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_>:
+; _LIBCPP_HIDE_FROM_ABI inline basic_ostream<_CharT, _Traits>& endl(basic_ostream<_CharT, _Traits>& __os) {
+     100: d10083ff     	sub	sp, sp, #0x20
+     104: a9017bfd     	stp	x29, x30, [sp, #0x10]
+     108: 910043fd     	add	x29, sp, #0x10
+     10c: f90007e0     	str	x0, [sp, #0x8]
+;   __os.put(__os.widen('\n'));
+     110: f94007e8     	ldr	x8, [sp, #0x8]
+     114: f90003e8     	str	x8, [sp]
+     118: f94007e8     	ldr	x8, [sp, #0x8]
+     11c: f9400109     	ldr	x9, [x8]
+     120: f85e8129     	ldur	x9, [x9, #-0x18]
+     124: 8b090100     	add	x0, x8, x9
+     128: 52800141     	mov	w1, #0xa                ; =10
+     12c: 94000000     	bl	0x12c <__ZNSt3__14endlB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_+0x2c>
+     130: aa0003e1     	mov	x1, x0
+     134: f94003e0     	ldr	x0, [sp]
+     138: 94000000     	bl	0x138 <__ZNSt3__14endlB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_+0x38>
+;   __os.flush();
+     13c: f94007e0     	ldr	x0, [sp, #0x8]
+     140: 94000000     	bl	0x140 <__ZNSt3__14endlB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_+0x40>
+;   return __os;
+     144: f94007e0     	ldr	x0, [sp, #0x8]
+     148: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+     14c: 910083ff     	add	sp, sp, #0x20
+     150: d65f03c0     	ret
+
+0000000000000154 <__Z12CalculateSumii>:
+; {
+     154: d10043ff     	sub	sp, sp, #0x10
+     158: b9000fe0     	str	w0, [sp, #0xc]
+     15c: b9000be1     	str	w1, [sp, #0x8]
+; 	return left + right;
+     160: b9400fe8     	ldr	w8, [sp, #0xc]
+     164: b9400be9     	ldr	w9, [sp, #0x8]
+     168: 0b090100     	add	w0, w8, w9
+     16c: 910043ff     	add	sp, sp, #0x10
+     170: d65f03c0     	ret
+
+0000000000000174 <__Z12CalculateSumcc>:
+; {
+     174: d10043ff     	sub	sp, sp, #0x10
+     178: 39003fe0     	strb	w0, [sp, #0xf]
+     17c: 39003be1     	strb	w1, [sp, #0xe]
+; 	return left + right;
+     180: 39c03fe8     	ldrsb	w8, [sp, #0xf]
+     184: 39c03be9     	ldrsb	w9, [sp, #0xe]
+     188: 0b090108     	add	w8, w8, w9
+     18c: 13001d00     	sxtb	w0, w8
+     190: 910043ff     	add	sp, sp, #0x10
+     194: d65f03c0     	ret
+
+0000000000000198 <__Z12CalculateSumdd>:
+; {
+     198: d10043ff     	sub	sp, sp, #0x10
+     19c: fd0007e0     	str	d0, [sp, #0x8]
+     1a0: fd0003e1     	str	d1, [sp]
+; 	return left + right;
+     1a4: fd4007e0     	ldr	d0, [sp, #0x8]
+     1a8: fd4003e1     	ldr	d1, [sp]
+     1ac: 1e612800     	fadd	d0, d0, d1
+     1b0: 910043ff     	add	sp, sp, #0x10
+     1b4: d65f03c0     	ret
+
+00000000000001b8 <__Z12CalculateSumll>:
+; {
+     1b8: d10043ff     	sub	sp, sp, #0x10
+     1bc: f90007e0     	str	x0, [sp, #0x8]
+     1c0: f90003e1     	str	x1, [sp]
+; 	return left + right;
+     1c4: f94007e8     	ldr	x8, [sp, #0x8]
+     1c8: f94003e9     	ldr	x9, [sp]
+     1cc: 8b090108     	add	x8, x8, x9
+     1d0: 9e620100     	scvtf	d0, x8
+     1d4: 910043ff     	add	sp, sp, #0x10
+     1d8: d65f03c0     	ret
+
+00000000000001dc <__Z12CalculateSumiii>:
+; {
+     1dc: d10043ff     	sub	sp, sp, #0x10
+     1e0: b9000fe0     	str	w0, [sp, #0xc]
+     1e4: b9000be1     	str	w1, [sp, #0x8]
+     1e8: b90007e2     	str	w2, [sp, #0x4]
+; 	return left + right + third;
+     1ec: b9400fe8     	ldr	w8, [sp, #0xc]
+     1f0: b9400be9     	ldr	w9, [sp, #0x8]
+     1f4: 0b090108     	add	w8, w8, w9
+     1f8: b94007e9     	ldr	w9, [sp, #0x4]
+     1fc: 0b090100     	add	w0, w8, w9
+     200: 910043ff     	add	sp, sp, #0x10
+     204: d65f03c0     	ret
+
+0000000000000208 <__Z23TestFunctionOverloadingv>:
+; {
+     208: d10183ff     	sub	sp, sp, #0x60
+     20c: a9057bfd     	stp	x29, x30, [sp, #0x50]
+     210: 910143fd     	add	x29, sp, #0x50
+     214: 90000000     	adrp	x0, 0x0 <ltmp0>
+     218: f9400000     	ldr	x0, [x0]
+     21c: f81f83a0     	stur	x0, [x29, #-0x8]
+; 	std::cout << "开始测试函数重载..." << std::endl;
+     220: 90000001     	adrp	x1, 0x0 <ltmp0>
+     224: 91000021     	add	x1, x1, #0x0
+     228: 94000000     	bl	0x228 <__Z23TestFunctionOverloadingv+0x20>
+     22c: 90000001     	adrp	x1, 0x0 <ltmp0>
+     230: 91000021     	add	x1, x1, #0x0
+     234: f81f03a1     	stur	x1, [x29, #-0x10]
+     238: 94000000     	bl	0x238 <__Z23TestFunctionOverloadingv+0x30>
+     23c: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << "调用 CalculateSum()，结果为：" << CalculateSum() << std::endl;
+     240: 90000001     	adrp	x1, 0x0 <ltmp0>
+     244: 91000021     	add	x1, x1, #0x0
+     248: 94000000     	bl	0x248 <__Z23TestFunctionOverloadingv+0x40>
+     24c: f90007e0     	str	x0, [sp, #0x8]
+     250: 52800140     	mov	w0, #0xa                ; =10
+     254: 52800281     	mov	w1, #0x14               ; =20
+     258: 94000000     	bl	0x258 <__Z23TestFunctionOverloadingv+0x50>
+     25c: aa0003e1     	mov	x1, x0
+     260: f94007e0     	ldr	x0, [sp, #0x8]
+     264: 94000000     	bl	0x264 <__Z23TestFunctionOverloadingv+0x5c>
+     268: f85f03a1     	ldur	x1, [x29, #-0x10]
+     26c: 94000000     	bl	0x26c <__Z23TestFunctionOverloadingv+0x64>
+     270: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << "调用 CalculateSum(1, 2)，结果为：" << CalculateSum(1, 2) << std::endl;
+     274: 90000001     	adrp	x1, 0x0 <ltmp0>
+     278: 91000021     	add	x1, x1, #0x0
+     27c: 94000000     	bl	0x27c <__Z23TestFunctionOverloadingv+0x74>
+     280: f9000be0     	str	x0, [sp, #0x10]
+     284: 52800020     	mov	w0, #0x1                ; =1
+     288: b81e43a0     	stur	w0, [x29, #-0x1c]
+     28c: 52800041     	mov	w1, #0x2                ; =2
+     290: b81e03a1     	stur	w1, [x29, #-0x20]
+     294: 94000000     	bl	0x294 <__Z23TestFunctionOverloadingv+0x8c>
+     298: aa0003e1     	mov	x1, x0
+     29c: f9400be0     	ldr	x0, [sp, #0x10]
+     2a0: 94000000     	bl	0x2a0 <__Z23TestFunctionOverloadingv+0x98>
+     2a4: f85f03a1     	ldur	x1, [x29, #-0x10]
+     2a8: 94000000     	bl	0x2a8 <__Z23TestFunctionOverloadingv+0xa0>
+     2ac: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << "调用 CalculateSum('1', '2')，结果为：" << CalculateSum('1', '2') << std::endl;
+     2b0: 90000001     	adrp	x1, 0x0 <ltmp0>
+     2b4: 91000021     	add	x1, x1, #0x0
+     2b8: 94000000     	bl	0x2b8 <__Z23TestFunctionOverloadingv+0xb0>
+     2bc: f9000fe0     	str	x0, [sp, #0x18]
+     2c0: 52800620     	mov	w0, #0x31               ; =49
+     2c4: 52800641     	mov	w1, #0x32               ; =50
+     2c8: 94000000     	bl	0x2c8 <__Z23TestFunctionOverloadingv+0xc0>
+     2cc: aa0003e1     	mov	x1, x0
+     2d0: f9400fe0     	ldr	x0, [sp, #0x18]
+     2d4: 94000000     	bl	0x2d4 <__Z23TestFunctionOverloadingv+0xcc>
+     2d8: f85f03a1     	ldur	x1, [x29, #-0x10]
+     2dc: 94000000     	bl	0x2dc <__Z23TestFunctionOverloadingv+0xd4>
+     2e0: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << "调用 CalculateSum(1.1, 2.2)，结果为：" << CalculateSum(1.1, 2.2) << std::endl;
+     2e4: 90000001     	adrp	x1, 0x0 <ltmp0>
+     2e8: 91000021     	add	x1, x1, #0x0
+     2ec: 94000000     	bl	0x2ec <__Z23TestFunctionOverloadingv+0xe4>
+     2f0: f90013e0     	str	x0, [sp, #0x20]
+     2f4: b201e7e8     	mov	x8, #-0x6666666666666667 ; =-7378697629483820647
+     2f8: f2933348     	movk	x8, #0x999a
+     2fc: f2e7fe28     	movk	x8, #0x3ff1, lsl #48
+     300: 9e670100     	fmov	d0, x8
+     304: b201e7e8     	mov	x8, #-0x6666666666666667 ; =-7378697629483820647
+     308: f2933348     	movk	x8, #0x999a
+     30c: f2e80028     	movk	x8, #0x4001, lsl #48
+     310: 9e670101     	fmov	d1, x8
+     314: 94000000     	bl	0x314 <__Z23TestFunctionOverloadingv+0x10c>
+     318: f94013e0     	ldr	x0, [sp, #0x20]
+     31c: 94000000     	bl	0x31c <__Z23TestFunctionOverloadingv+0x114>
+     320: f85f03a1     	ldur	x1, [x29, #-0x10]
+     324: 94000000     	bl	0x324 <__Z23TestFunctionOverloadingv+0x11c>
+     328: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << "调用 CalculateSum(10L, 20L)，结果为：" << CalculateSum(10L, 20L) << std::endl;
+     32c: 90000001     	adrp	x1, 0x0 <ltmp0>
+     330: 91000021     	add	x1, x1, #0x0
+     334: 94000000     	bl	0x334 <__Z23TestFunctionOverloadingv+0x12c>
+     338: f90017e0     	str	x0, [sp, #0x28]
+     33c: d2800140     	mov	x0, #0xa                ; =10
+     340: d2800281     	mov	x1, #0x14               ; =20
+     344: 94000000     	bl	0x344 <__Z23TestFunctionOverloadingv+0x13c>
+     348: f94017e0     	ldr	x0, [sp, #0x28]
+     34c: 94000000     	bl	0x34c <__Z23TestFunctionOverloadingv+0x144>
+     350: f85f03a1     	ldur	x1, [x29, #-0x10]
+     354: 94000000     	bl	0x354 <__Z23TestFunctionOverloadingv+0x14c>
+     358: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << "调用新增的 CalculateSum(1, 2, 3)，结果为：" << CalculateSum(1, 2, 3) << std::endl;
+     35c: 90000001     	adrp	x1, 0x0 <ltmp0>
+     360: 91000021     	add	x1, x1, #0x0
+     364: 94000000     	bl	0x364 <__Z23TestFunctionOverloadingv+0x15c>
+     368: b85e03a1     	ldur	w1, [x29, #-0x20]
+     36c: aa0003e2     	mov	x2, x0
+     370: b85e43a0     	ldur	w0, [x29, #-0x1c]
+     374: f81e83a2     	stur	x2, [x29, #-0x18]
+     378: 52800062     	mov	w2, #0x3                ; =3
+     37c: 94000000     	bl	0x37c <__Z23TestFunctionOverloadingv+0x174>
+     380: aa0003e1     	mov	x1, x0
+     384: f85e83a0     	ldur	x0, [x29, #-0x18]
+     388: 94000000     	bl	0x388 <__Z23TestFunctionOverloadingv+0x180>
+     38c: f85f03a1     	ldur	x1, [x29, #-0x10]
+     390: 94000000     	bl	0x390 <__Z23TestFunctionOverloadingv+0x188>
+     394: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << "函数重载测试结束。" << std::endl;
+     398: 90000001     	adrp	x1, 0x0 <ltmp0>
+     39c: 91000021     	add	x1, x1, #0x0
+     3a0: 94000000     	bl	0x3a0 <__Z23TestFunctionOverloadingv+0x198>
+     3a4: f85f03a1     	ldur	x1, [x29, #-0x10]
+     3a8: 94000000     	bl	0x3a8 <__Z23TestFunctionOverloadingv+0x1a0>
+     3ac: f85f03a1     	ldur	x1, [x29, #-0x10]
+     3b0: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << std::endl;
+     3b4: 94000000     	bl	0x3b4 <__Z23TestFunctionOverloadingv+0x1ac>
+; }
+     3b8: a9457bfd     	ldp	x29, x30, [sp, #0x50]
+     3bc: 910183ff     	add	sp, sp, #0x60
+     3c0: d65f03c0     	ret
+
+00000000000003c4 <__ZNSt3__1lsB8ne190102INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_c>:
+; _LIBCPP_HIDE_FROM_ABI basic_ostream<char, _Traits>& operator<<(basic_ostream<char, _Traits>& __os, char __c) {
+     3c4: d10083ff     	sub	sp, sp, #0x20
+     3c8: a9017bfd     	stp	x29, x30, [sp, #0x10]
+     3cc: 910043fd     	add	x29, sp, #0x10
+     3d0: aa0103e8     	mov	x8, x1
+     3d4: f90007e0     	str	x0, [sp, #0x8]
+     3d8: 91001fe1     	add	x1, sp, #0x7
+     3dc: 39001fe8     	strb	w8, [sp, #0x7]
+;   return std::__put_character_sequence(__os, &__c, 1);
+     3e0: f94007e0     	ldr	x0, [sp, #0x8]
+     3e4: d2800022     	mov	x2, #0x1                ; =1
+     3e8: 94000000     	bl	0x3e8 <__ZNSt3__1lsB8ne190102INS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_c+0x24>
+     3ec: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+     3f0: 910083ff     	add	sp, sp, #0x20
+     3f4: d65f03c0     	ret
+
+00000000000003f8 <__Z9GlobalAddii>:
+; {
+     3f8: d10043ff     	sub	sp, sp, #0x10
+     3fc: b9000fe0     	str	w0, [sp, #0xc]
+     400: b9000be1     	str	w1, [sp, #0x8]
+; 	return a + b;
+     404: b9400fe8     	ldr	w8, [sp, #0xc]
+     408: b9400be9     	ldr	w9, [sp, #0x8]
+     40c: 0b090100     	add	w0, w8, w9
+     410: 910043ff     	add	sp, sp, #0x10
+     414: d65f03c0     	ret
+
+0000000000000418 <__ZN2S12S24FunAEv>:
+; 		{
+     418: a9bf7bfd     	stp	x29, x30, [sp, #-0x10]!
+     41c: 910003fd     	mov	x29, sp
+; 			std::cout << "Inside S1::S2::FunA()" << std::endl;
+     420: 90000000     	adrp	x0, 0x0 <ltmp0>
+     424: f9400000     	ldr	x0, [x0]
+     428: 90000001     	adrp	x1, 0x0 <ltmp0>
+     42c: 91000021     	add	x1, x1, #0x0
+     430: 94000000     	bl	0x430 <__ZN2S12S24FunAEv+0x18>
+     434: 90000001     	adrp	x1, 0x0 <ltmp0>
+     438: 91000021     	add	x1, x1, #0x0
+     43c: 94000000     	bl	0x43c <__ZN2S12S24FunAEv+0x24>
+; 		}
+     440: a8c17bfd     	ldp	x29, x30, [sp], #0x10
+     444: d65f03c0     	ret
+
+0000000000000448 <__Z18TestNamespaceUsagev>:
+; {
+     448: d10143ff     	sub	sp, sp, #0x50
+     44c: a9047bfd     	stp	x29, x30, [sp, #0x40]
+     450: 910103fd     	add	x29, sp, #0x40
+     454: 90000000     	adrp	x0, 0x0 <ltmp0>
+     458: f9400000     	ldr	x0, [x0]
+     45c: f81e83a0     	stur	x0, [x29, #-0x18]
+; 	std::cout << "开始测试自定义命名空间 yzq 的使用..." << std::endl;
+     460: 90000001     	adrp	x1, 0x0 <ltmp0>
+     464: 91000021     	add	x1, x1, #0x0
+     468: 94000000     	bl	0x468 <__Z18TestNamespaceUsagev+0x20>
+     46c: 90000001     	adrp	x1, 0x0 <ltmp0>
+     470: 91000021     	add	x1, x1, #0x0
+     474: f90013e1     	str	x1, [sp, #0x20]
+     478: 94000000     	bl	0x478 <__Z18TestNamespaceUsagev+0x30>
+; 	printf("访问全局变量 scanf 函数的地址：");
+     47c: 90000000     	adrp	x0, 0x0 <ltmp0>
+     480: 91000000     	add	x0, x0, #0x0
+     484: 94000000     	bl	0x484 <__Z18TestNamespaceUsagev+0x3c>
+; 	printf("%p\n", (void *)scanf);
+     488: 910003e9     	mov	x9, sp
+     48c: 90000008     	adrp	x8, 0x0 <ltmp0>
+     490: f9400108     	ldr	x8, [x8]
+     494: f9000128     	str	x8, [x9]
+     498: 90000000     	adrp	x0, 0x0 <ltmp0>
+     49c: 91000000     	add	x0, x0, #0x0
+     4a0: 94000000     	bl	0x4a0 <__Z18TestNamespaceUsagev+0x58>
+; 	printf("访问 yzq 空间中的 customScanf 变量的值：");
+     4a4: 90000000     	adrp	x0, 0x0 <ltmp0>
+     4a8: 91000000     	add	x0, x0, #0x0
+     4ac: 94000000     	bl	0x4ac <__Z18TestNamespaceUsagev+0x64>
+; 	printf("%x\n", yzq::customScanf);
+     4b0: 90000008     	adrp	x8, 0x0 <ltmp0>
+     4b4: b9400108     	ldr	w8, [x8]
+     4b8: 910003e9     	mov	x9, sp
+     4bc: f9000128     	str	x8, [x9]
+     4c0: 90000000     	adrp	x0, 0x0 <ltmp0>
+     4c4: 91000000     	add	x0, x0, #0x0
+     4c8: 94000000     	bl	0x4c8 <__Z18TestNamespaceUsagev+0x80>
+; 	printf("访问命名空间的函数：");
+     4cc: 90000000     	adrp	x0, 0x0 <ltmp0>
+     4d0: 91000000     	add	x0, x0, #0x0
+     4d4: 94000000     	bl	0x4d4 <__Z18TestNamespaceUsagev+0x8c>
+     4d8: 52800020     	mov	w0, #0x1                ; =1
+     4dc: b90017e0     	str	w0, [sp, #0x14]
+     4e0: 52800041     	mov	w1, #0x2                ; =2
+     4e4: b90013e1     	str	w1, [sp, #0x10]
+; 	printf("%d\n", yzq::Add(1, 2));
+     4e8: 94000000     	bl	0x4e8 <__Z18TestNamespaceUsagev+0xa0>
+     4ec: 910003e9     	mov	x9, sp
+     4f0: aa0003e8     	mov	x8, x0
+     4f4: f9000128     	str	x8, [x9]
+     4f8: 90000000     	adrp	x0, 0x0 <ltmp0>
+     4fc: 91000000     	add	x0, x0, #0x0
+     500: f9000fe0     	str	x0, [sp, #0x18]
+     504: 94000000     	bl	0x504 <__Z18TestNamespaceUsagev+0xbc>
+; 	printf("访问全局函数：");
+     508: 90000000     	adrp	x0, 0x0 <ltmp0>
+     50c: 91000000     	add	x0, x0, #0x0
+     510: 94000000     	bl	0x510 <__Z18TestNamespaceUsagev+0xc8>
+     514: b94013e1     	ldr	w1, [sp, #0x10]
+     518: b94017e0     	ldr	w0, [sp, #0x14]
+; 	printf("%d\n", GlobalAdd(1, 2));
+     51c: 94000000     	bl	0x51c <__Z18TestNamespaceUsagev+0xd4>
+     520: aa0003ea     	mov	x10, x0
+     524: f9400fe0     	ldr	x0, [sp, #0x18]
+     528: 910003e9     	mov	x9, sp
+     52c: aa0a03e8     	mov	x8, x10
+     530: f9000128     	str	x8, [x9]
+     534: 94000000     	bl	0x534 <__Z18TestNamespaceUsagev+0xec>
+; 	node.val = 10;
+     538: 52800148     	mov	w8, #0xa                ; =10
+     53c: b81f03a8     	stur	w8, [x29, #-0x10]
+; 	node.next = nullptr;
+     540: f81f83bf     	stur	xzr, [x29, #-0x8]
+; 	printf("访问命名空间中的结构体：node.val = %d\n", node.val);
+     544: b85f03a8     	ldur	w8, [x29, #-0x10]
+     548: 910003e9     	mov	x9, sp
+     54c: f9000128     	str	x8, [x9]
+     550: 90000000     	adrp	x0, 0x0 <ltmp0>
+     554: 91000000     	add	x0, x0, #0x0
+     558: 94000000     	bl	0x558 <__Z18TestNamespaceUsagev+0x110>
+     55c: f85e83a0     	ldur	x0, [x29, #-0x18]
+; 	std::cout << "自定义命名空间 yzq 的使用测试结束。" << std::endl;
+     560: 90000001     	adrp	x1, 0x0 <ltmp0>
+     564: 91000021     	add	x1, x1, #0x0
+     568: 94000000     	bl	0x568 <__Z18TestNamespaceUsagev+0x120>
+     56c: f94013e1     	ldr	x1, [sp, #0x20]
+     570: 94000000     	bl	0x570 <__Z18TestNamespaceUsagev+0x128>
+     574: f94013e1     	ldr	x1, [sp, #0x20]
+     578: f85e83a0     	ldur	x0, [x29, #-0x18]
+; 	std::cout << std::endl;
+     57c: 94000000     	bl	0x57c <__Z18TestNamespaceUsagev+0x134>
+; }
+     580: a9447bfd     	ldp	x29, x30, [sp, #0x40]
+     584: 910143ff     	add	sp, sp, #0x50
+     588: d65f03c0     	ret
+
+000000000000058c <__Z21TestExpandS2Namespacev>:
+; {
+     58c: d100c3ff     	sub	sp, sp, #0x30
+     590: a9027bfd     	stp	x29, x30, [sp, #0x20]
+     594: 910083fd     	add	x29, sp, #0x20
+     598: 90000000     	adrp	x0, 0x0 <ltmp0>
+     59c: f9400000     	ldr	x0, [x0]
+     5a0: f81f83a0     	stur	x0, [x29, #-0x8]
+; 	std::cout << "开始测试展开 S2 命名空间..." << std::endl;
+     5a4: 90000001     	adrp	x1, 0x0 <ltmp0>
+     5a8: 91000021     	add	x1, x1, #0x0
+     5ac: 94000000     	bl	0x5ac <__Z21TestExpandS2Namespacev+0x20>
+     5b0: 90000001     	adrp	x1, 0x0 <ltmp0>
+     5b4: 91000021     	add	x1, x1, #0x0
+     5b8: f9000be1     	str	x1, [sp, #0x10]
+     5bc: 94000000     	bl	0x5bc <__Z21TestExpandS2Namespacev+0x30>
+     5c0: f85f83a0     	ldur	x0, [x29, #-0x8]
+     5c4: 90000009     	adrp	x9, 0x0 <ltmp0>
+     5c8: f90007e9     	str	x9, [sp, #0x8]
+; 	S1::S2::x = 30;
+     5cc: 528003c8     	mov	w8, #0x1e               ; =30
+     5d0: b9000128     	str	w8, [x9]
+; 	std::cout << "展开 S2 命名空间后访问变量 x: " << S1::S2::x << std::endl;
+     5d4: 90000001     	adrp	x1, 0x0 <ltmp0>
+     5d8: 91000021     	add	x1, x1, #0x0
+     5dc: 94000000     	bl	0x5dc <__Z21TestExpandS2Namespacev+0x50>
+     5e0: f94007e8     	ldr	x8, [sp, #0x8]
+     5e4: b9400101     	ldr	w1, [x8]
+     5e8: 94000000     	bl	0x5e8 <__Z21TestExpandS2Namespacev+0x5c>
+     5ec: f9400be1     	ldr	x1, [sp, #0x10]
+     5f0: 94000000     	bl	0x5f0 <__Z21TestExpandS2Namespacev+0x64>
+; 	FunA();
+     5f4: 94000000     	bl	0x5f4 <__Z21TestExpandS2Namespacev+0x68>
+     5f8: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << "S2 命名空间展开测试结束。" << std::endl;
+     5fc: 90000001     	adrp	x1, 0x0 <ltmp0>
+     600: 91000021     	add	x1, x1, #0x0
+     604: 94000000     	bl	0x604 <__Z21TestExpandS2Namespacev+0x78>
+     608: f9400be1     	ldr	x1, [sp, #0x10]
+     60c: 94000000     	bl	0x60c <__Z21TestExpandS2Namespacev+0x80>
+     610: f9400be1     	ldr	x1, [sp, #0x10]
+     614: f85f83a0     	ldur	x0, [x29, #-0x8]
+; 	std::cout << std::endl;
+     618: 94000000     	bl	0x618 <__Z21TestExpandS2Namespacev+0x8c>
+; }
+     61c: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+     620: 9100c3ff     	add	sp, sp, #0x30
+     624: d65f03c0     	ret
+
+0000000000000628 <__Z23TestStdNamespaceMethod1v>:
+; {
+     628: d10083ff     	sub	sp, sp, #0x20
+     62c: a9017bfd     	stp	x29, x30, [sp, #0x10]
+     630: 910043fd     	add	x29, sp, #0x10
+     634: 90000000     	adrp	x0, 0x0 <ltmp0>
+     638: f9400000     	ldr	x0, [x0]
+     63c: f90007e0     	str	x0, [sp, #0x8]
+; 	std::cout << "开始测试使用标准库命名空间 std 的方式 1（指定命名空间）..." << std::endl;
+     640: 90000001     	adrp	x1, 0x0 <ltmp0>
+     644: 91000021     	add	x1, x1, #0x0
+     648: 94000000     	bl	0x648 <__Z23TestStdNamespaceMethod1v+0x20>
+     64c: 90000001     	adrp	x1, 0x0 <ltmp0>
+     650: 91000021     	add	x1, x1, #0x0
+     654: f90003e1     	str	x1, [sp]
+     658: 94000000     	bl	0x658 <__Z23TestStdNamespaceMethod1v+0x30>
+     65c: f94007e0     	ldr	x0, [sp, #0x8]
+; 	std::cout << "使用方式 1: 指定命名空间 输出 hello world" << std::endl;
+     660: 90000001     	adrp	x1, 0x0 <ltmp0>
+     664: 91000021     	add	x1, x1, #0x0
+     668: 94000000     	bl	0x668 <__Z23TestStdNamespaceMethod1v+0x40>
+     66c: f94003e1     	ldr	x1, [sp]
+     670: 94000000     	bl	0x670 <__Z23TestStdNamespaceMethod1v+0x48>
+     674: f94007e0     	ldr	x0, [sp, #0x8]
+; 	std::cout << "hello world" << std::endl;
+     678: 90000001     	adrp	x1, 0x0 <ltmp0>
+     67c: 91000021     	add	x1, x1, #0x0
+     680: 94000000     	bl	0x680 <__Z23TestStdNamespaceMethod1v+0x58>
+     684: f94003e1     	ldr	x1, [sp]
+     688: 94000000     	bl	0x688 <__Z23TestStdNamespaceMethod1v+0x60>
+     68c: f94007e0     	ldr	x0, [sp, #0x8]
+; 	std::cout << "标准库命名空间 std 的方式 1 测试结束。" << std::endl;
+     690: 90000001     	adrp	x1, 0x0 <ltmp0>
+     694: 91000021     	add	x1, x1, #0x0
+     698: 94000000     	bl	0x698 <__Z23TestStdNamespaceMethod1v+0x70>
+     69c: f94003e1     	ldr	x1, [sp]
+     6a0: 94000000     	bl	0x6a0 <__Z23TestStdNamespaceMethod1v+0x78>
+     6a4: f94003e1     	ldr	x1, [sp]
+     6a8: f94007e0     	ldr	x0, [sp, #0x8]
+; 	std::cout << std::endl;
+     6ac: 94000000     	bl	0x6ac <__Z23TestStdNamespaceMethod1v+0x84>
+; }
+     6b0: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+     6b4: 910083ff     	add	sp, sp, #0x20
+     6b8: d65f03c0     	ret
+
+00000000000006bc <__Z23TestStdNamespaceMethod2v>:
+; {
+     6bc: d10083ff     	sub	sp, sp, #0x20
+     6c0: a9017bfd     	stp	x29, x30, [sp, #0x10]
+     6c4: 910043fd     	add	x29, sp, #0x10
+     6c8: 90000000     	adrp	x0, 0x0 <ltmp0>
+     6cc: f9400000     	ldr	x0, [x0]
+     6d0: f90007e0     	str	x0, [sp, #0x8]
+; 	std::cout << "开始测试使用标准库命名空间 std 的方式 2（整个展开）..." << std::endl;
+     6d4: 90000001     	adrp	x1, 0x0 <ltmp0>
+     6d8: 91000021     	add	x1, x1, #0x0
+     6dc: 94000000     	bl	0x6dc <__Z23TestStdNamespaceMethod2v+0x20>
+     6e0: 90000001     	adrp	x1, 0x0 <ltmp0>
+     6e4: 91000021     	add	x1, x1, #0x0
+     6e8: f90003e1     	str	x1, [sp]
+     6ec: 94000000     	bl	0x6ec <__Z23TestStdNamespaceMethod2v+0x30>
+     6f0: f94007e0     	ldr	x0, [sp, #0x8]
+; 	cout << "使用方式 2: 展开 std 命名空间 输出 hello world" << endl;
+     6f4: 90000001     	adrp	x1, 0x0 <ltmp0>
+     6f8: 91000021     	add	x1, x1, #0x0
+     6fc: 94000000     	bl	0x6fc <__Z23TestStdNamespaceMethod2v+0x40>
+     700: f94003e1     	ldr	x1, [sp]
+     704: 94000000     	bl	0x704 <__Z23TestStdNamespaceMethod2v+0x48>
+     708: f94007e0     	ldr	x0, [sp, #0x8]
+; 	cout << "hello world" << endl;
+     70c: 90000001     	adrp	x1, 0x0 <ltmp0>
+     710: 91000021     	add	x1, x1, #0x0
+     714: 94000000     	bl	0x714 <__Z23TestStdNamespaceMethod2v+0x58>
+     718: f94003e1     	ldr	x1, [sp]
+     71c: 94000000     	bl	0x71c <__Z23TestStdNamespaceMethod2v+0x60>
+     720: f94007e0     	ldr	x0, [sp, #0x8]
+; 	std::cout << "标准库命名空间 std 的方式 2 测试结束。" << std::endl;
+     724: 90000001     	adrp	x1, 0x0 <ltmp0>
+     728: 91000021     	add	x1, x1, #0x0
+     72c: 94000000     	bl	0x72c <__Z23TestStdNamespaceMethod2v+0x70>
+     730: f94003e1     	ldr	x1, [sp]
+     734: 94000000     	bl	0x734 <__Z23TestStdNamespaceMethod2v+0x78>
+     738: f94003e1     	ldr	x1, [sp]
+     73c: f94007e0     	ldr	x0, [sp, #0x8]
+; 	std::cout << std::endl;
+     740: 94000000     	bl	0x740 <__Z23TestStdNamespaceMethod2v+0x84>
+; }
+     744: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+     748: 910083ff     	add	sp, sp, #0x20
+     74c: d65f03c0     	ret
+
+0000000000000750 <__Z23TestStdNamespaceMethod3v>:
+; {
+     750: d10083ff     	sub	sp, sp, #0x20
+     754: a9017bfd     	stp	x29, x30, [sp, #0x10]
+     758: 910043fd     	add	x29, sp, #0x10
+     75c: 90000000     	adrp	x0, 0x0 <ltmp0>
+     760: f9400000     	ldr	x0, [x0]
+     764: f90007e0     	str	x0, [sp, #0x8]
+; 	std::cout << "开始测试使用标准库命名空间 std 的方式 3（部分展开）..." << std::endl;
+     768: 90000001     	adrp	x1, 0x0 <ltmp0>
+     76c: 91000021     	add	x1, x1, #0x0
+     770: 94000000     	bl	0x770 <__Z23TestStdNamespaceMethod3v+0x20>
+     774: 90000001     	adrp	x1, 0x0 <ltmp0>
+     778: 91000021     	add	x1, x1, #0x0
+     77c: f90003e1     	str	x1, [sp]
+     780: 94000000     	bl	0x780 <__Z23TestStdNamespaceMethod3v+0x30>
+     784: f94007e0     	ldr	x0, [sp, #0x8]
+; 	cout << "使用方式 3: 部分展开 std 命名空间 输出 hello world" << endl;
+     788: 90000001     	adrp	x1, 0x0 <ltmp0>
+     78c: 91000021     	add	x1, x1, #0x0
+     790: 94000000     	bl	0x790 <__Z23TestStdNamespaceMethod3v+0x40>
+     794: f94003e1     	ldr	x1, [sp]
+     798: 94000000     	bl	0x798 <__Z23TestStdNamespaceMethod3v+0x48>
+     79c: f94007e0     	ldr	x0, [sp, #0x8]
+; 	cout << "hello world" << endl;
+     7a0: 90000001     	adrp	x1, 0x0 <ltmp0>
+     7a4: 91000021     	add	x1, x1, #0x0
+     7a8: 94000000     	bl	0x7a8 <__Z23TestStdNamespaceMethod3v+0x58>
+     7ac: f94003e1     	ldr	x1, [sp]
+     7b0: 94000000     	bl	0x7b0 <__Z23TestStdNamespaceMethod3v+0x60>
+     7b4: f94007e0     	ldr	x0, [sp, #0x8]
+; 	std::cout << "标准库命名空间 std 的方式 3 测试结束。" << std::endl;
+     7b8: 90000001     	adrp	x1, 0x0 <ltmp0>
+     7bc: 91000021     	add	x1, x1, #0x0
+     7c0: 94000000     	bl	0x7c0 <__Z23TestStdNamespaceMethod3v+0x70>
+     7c4: f94003e1     	ldr	x1, [sp]
+     7c8: 94000000     	bl	0x7c8 <__Z23TestStdNamespaceMethod3v+0x78>
+     7cc: f94003e1     	ldr	x1, [sp]
+     7d0: f94007e0     	ldr	x0, [sp, #0x8]
+; 	std::cout << std::endl;
+     7d4: 94000000     	bl	0x7d4 <__Z23TestStdNamespaceMethod3v+0x84>
+; }
+     7d8: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+     7dc: 910083ff     	add	sp, sp, #0x20
+     7e0: d65f03c0     	ret
+
+00000000000007e4 <__Z24TestCinCoutFunctionalityv>:
+; {
+     7e4: d10183ff     	sub	sp, sp, #0x60
+     7e8: a9057bfd     	stp	x29, x30, [sp, #0x50]
+     7ec: 910143fd     	add	x29, sp, #0x50
+     7f0: 90000008     	adrp	x8, 0x0 <ltmp0>
+     7f4: f9400108     	ldr	x8, [x8]
+     7f8: f9400108     	ldr	x8, [x8]
+     7fc: f81f83a8     	stur	x8, [x29, #-0x8]
+     800: 90000000     	adrp	x0, 0x0 <ltmp0>
+     804: f9400000     	ldr	x0, [x0]
+     808: f90017e0     	str	x0, [sp, #0x28]
+; 	std::cout << "开始演示 cin 和 cout 的功能..." << std::endl;
+     80c: 90000001     	adrp	x1, 0x0 <ltmp0>
+     810: 91000021     	add	x1, x1, #0x0
+     814: 94000000     	bl	0x814 <__Z24TestCinCoutFunctionalityv+0x30>
+     818: 90000001     	adrp	x1, 0x0 <ltmp0>
+     81c: 91000021     	add	x1, x1, #0x0
+     820: f90013e1     	str	x1, [sp, #0x20]
+     824: 94000000     	bl	0x824 <__Z24TestCinCoutFunctionalityv+0x40>
+     828: f94017e0     	ldr	x0, [sp, #0x28]
+; 	std::cout << "hello world" << std::endl;
+     82c: 90000001     	adrp	x1, 0x0 <ltmp0>
+     830: 91000021     	add	x1, x1, #0x0
+     834: 94000000     	bl	0x834 <__Z24TestCinCoutFunctionalityv+0x50>
+     838: f94013e1     	ldr	x1, [sp, #0x20]
+     83c: 94000000     	bl	0x83c <__Z24TestCinCoutFunctionalityv+0x58>
+     840: f94017e0     	ldr	x0, [sp, #0x28]
+     844: d10063a8     	sub	x8, x29, #0x18
+     848: f90007e8     	str	x8, [sp, #0x8]
+; 	int a = 10;
+     84c: 52800149     	mov	w9, #0xa                ; =10
+     850: b81e83a9     	stur	w9, [x29, #-0x18]
+; 	int *p = &a;
+     854: f81e03a8     	stur	x8, [x29, #-0x20]
+; 	std::cout << a << "," << p << std::endl;
+     858: b85e83a1     	ldur	w1, [x29, #-0x18]
+     85c: 94000000     	bl	0x85c <__Z24TestCinCoutFunctionalityv+0x78>
+     860: 90000001     	adrp	x1, 0x0 <ltmp0>
+     864: 91000021     	add	x1, x1, #0x0
+     868: 94000000     	bl	0x868 <__Z24TestCinCoutFunctionalityv+0x84>
+     86c: f85e03a1     	ldur	x1, [x29, #-0x20]
+     870: 94000000     	bl	0x870 <__Z24TestCinCoutFunctionalityv+0x8c>
+     874: f94013e1     	ldr	x1, [sp, #0x20]
+     878: 94000000     	bl	0x878 <__Z24TestCinCoutFunctionalityv+0x94>
+     87c: f94017e0     	ldr	x0, [sp, #0x28]
+; 	std::cout << "请输入一个整数和一个字符串（以空格分隔）：";
+     880: 90000001     	adrp	x1, 0x0 <ltmp0>
+     884: 91000021     	add	x1, x1, #0x0
+     888: 94000000     	bl	0x888 <__Z24TestCinCoutFunctionalityv+0xa4>
+     88c: f94007e1     	ldr	x1, [sp, #0x8]
+     890: 90000000     	adrp	x0, 0x0 <ltmp0>
+     894: f9400000     	ldr	x0, [x0]
+     898: f9000be0     	str	x0, [sp, #0x10]
+; 	std::cin >> a;
+     89c: 94000000     	bl	0x89c <__Z24TestCinCoutFunctionalityv+0xb8>
+     8a0: f9400be0     	ldr	x0, [sp, #0x10]
+     8a4: d1004ba1     	sub	x1, x29, #0x12
+     8a8: f9000fe1     	str	x1, [sp, #0x18]
+; 	std::cin >> str;
+     8ac: 94000000     	bl	0x8ac <__Z24TestCinCoutFunctionalityv+0xc8>
+     8b0: f94017e0     	ldr	x0, [sp, #0x28]
+; 	std::cout << "你输入的整数是：" << a << "，输入的字符串是：" << str << std::endl;
+     8b4: 90000001     	adrp	x1, 0x0 <ltmp0>
+     8b8: 91000021     	add	x1, x1, #0x0
+     8bc: 94000000     	bl	0x8bc <__Z24TestCinCoutFunctionalityv+0xd8>
+     8c0: b85e83a1     	ldur	w1, [x29, #-0x18]
+     8c4: 94000000     	bl	0x8c4 <__Z24TestCinCoutFunctionalityv+0xe0>
+     8c8: 90000001     	adrp	x1, 0x0 <ltmp0>
+     8cc: 91000021     	add	x1, x1, #0x0
+     8d0: 94000000     	bl	0x8d0 <__Z24TestCinCoutFunctionalityv+0xec>
+     8d4: f9400fe1     	ldr	x1, [sp, #0x18]
+     8d8: 94000000     	bl	0x8d8 <__Z24TestCinCoutFunctionalityv+0xf4>
+     8dc: f94013e1     	ldr	x1, [sp, #0x20]
+     8e0: 94000000     	bl	0x8e0 <__Z24TestCinCoutFunctionalityv+0xfc>
+     8e4: f94017e0     	ldr	x0, [sp, #0x28]
+; 	std::cout << "cin 和 cout 的功能演示结束。" << std::endl;
+     8e8: 90000001     	adrp	x1, 0x0 <ltmp0>
+     8ec: 91000021     	add	x1, x1, #0x0
+     8f0: 94000000     	bl	0x8f0 <__Z24TestCinCoutFunctionalityv+0x10c>
+     8f4: f94013e1     	ldr	x1, [sp, #0x20]
+     8f8: 94000000     	bl	0x8f8 <__Z24TestCinCoutFunctionalityv+0x114>
+     8fc: f94013e1     	ldr	x1, [sp, #0x20]
+     900: f94017e0     	ldr	x0, [sp, #0x28]
+; 	std::cout << std::endl;
+     904: 94000000     	bl	0x904 <__Z24TestCinCoutFunctionalityv+0x120>
+; }
+     908: f85f83a9     	ldur	x9, [x29, #-0x8]
+     90c: 90000008     	adrp	x8, 0x0 <ltmp0>
+     910: f9400108     	ldr	x8, [x8]
+     914: f9400108     	ldr	x8, [x8]
+     918: eb090108     	subs	x8, x8, x9
+     91c: 54000060     	b.eq	0x928 <__Z24TestCinCoutFunctionalityv+0x144>
+     920: 14000001     	b	0x924 <__Z24TestCinCoutFunctionalityv+0x140>
+     924: 94000000     	bl	0x924 <__Z24TestCinCoutFunctionalityv+0x140>
+     928: a9457bfd     	ldp	x29, x30, [sp, #0x50]
+     92c: 910183ff     	add	sp, sp, #0x60
+     930: d65f03c0     	ret
+
+0000000000000934 <__ZNSt3__1rsB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_>:
+; operator>>(basic_istream<_CharT, _Traits>& __is, _CharT* __s) {
+     934: d100c3ff     	sub	sp, sp, #0x30
+     938: a9027bfd     	stp	x29, x30, [sp, #0x20]
+     93c: 910083fd     	add	x29, sp, #0x20
+     940: f81f83a0     	stur	x0, [x29, #-0x8]
+     944: f9000be1     	str	x1, [sp, #0x10]
+;   streamsize __n = __is.width();
+     948: f85f83a8     	ldur	x8, [x29, #-0x8]
+     94c: f9400109     	ldr	x9, [x8]
+     950: f85e8129     	ldur	x9, [x9, #-0x18]
+     954: 8b090100     	add	x0, x8, x9
+     958: 94000000     	bl	0x958 <__ZNSt3__1rsB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_+0x24>
+     95c: f90007e0     	str	x0, [sp, #0x8]
+;   if (__n <= 0)
+     960: f94007e8     	ldr	x8, [sp, #0x8]
+     964: f1000108     	subs	x8, x8, #0x0
+     968: 5400010c     	b.gt	0x988 <__ZNSt3__1rsB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_+0x54>
+     96c: 14000001     	b	0x970 <__ZNSt3__1rsB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_+0x3c>
+;     __n = numeric_limits<streamsize>::max() / sizeof(_CharT) - 1;
+     970: 94000000     	bl	0x970 <__ZNSt3__1rsB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_+0x3c>
+     974: d2800028     	mov	x8, #0x1                ; =1
+     978: 9ac80808     	udiv	x8, x0, x8
+     97c: f1000508     	subs	x8, x8, #0x1
+     980: f90007e8     	str	x8, [sp, #0x8]
+     984: 14000001     	b	0x988 <__ZNSt3__1rsB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_+0x54>
+;   return std::__input_c_string(__is, __s, size_t(__n));
+     988: f85f83a0     	ldur	x0, [x29, #-0x8]
+     98c: f9400be1     	ldr	x1, [sp, #0x10]
+     990: f94007e2     	ldr	x2, [sp, #0x8]
+     994: 94000000     	bl	0x994 <__ZNSt3__1rsB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_+0x60>
+     998: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+     99c: 9100c3ff     	add	sp, sp, #0x30
+     9a0: d65f03c0     	ret
+
+00000000000009a4 <__Z20TestDefaultParameterv>:
+; {
+     9a4: d100c3ff     	sub	sp, sp, #0x30
+     9a8: a9027bfd     	stp	x29, x30, [sp, #0x20]
+     9ac: 910083fd     	add	x29, sp, #0x20
+     9b0: 90000000     	adrp	x0, 0x0 <ltmp0>
+     9b4: f9400000     	ldr	x0, [x0]
+     9b8: f9000be0     	str	x0, [sp, #0x10]
+; 	std::cout << "开始测试缺省参数函数..." << std::endl;
+     9bc: 90000001     	adrp	x1, 0x0 <ltmp0>
+     9c0: 91000021     	add	x1, x1, #0x0
+     9c4: 94000000     	bl	0x9c4 <__Z20TestDefaultParameterv+0x20>
+     9c8: 90000001     	adrp	x1, 0x0 <ltmp0>
+     9cc: 91000021     	add	x1, x1, #0x0
+     9d0: f90007e1     	str	x1, [sp, #0x8]
+     9d4: 94000000     	bl	0x9d4 <__Z20TestDefaultParameterv+0x30>
+     9d8: 52800060     	mov	w0, #0x3                ; =3
+     9dc: b90007e0     	str	w0, [sp, #0x4]
+; 	int result1 = yzq::AddWithDefault(3);
+     9e0: 528000a1     	mov	w1, #0x5                ; =5
+     9e4: 94000000     	bl	0x9e4 <__Z20TestDefaultParameterv+0x40>
+     9e8: aa0003e8     	mov	x8, x0
+     9ec: f9400be0     	ldr	x0, [sp, #0x10]
+     9f0: b81fc3a8     	stur	w8, [x29, #-0x4]
+; 	std::cout << "调用 yzq::AddWithDefault(3) ，使用缺省参数，结果为：" << result1 << std::endl;
+     9f4: 90000001     	adrp	x1, 0x0 <ltmp0>
+     9f8: 91000021     	add	x1, x1, #0x0
+     9fc: 94000000     	bl	0x9fc <__Z20TestDefaultParameterv+0x58>
+     a00: b85fc3a1     	ldur	w1, [x29, #-0x4]
+     a04: 94000000     	bl	0xa04 <__Z20TestDefaultParameterv+0x60>
+     a08: f94007e1     	ldr	x1, [sp, #0x8]
+     a0c: 94000000     	bl	0xa0c <__Z20TestDefaultParameterv+0x68>
+     a10: b94007e0     	ldr	w0, [sp, #0x4]
+; 	int result2 = yzq::AddWithDefault(3, 4);
+     a14: 52800081     	mov	w1, #0x4                ; =4
+     a18: 94000000     	bl	0xa18 <__Z20TestDefaultParameterv+0x74>
+     a1c: aa0003e8     	mov	x8, x0
+     a20: f9400be0     	ldr	x0, [sp, #0x10]
+     a24: b81f83a8     	stur	w8, [x29, #-0x8]
+; 	std::cout << "调用 yzq::AddWithDefault(3, 4) ，不使用缺省参数，结果为：" << result2 << std::endl;
+     a28: 90000001     	adrp	x1, 0x0 <ltmp0>
+     a2c: 91000021     	add	x1, x1, #0x0
+     a30: 94000000     	bl	0xa30 <__Z20TestDefaultParameterv+0x8c>
+     a34: b85f83a1     	ldur	w1, [x29, #-0x8]
+     a38: 94000000     	bl	0xa38 <__Z20TestDefaultParameterv+0x94>
+     a3c: f94007e1     	ldr	x1, [sp, #0x8]
+     a40: 94000000     	bl	0xa40 <__Z20TestDefaultParameterv+0x9c>
+; 	yzq::defaultFun1(1);
+     a44: 52800020     	mov	w0, #0x1                ; =1
+     a48: 94000000     	bl	0xa48 <__Z20TestDefaultParameterv+0xa4>
+     a4c: f9400be0     	ldr	x0, [sp, #0x10]
+; 	std::cout << "缺省参数函数测试结束。" << std::endl;
+     a50: 90000001     	adrp	x1, 0x0 <ltmp0>
+     a54: 91000021     	add	x1, x1, #0x0
+     a58: 94000000     	bl	0xa58 <__Z20TestDefaultParameterv+0xb4>
+     a5c: f94007e1     	ldr	x1, [sp, #0x8]
+     a60: 94000000     	bl	0xa60 <__Z20TestDefaultParameterv+0xbc>
+     a64: f94007e1     	ldr	x1, [sp, #0x8]
+     a68: f9400be0     	ldr	x0, [sp, #0x10]
+; 	std::cout << std::endl;
+     a6c: 94000000     	bl	0xa6c <__Z20TestDefaultParameterv+0xc8>
+; }
+     a70: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+     a74: 9100c3ff     	add	sp, sp, #0x30
+     a78: d65f03c0     	ret
+
+0000000000000a7c <__ZN4yzq13AddEii>:
+; 	{
+     a7c: d10043ff     	sub	sp, sp, #0x10
+     a80: b9000fe0     	str	w0, [sp, #0xc]
+     a84: b9000be1     	str	w1, [sp, #0x8]
+; 		return a + b;
+     a88: b9400fe8     	ldr	w8, [sp, #0xc]
+     a8c: b9400be9     	ldr	w9, [sp, #0x8]
+     a90: 0b090100     	add	w0, w8, w9
+     a94: 910043ff     	add	sp, sp, #0x10
+     a98: d65f03c0     	ret
+
+0000000000000a9c <__ZN4yzq23AddEii>:
+; 	{
+     a9c: d10043ff     	sub	sp, sp, #0x10
+     aa0: b9000fe0     	str	w0, [sp, #0xc]
+     aa4: b9000be1     	str	w1, [sp, #0x8]
+; 		return a + b;
+     aa8: b9400fe8     	ldr	w8, [sp, #0xc]
+     aac: b9400be9     	ldr	w9, [sp, #0x8]
+     ab0: 0b090100     	add	w0, w8, w9
+     ab4: 910043ff     	add	sp, sp, #0x10
+     ab8: d65f03c0     	ret
+
+0000000000000abc <__ZN4yzq23AddEic>:
+; 	{
+     abc: d10043ff     	sub	sp, sp, #0x10
+     ac0: b9000fe0     	str	w0, [sp, #0xc]
+     ac4: 39002fe1     	strb	w1, [sp, #0xb]
+; 		return a + b;
+     ac8: b9400fe8     	ldr	w8, [sp, #0xc]
+     acc: 39c02fe9     	ldrsb	w9, [sp, #0xb]
+     ad0: 0b090100     	add	w0, w8, w9
+     ad4: 910043ff     	add	sp, sp, #0x10
+     ad8: d65f03c0     	ret
+
+0000000000000adc <__Z27TestFunOverLoadingPrinciplev>:
+; {
+     adc: d100c3ff     	sub	sp, sp, #0x30
+     ae0: a9027bfd     	stp	x29, x30, [sp, #0x20]
+     ae4: 910083fd     	add	x29, sp, #0x20
+     ae8: 90000000     	adrp	x0, 0x0 <ltmp0>
+     aec: f9400000     	ldr	x0, [x0]
+     af0: f9000be0     	str	x0, [sp, #0x10]
+; 	std::cout << "通过反汇编测试函数重载原理..." << std::endl;
+     af4: 90000001     	adrp	x1, 0x0 <ltmp0>
+     af8: 91000021     	add	x1, x1, #0x0
+     afc: 94000000     	bl	0xafc <__Z27TestFunOverLoadingPrinciplev+0x20>
+     b00: 90000001     	adrp	x1, 0x0 <ltmp0>
+     b04: 91000021     	add	x1, x1, #0x0
+     b08: f81f83a1     	stur	x1, [x29, #-0x8]
+     b0c: 94000000     	bl	0xb0c <__Z27TestFunOverLoadingPrinciplev+0x30>
+     b10: 52800020     	mov	w0, #0x1                ; =1
+     b14: b9000fe0     	str	w0, [sp, #0xc]
+     b18: 52800641     	mov	w1, #0x32               ; =50
+; 	std::cout << yzq2::Add(1, '2') << std::endl;
+     b1c: 94000000     	bl	0xb1c <__Z27TestFunOverLoadingPrinciplev+0x40>
+     b20: aa0003e1     	mov	x1, x0
+     b24: f9400be0     	ldr	x0, [sp, #0x10]
+     b28: 94000000     	bl	0xb28 <__Z27TestFunOverLoadingPrinciplev+0x4c>
+     b2c: f85f83a1     	ldur	x1, [x29, #-0x8]
+     b30: 94000000     	bl	0xb30 <__Z27TestFunOverLoadingPrinciplev+0x54>
+     b34: b9400fe0     	ldr	w0, [sp, #0xc]
+; 	std::cout << yzq2::Add(1, 2) << std::endl;
+     b38: 52800041     	mov	w1, #0x2                ; =2
+     b3c: 94000000     	bl	0xb3c <__Z27TestFunOverLoadingPrinciplev+0x60>
+     b40: aa0003e1     	mov	x1, x0
+     b44: f9400be0     	ldr	x0, [sp, #0x10]
+     b48: 94000000     	bl	0xb48 <__Z27TestFunOverLoadingPrinciplev+0x6c>
+     b4c: f85f83a1     	ldur	x1, [x29, #-0x8]
+     b50: 94000000     	bl	0xb50 <__Z27TestFunOverLoadingPrinciplev+0x74>
+; }
+     b54: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+     b58: 9100c3ff     	add	sp, sp, #0x30
+     b5c: d65f03c0     	ret
+
+0000000000000b60 <_main>:
+; {
+     b60: d100c3ff     	sub	sp, sp, #0x30
+     b64: a9027bfd     	stp	x29, x30, [sp, #0x20]
+     b68: 910083fd     	add	x29, sp, #0x20
+     b6c: 52800008     	mov	w8, #0x0                ; =0
+     b70: b9000fe8     	str	w8, [sp, #0xc]
+     b74: b81fc3bf     	stur	wzr, [x29, #-0x4]
+     b78: b81f83a0     	stur	w0, [x29, #-0x8]
+     b7c: f9000be1     	str	x1, [sp, #0x10]
+; 	TestFunOverLoadingPrinciple();
+     b80: 94000000     	bl	0xb80 <_main+0x20>
+     b84: b9400fe0     	ldr	w0, [sp, #0xc]
+; 	return 0;
+     b88: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+     b8c: 9100c3ff     	add	sp, sp, #0x30
+     b90: d65f03c0     	ret
+
+0000000000000b94 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m>:
+; __put_character_sequence(basic_ostream<_CharT, _Traits>& __os, const _CharT* __str, size_t __len) {
+     b94: d10283ff     	sub	sp, sp, #0xa0
+     b98: a9097bfd     	stp	x29, x30, [sp, #0x90]
+     b9c: 910243fd     	add	x29, sp, #0x90
+     ba0: f81f83a0     	stur	x0, [x29, #-0x8]
+     ba4: f81f03a1     	stur	x1, [x29, #-0x10]
+     ba8: f81e83a2     	stur	x2, [x29, #-0x18]
+;     typename basic_ostream<_CharT, _Traits>::sentry __s(__os);
+     bac: f85f83a1     	ldur	x1, [x29, #-0x8]
+     bb0: d100a3a0     	sub	x0, x29, #0x28
+     bb4: 94000000     	bl	0xbb4 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x20>
+     bb8: 14000001     	b	0xbbc <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x28>
+;     if (__s) {
+     bbc: d100a3a0     	sub	x0, x29, #0x28
+     bc0: 94000000     	bl	0xbc0 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x2c>
+     bc4: b90047e0     	str	w0, [sp, #0x44]
+     bc8: 14000001     	b	0xbcc <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x38>
+     bcc: b94047e8     	ldr	w8, [sp, #0x44]
+;     if (__s) {
+     bd0: 36000bc8     	tbz	w8, #0x0, 0xd48 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1b4>
+     bd4: 14000001     	b	0xbd8 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x44>
+;               _Ip(__os),
+     bd8: f85f83a1     	ldur	x1, [x29, #-0x8]
+     bdc: 910123e0     	add	x0, sp, #0x48
+     be0: 94000000     	bl	0xbe0 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x4c>
+;               __str,
+     be4: f85f03a8     	ldur	x8, [x29, #-0x10]
+     be8: f9001fe8     	str	x8, [sp, #0x38]
+;               (__os.flags() & ios_base::adjustfield) == ios_base::left ? __str + __len : __str,
+     bec: f85f83a8     	ldur	x8, [x29, #-0x8]
+     bf0: f9400109     	ldr	x9, [x8]
+     bf4: f85e8129     	ldur	x9, [x9, #-0x18]
+     bf8: 8b090100     	add	x0, x8, x9
+     bfc: 94000000     	bl	0xbfc <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x68>
+     c00: b90043e0     	str	w0, [sp, #0x40]
+     c04: 14000001     	b	0xc08 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x74>
+     c08: b94043e8     	ldr	w8, [sp, #0x40]
+;               (__os.flags() & ios_base::adjustfield) == ios_base::left ? __str + __len : __str,
+     c0c: 52801609     	mov	w9, #0xb0               ; =176
+     c10: 0a090108     	and	w8, w8, w9
+     c14: 71008108     	subs	w8, w8, #0x20
+     c18: 540000e1     	b.ne	0xc34 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0xa0>
+     c1c: 14000001     	b	0xc20 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x8c>
+     c20: f85f03a8     	ldur	x8, [x29, #-0x10]
+     c24: f85e83a9     	ldur	x9, [x29, #-0x18]
+     c28: 8b090108     	add	x8, x8, x9
+     c2c: f9001be8     	str	x8, [sp, #0x30]
+     c30: 14000004     	b	0xc40 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0xac>
+     c34: f85f03a8     	ldur	x8, [x29, #-0x10]
+     c38: f9001be8     	str	x8, [sp, #0x30]
+     c3c: 14000001     	b	0xc40 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0xac>
+     c40: f9401be8     	ldr	x8, [sp, #0x30]
+     c44: f9000be8     	str	x8, [sp, #0x10]
+;               __str + __len,
+     c48: f85f03a8     	ldur	x8, [x29, #-0x10]
+     c4c: f85e83a9     	ldur	x9, [x29, #-0x18]
+     c50: 8b090108     	add	x8, x8, x9
+     c54: f9000fe8     	str	x8, [sp, #0x18]
+;               __os,
+     c58: f85f83a8     	ldur	x8, [x29, #-0x8]
+     c5c: f9400109     	ldr	x9, [x8]
+     c60: f85e8129     	ldur	x9, [x9, #-0x18]
+     c64: 8b090108     	add	x8, x8, x9
+     c68: f90013e8     	str	x8, [sp, #0x20]
+;               __os.fill())
+     c6c: f85f83a8     	ldur	x8, [x29, #-0x8]
+     c70: f9400109     	ldr	x9, [x8]
+     c74: f85e8129     	ldur	x9, [x9, #-0x18]
+     c78: 8b090100     	add	x0, x8, x9
+     c7c: 94000000     	bl	0xc7c <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0xe8>
+     c80: b9002fe0     	str	w0, [sp, #0x2c]
+     c84: 14000001     	b	0xc88 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0xf4>
+     c88: b9402fe5     	ldr	w5, [sp, #0x2c]
+     c8c: f94013e4     	ldr	x4, [sp, #0x20]
+     c90: f9400fe3     	ldr	x3, [sp, #0x18]
+     c94: f9400be2     	ldr	x2, [sp, #0x10]
+     c98: f9401fe1     	ldr	x1, [sp, #0x38]
+;       if (std::__pad_and_output(
+     c9c: f94027e0     	ldr	x0, [sp, #0x48]
+     ca0: 94000000     	bl	0xca0 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x10c>
+     ca4: f90007e0     	str	x0, [sp, #0x8]
+     ca8: 14000001     	b	0xcac <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x118>
+     cac: f94007e8     	ldr	x8, [sp, #0x8]
+     cb0: d10103a0     	sub	x0, x29, #0x40
+;       if (std::__pad_and_output(
+     cb4: f81c03a8     	stur	x8, [x29, #-0x40]
+;               .failed())
+     cb8: 94000000     	bl	0xcb8 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x124>
+;       if (std::__pad_and_output(
+     cbc: 36000440     	tbz	w0, #0x0, 0xd44 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1b0>
+     cc0: 14000001     	b	0xcc4 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x130>
+;         __os.setstate(ios_base::badbit | ios_base::failbit);
+     cc4: f85f83a8     	ldur	x8, [x29, #-0x8]
+     cc8: f9400109     	ldr	x9, [x8]
+     ccc: f85e8129     	ldur	x9, [x9, #-0x18]
+     cd0: 8b090100     	add	x0, x8, x9
+     cd4: 528000a1     	mov	w1, #0x5                ; =5
+     cd8: 94000000     	bl	0xcd8 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x144>
+     cdc: 14000001     	b	0xce0 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x14c>
+     ce0: 14000019     	b	0xd44 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1b0>
+; }
+     ce4: f81d03a0     	stur	x0, [x29, #-0x30]
+     ce8: aa0103e8     	mov	x8, x1
+     cec: b81cc3a8     	stur	w8, [x29, #-0x34]
+     cf0: 14000007     	b	0xd0c <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x178>
+     cf4: f81d03a0     	stur	x0, [x29, #-0x30]
+     cf8: aa0103e8     	mov	x8, x1
+     cfc: b81cc3a8     	stur	w8, [x29, #-0x34]
+;   } catch (...) {
+     d00: d100a3a0     	sub	x0, x29, #0x28
+     d04: 94000000     	bl	0xd04 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x170>
+     d08: 14000001     	b	0xd0c <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x178>
+     d0c: f85d03a0     	ldur	x0, [x29, #-0x30]
+     d10: 94000000     	bl	0xd10 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x17c>
+;     __os.__set_badbit_and_consider_rethrow();
+     d14: f85f83a8     	ldur	x8, [x29, #-0x8]
+     d18: f9400109     	ldr	x9, [x8]
+     d1c: f85e8129     	ldur	x9, [x9, #-0x18]
+     d20: 8b090100     	add	x0, x8, x9
+     d24: 94000000     	bl	0xd24 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x190>
+     d28: 14000001     	b	0xd2c <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x198>
+;   }
+     d2c: 94000000     	bl	0xd2c <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x198>
+     d30: 14000001     	b	0xd34 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1a0>
+;   return __os;
+     d34: f85f83a0     	ldur	x0, [x29, #-0x8]
+     d38: a9497bfd     	ldp	x29, x30, [sp, #0x90]
+     d3c: 910283ff     	add	sp, sp, #0xa0
+     d40: d65f03c0     	ret
+;     }
+     d44: 14000001     	b	0xd48 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1b4>
+;   } catch (...) {
+     d48: d100a3a0     	sub	x0, x29, #0x28
+     d4c: 94000000     	bl	0xd4c <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1b8>
+     d50: 17fffff9     	b	0xd34 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1a0>
+; }
+     d54: f81d03a0     	stur	x0, [x29, #-0x30]
+     d58: aa0103e8     	mov	x8, x1
+     d5c: b81cc3a8     	stur	w8, [x29, #-0x34]
+;   }
+     d60: 94000000     	bl	0xd60 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1cc>
+     d64: 14000001     	b	0xd68 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1d4>
+     d68: 14000001     	b	0xd6c <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1d8>
+     d6c: f85d03a0     	ldur	x0, [x29, #-0x30]
+     d70: 94000000     	bl	0xd70 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1dc>
+     d74: 94000000     	bl	0xd74 <__ZNSt3__124__put_character_sequenceB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m+0x1e0>
+
+0000000000000d78 <__ZNSt3__111char_traitsIcE6lengthB8ne190102EPKc>:
+;   static inline _LIBCPP_HIDE_FROM_ABI size_t _LIBCPP_CONSTEXPR_SINCE_CXX17 length(const char_type* __s) _NOEXCEPT {
+     d78: d10083ff     	sub	sp, sp, #0x20
+     d7c: a9017bfd     	stp	x29, x30, [sp, #0x10]
+     d80: 910043fd     	add	x29, sp, #0x10
+     d84: f90007e0     	str	x0, [sp, #0x8]
+;     return std::__constexpr_strlen(__s);
+     d88: f94007e0     	ldr	x0, [sp, #0x8]
+     d8c: 94000000     	bl	0xd8c <__ZNSt3__111char_traitsIcE6lengthB8ne190102EPKc+0x14>
+     d90: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+     d94: 910083ff     	add	sp, sp, #0x20
+     d98: d65f03c0     	ret
+
+0000000000000d9c <__ZNKSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentrycvbB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI explicit operator bool() const { return __ok_; }
+     d9c: d10043ff     	sub	sp, sp, #0x10
+     da0: f90007e0     	str	x0, [sp, #0x8]
+     da4: f94007e8     	ldr	x8, [sp, #0x8]
+     da8: 39400108     	ldrb	w8, [x8]
+     dac: 12000100     	and	w0, w8, #0x1
+     db0: 910043ff     	add	sp, sp, #0x10
+     db4: d65f03c0     	ret
+
+0000000000000db8 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_>:
+;     _CharT __fl) {
+     db8: d10283ff     	sub	sp, sp, #0xa0
+     dbc: a9097bfd     	stp	x29, x30, [sp, #0x90]
+     dc0: 910243fd     	add	x29, sp, #0x90
+     dc4: f81f03a0     	stur	x0, [x29, #-0x10]
+     dc8: f81e83a1     	stur	x1, [x29, #-0x18]
+     dcc: f81e03a2     	stur	x2, [x29, #-0x20]
+     dd0: f81d83a3     	stur	x3, [x29, #-0x28]
+     dd4: f81d03a4     	stur	x4, [x29, #-0x30]
+     dd8: 381cf3a5     	sturb	w5, [x29, #-0x31]
+;   if (__s.__sbuf_ == nullptr)
+     ddc: f85f03a8     	ldur	x8, [x29, #-0x10]
+     de0: b50000a8     	cbnz	x8, 0xdf4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x3c>
+     de4: 14000001     	b	0xde8 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x30>
+;     return __s;
+     de8: f85f03a8     	ldur	x8, [x29, #-0x10]
+     dec: f81f83a8     	stur	x8, [x29, #-0x8]
+     df0: 14000071     	b	0xfb4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1fc>
+;   streamsize __sz = __oe - __ob;
+     df4: f85d83a8     	ldur	x8, [x29, #-0x28]
+     df8: f85e83a9     	ldur	x9, [x29, #-0x18]
+     dfc: eb090108     	subs	x8, x8, x9
+     e00: f81c03a8     	stur	x8, [x29, #-0x40]
+;   streamsize __ns = __iob.width();
+     e04: f85d03a0     	ldur	x0, [x29, #-0x30]
+     e08: 94000000     	bl	0xe08 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x50>
+     e0c: f90027e0     	str	x0, [sp, #0x48]
+;   if (__ns > __sz)
+     e10: f94027e8     	ldr	x8, [sp, #0x48]
+     e14: f85c03a9     	ldur	x9, [x29, #-0x40]
+     e18: eb090108     	subs	x8, x8, x9
+     e1c: 540000ed     	b.le	0xe38 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x80>
+     e20: 14000001     	b	0xe24 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x6c>
+;     __ns -= __sz;
+     e24: f85c03a9     	ldur	x9, [x29, #-0x40]
+     e28: f94027e8     	ldr	x8, [sp, #0x48]
+     e2c: eb090108     	subs	x8, x8, x9
+     e30: f90027e8     	str	x8, [sp, #0x48]
+     e34: 14000003     	b	0xe40 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x88>
+;     __ns = 0;
+     e38: f90027ff     	str	xzr, [sp, #0x48]
+     e3c: 14000001     	b	0xe40 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x88>
+;   streamsize __np = __op - __ob;
+     e40: f85e03a8     	ldur	x8, [x29, #-0x20]
+     e44: f85e83a9     	ldur	x9, [x29, #-0x18]
+     e48: eb090108     	subs	x8, x8, x9
+     e4c: f90023e8     	str	x8, [sp, #0x40]
+;   if (__np > 0) {
+     e50: f94023e8     	ldr	x8, [sp, #0x40]
+     e54: f1000108     	subs	x8, x8, #0x0
+     e58: 540001ed     	b.le	0xe94 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0xdc>
+     e5c: 14000001     	b	0xe60 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0xa8>
+;     if (__s.__sbuf_->sputn(__ob, __np) != __np) {
+     e60: f85f03a0     	ldur	x0, [x29, #-0x10]
+     e64: f85e83a1     	ldur	x1, [x29, #-0x18]
+     e68: f94023e2     	ldr	x2, [sp, #0x40]
+     e6c: 94000000     	bl	0xe6c <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0xb4>
+     e70: f94023e8     	ldr	x8, [sp, #0x40]
+     e74: eb080008     	subs	x8, x0, x8
+     e78: 540000c0     	b.eq	0xe90 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0xd8>
+     e7c: 14000001     	b	0xe80 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0xc8>
+;       __s.__sbuf_ = nullptr;
+     e80: f81f03bf     	stur	xzr, [x29, #-0x10]
+;       return __s;
+     e84: f85f03a8     	ldur	x8, [x29, #-0x10]
+     e88: f81f83a8     	stur	x8, [x29, #-0x8]
+     e8c: 1400004a     	b	0xfb4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1fc>
+;   }
+     e90: 14000001     	b	0xe94 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0xdc>
+;   if (__ns > 0) {
+     e94: f94027e8     	ldr	x8, [sp, #0x48]
+     e98: f1000108     	subs	x8, x8, #0x0
+     e9c: 5400056d     	b.le	0xf48 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x190>
+     ea0: 14000001     	b	0xea4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0xec>
+;     basic_string<_CharT, _Traits> __sp(__ns, __fl);
+     ea4: f94027e1     	ldr	x1, [sp, #0x48]
+     ea8: 38dcf3a2     	ldursb	w2, [x29, #-0x31]
+     eac: 9100a3e0     	add	x0, sp, #0x28
+     eb0: f90003e0     	str	x0, [sp]
+     eb4: 94000000     	bl	0xeb4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0xfc>
+     eb8: f94003e0     	ldr	x0, [sp]
+;     if (__s.__sbuf_->sputn(__sp.data(), __ns) != __ns) {
+     ebc: f85f03a8     	ldur	x8, [x29, #-0x10]
+     ec0: f90007e8     	str	x8, [sp, #0x8]
+     ec4: 94000000     	bl	0xec4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x10c>
+     ec8: aa0003e1     	mov	x1, x0
+     ecc: f94007e0     	ldr	x0, [sp, #0x8]
+     ed0: f94027e2     	ldr	x2, [sp, #0x48]
+     ed4: 94000000     	bl	0xed4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x11c>
+     ed8: f9000be0     	str	x0, [sp, #0x10]
+     edc: 14000001     	b	0xee0 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x128>
+     ee0: f9400be8     	ldr	x8, [sp, #0x10]
+;     if (__s.__sbuf_->sputn(__sp.data(), __ns) != __ns) {
+     ee4: f94027e9     	ldr	x9, [sp, #0x48]
+     ee8: eb090108     	subs	x8, x8, x9
+     eec: 540001c0     	b.eq	0xf24 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x16c>
+     ef0: 14000001     	b	0xef4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x13c>
+;       __s.__sbuf_ = nullptr;
+     ef4: f81f03bf     	stur	xzr, [x29, #-0x10]
+;       return __s;
+     ef8: f85f03a8     	ldur	x8, [x29, #-0x10]
+     efc: f81f83a8     	stur	x8, [x29, #-0x8]
+     f00: 52800028     	mov	w8, #0x1                ; =1
+     f04: b9001be8     	str	w8, [sp, #0x18]
+     f08: 14000009     	b	0xf2c <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x174>
+; }
+     f0c: f90013e0     	str	x0, [sp, #0x20]
+     f10: aa0103e8     	mov	x8, x1
+     f14: b9001fe8     	str	w8, [sp, #0x1c]
+;   }
+     f18: 9100a3e0     	add	x0, sp, #0x28
+     f1c: 94000000     	bl	0xf1c <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x164>
+     f20: 14000029     	b	0xfc4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x20c>
+     f24: b9001bff     	str	wzr, [sp, #0x18]
+     f28: 14000001     	b	0xf2c <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x174>
+     f2c: 9100a3e0     	add	x0, sp, #0x28
+     f30: 94000000     	bl	0xf30 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x178>
+     f34: b9401be8     	ldr	w8, [sp, #0x18]
+     f38: 34000068     	cbz	w8, 0xf44 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x18c>
+     f3c: 14000001     	b	0xf40 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x188>
+     f40: 1400001d     	b	0xfb4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1fc>
+;   }
+     f44: 14000001     	b	0xf48 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x190>
+;   __np = __oe - __op;
+     f48: f85d83a8     	ldur	x8, [x29, #-0x28]
+     f4c: f85e03a9     	ldur	x9, [x29, #-0x20]
+     f50: eb090108     	subs	x8, x8, x9
+     f54: f90023e8     	str	x8, [sp, #0x40]
+;   if (__np > 0) {
+     f58: f94023e8     	ldr	x8, [sp, #0x40]
+     f5c: f1000108     	subs	x8, x8, #0x0
+     f60: 540001ed     	b.le	0xf9c <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1e4>
+     f64: 14000001     	b	0xf68 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1b0>
+;     if (__s.__sbuf_->sputn(__op, __np) != __np) {
+     f68: f85f03a0     	ldur	x0, [x29, #-0x10]
+     f6c: f85e03a1     	ldur	x1, [x29, #-0x20]
+     f70: f94023e2     	ldr	x2, [sp, #0x40]
+     f74: 94000000     	bl	0xf74 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1bc>
+     f78: f94023e8     	ldr	x8, [sp, #0x40]
+     f7c: eb080008     	subs	x8, x0, x8
+     f80: 540000c0     	b.eq	0xf98 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1e0>
+     f84: 14000001     	b	0xf88 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1d0>
+;       __s.__sbuf_ = nullptr;
+     f88: f81f03bf     	stur	xzr, [x29, #-0x10]
+;       return __s;
+     f8c: f85f03a8     	ldur	x8, [x29, #-0x10]
+     f90: f81f83a8     	stur	x8, [x29, #-0x8]
+     f94: 14000008     	b	0xfb4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1fc>
+;   }
+     f98: 14000001     	b	0xf9c <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1e4>
+;   __iob.width(0);
+     f9c: f85d03a0     	ldur	x0, [x29, #-0x30]
+     fa0: d2800001     	mov	x1, #0x0                ; =0
+     fa4: 94000000     	bl	0xfa4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1ec>
+;   return __s;
+     fa8: f85f03a8     	ldur	x8, [x29, #-0x10]
+     fac: f81f83a8     	stur	x8, [x29, #-0x8]
+     fb0: 14000001     	b	0xfb4 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x1fc>
+; }
+     fb4: f85f83a0     	ldur	x0, [x29, #-0x8]
+     fb8: a9497bfd     	ldp	x29, x30, [sp, #0x90]
+     fbc: 910283ff     	add	sp, sp, #0xa0
+     fc0: d65f03c0     	ret
+;   }
+     fc4: f94013e0     	ldr	x0, [sp, #0x20]
+     fc8: 94000000     	bl	0xfc8 <__ZNSt3__116__pad_and_outputB8ne190102IcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_+0x210>
+
+0000000000000fcc <__ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC1B8ne190102ERNS_13basic_ostreamIcS2_EE>:
+;   _LIBCPP_HIDE_FROM_ABI ostreambuf_iterator(ostream_type& __s) _NOEXCEPT : __sbuf_(__s.rdbuf()) {}
+     fcc: d100c3ff     	sub	sp, sp, #0x30
+     fd0: a9027bfd     	stp	x29, x30, [sp, #0x20]
+     fd4: 910083fd     	add	x29, sp, #0x20
+     fd8: f81f83a0     	stur	x0, [x29, #-0x8]
+     fdc: f9000be1     	str	x1, [sp, #0x10]
+     fe0: f85f83a0     	ldur	x0, [x29, #-0x8]
+     fe4: f90007e0     	str	x0, [sp, #0x8]
+     fe8: f9400be1     	ldr	x1, [sp, #0x10]
+     fec: 94000000     	bl	0xfec <__ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC1B8ne190102ERNS_13basic_ostreamIcS2_EE+0x20>
+     ff0: f94007e0     	ldr	x0, [sp, #0x8]
+     ff4: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+     ff8: 9100c3ff     	add	sp, sp, #0x30
+     ffc: d65f03c0     	ret
+
+0000000000001000 <__ZNKSt3__18ios_base5flagsB8ne190102Ev>:
+; inline _LIBCPP_HIDE_FROM_ABI ios_base::fmtflags ios_base::flags() const { return __fmtflags_; }
+    1000: d10043ff     	sub	sp, sp, #0x10
+    1004: f90007e0     	str	x0, [sp, #0x8]
+    1008: f94007e8     	ldr	x8, [sp, #0x8]
+    100c: b9400900     	ldr	w0, [x8, #0x8]
+    1010: 910043ff     	add	sp, sp, #0x10
+    1014: d65f03c0     	ret
+
+0000000000001018 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE4fillB8ne190102Ev>:
+; inline _LIBCPP_HIDE_FROM_ABI _CharT basic_ios<_CharT, _Traits>::fill() const {
+    1018: d10083ff     	sub	sp, sp, #0x20
+    101c: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    1020: 910043fd     	add	x29, sp, #0x10
+    1024: f90007e0     	str	x0, [sp, #0x8]
+    1028: f94007e8     	ldr	x8, [sp, #0x8]
+    102c: f90003e8     	str	x8, [sp]
+;   if (!__fill_.__is_set())
+    1030: 91024100     	add	x0, x8, #0x90
+    1034: 94000000     	bl	0x1034 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE4fillB8ne190102Ev+0x1c>
+    1038: 37000140     	tbnz	w0, #0x0, 0x1060 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE4fillB8ne190102Ev+0x48>
+    103c: 14000001     	b	0x1040 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE4fillB8ne190102Ev+0x28>
+    1040: f94003e0     	ldr	x0, [sp]
+    1044: 52800401     	mov	w1, #0x20               ; =32
+;     __fill_ = widen(' ');
+    1048: 94000000     	bl	0x1048 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE4fillB8ne190102Ev+0x30>
+    104c: f94003e8     	ldr	x8, [sp]
+    1050: aa0003e1     	mov	x1, x0
+    1054: 91024100     	add	x0, x8, #0x90
+    1058: 94000000     	bl	0x1058 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE4fillB8ne190102Ev+0x40>
+    105c: 14000001     	b	0x1060 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE4fillB8ne190102Ev+0x48>
+    1060: f94003e8     	ldr	x8, [sp]
+;   return __fill_.__get();
+    1064: 91024100     	add	x0, x8, #0x90
+    1068: 94000000     	bl	0x1068 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE4fillB8ne190102Ev+0x50>
+    106c: 13001c00     	sxtb	w0, w0
+    1070: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    1074: 910083ff     	add	sp, sp, #0x20
+    1078: d65f03c0     	ret
+
+000000000000107c <__ZNKSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEE6failedB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI bool failed() const _NOEXCEPT { return __sbuf_ == nullptr; }
+    107c: d10043ff     	sub	sp, sp, #0x10
+    1080: f90007e0     	str	x0, [sp, #0x8]
+    1084: f94007e8     	ldr	x8, [sp, #0x8]
+    1088: f9400108     	ldr	x8, [x8]
+    108c: f1000108     	subs	x8, x8, #0x0
+    1090: 1a9f17e0     	cset	w0, eq
+    1094: 910043ff     	add	sp, sp, #0x10
+    1098: d65f03c0     	ret
+
+000000000000109c <__ZNSt3__19basic_iosIcNS_11char_traitsIcEEE8setstateB8ne190102Ej>:
+;   _LIBCPP_HIDE_FROM_ABI void setstate(iostate __state) { ios_base::setstate(__state); }
+    109c: d10083ff     	sub	sp, sp, #0x20
+    10a0: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    10a4: 910043fd     	add	x29, sp, #0x10
+    10a8: f90007e0     	str	x0, [sp, #0x8]
+    10ac: b90007e1     	str	w1, [sp, #0x4]
+    10b0: f94007e0     	ldr	x0, [sp, #0x8]
+    10b4: b94007e1     	ldr	w1, [sp, #0x4]
+    10b8: 94000000     	bl	0x10b8 <__ZNSt3__19basic_iosIcNS_11char_traitsIcEEE8setstateB8ne190102Ej+0x1c>
+    10bc: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    10c0: 910083ff     	add	sp, sp, #0x20
+    10c4: d65f03c0     	ret
+
+00000000000010c8 <___clang_call_terminate>:
+    10c8: a9bf7bfd     	stp	x29, x30, [sp, #-0x10]!
+    10cc: 910003fd     	mov	x29, sp
+    10d0: 94000000     	bl	0x10d0 <___clang_call_terminate+0x8>
+    10d4: 94000000     	bl	0x10d4 <___clang_call_terminate+0xc>
+
+00000000000010d8 <__ZNKSt3__18ios_base5widthB8ne190102Ev>:
+; inline _LIBCPP_HIDE_FROM_ABI streamsize ios_base::width() const { return __width_; }
+    10d8: d10043ff     	sub	sp, sp, #0x10
+    10dc: f90007e0     	str	x0, [sp, #0x8]
+    10e0: f94007e8     	ldr	x8, [sp, #0x8]
+    10e4: f9400d00     	ldr	x0, [x8, #0x18]
+    10e8: 910043ff     	add	sp, sp, #0x10
+    10ec: d65f03c0     	ret
+
+00000000000010f0 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE5sputnB8ne190102EPKcl>:
+;   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 streamsize sputn(const char_type* __s, streamsize __n) {
+    10f0: d100c3ff     	sub	sp, sp, #0x30
+    10f4: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    10f8: 910083fd     	add	x29, sp, #0x20
+    10fc: f81f83a0     	stur	x0, [x29, #-0x8]
+    1100: f9000be1     	str	x1, [sp, #0x10]
+    1104: f90007e2     	str	x2, [sp, #0x8]
+    1108: f85f83a0     	ldur	x0, [x29, #-0x8]
+;     return xsputn(__s, __n);
+    110c: f9400be1     	ldr	x1, [sp, #0x10]
+    1110: f94007e2     	ldr	x2, [sp, #0x8]
+    1114: f9400008     	ldr	x8, [x0]
+    1118: f9403108     	ldr	x8, [x8, #0x60]
+    111c: d63f0100     	blr	x8
+    1120: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    1124: 9100c3ff     	add	sp, sp, #0x30
+    1128: d65f03c0     	ret
+
+000000000000112c <__ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC1B8ne190102Emc>:
+;       : __r_(__default_init_tag(), __default_init_tag()) {
+    112c: d100c3ff     	sub	sp, sp, #0x30
+    1130: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    1134: 910083fd     	add	x29, sp, #0x20
+    1138: f81f83a0     	stur	x0, [x29, #-0x8]
+    113c: f9000be1     	str	x1, [sp, #0x10]
+    1140: 39003fe2     	strb	w2, [sp, #0xf]
+    1144: f85f83a0     	ldur	x0, [x29, #-0x8]
+    1148: f90003e0     	str	x0, [sp]
+    114c: f9400be1     	ldr	x1, [sp, #0x10]
+    1150: 39c03fe2     	ldrsb	w2, [sp, #0xf]
+    1154: 94000000     	bl	0x1154 <__ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC1B8ne190102Emc+0x28>
+    1158: f94003e0     	ldr	x0, [sp]
+;   }
+    115c: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    1160: 9100c3ff     	add	sp, sp, #0x30
+    1164: d65f03c0     	ret
+
+0000000000001168 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE4dataB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 const value_type* data() const _NOEXCEPT {
+    1168: d10083ff     	sub	sp, sp, #0x20
+    116c: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    1170: 910043fd     	add	x29, sp, #0x10
+    1174: f90007e0     	str	x0, [sp, #0x8]
+    1178: f94007e0     	ldr	x0, [sp, #0x8]
+;     return std::__to_address(__get_pointer());
+    117c: 94000000     	bl	0x117c <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE4dataB8ne190102Ev+0x14>
+    1180: 94000000     	bl	0x1180 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE4dataB8ne190102Ev+0x18>
+    1184: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    1188: 910083ff     	add	sp, sp, #0x20
+    118c: d65f03c0     	ret
+
+0000000000001190 <__ZNSt3__18ios_base5widthB8ne190102El>:
+; inline _LIBCPP_HIDE_FROM_ABI streamsize ios_base::width(streamsize __wide) {
+    1190: d10083ff     	sub	sp, sp, #0x20
+    1194: f9000fe0     	str	x0, [sp, #0x18]
+    1198: f9000be1     	str	x1, [sp, #0x10]
+    119c: f9400fe9     	ldr	x9, [sp, #0x18]
+;   streamsize __r = __width_;
+    11a0: f9400d28     	ldr	x8, [x9, #0x18]
+    11a4: f90007e8     	str	x8, [sp, #0x8]
+;   __width_       = __wide;
+    11a8: f9400be8     	ldr	x8, [sp, #0x10]
+    11ac: f9000d28     	str	x8, [x9, #0x18]
+;   return __r;
+    11b0: f94007e0     	ldr	x0, [sp, #0x8]
+    11b4: 910083ff     	add	sp, sp, #0x20
+    11b8: d65f03c0     	ret
+
+00000000000011bc <__ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ne190102Emc>:
+;       : __r_(__default_init_tag(), __default_init_tag()) {
+    11bc: d100c3ff     	sub	sp, sp, #0x30
+    11c0: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    11c4: 910083fd     	add	x29, sp, #0x20
+    11c8: f81f83a0     	stur	x0, [x29, #-0x8]
+    11cc: f9000be1     	str	x1, [sp, #0x10]
+    11d0: 39003fe2     	strb	w2, [sp, #0xf]
+    11d4: f85f83a0     	ldur	x0, [x29, #-0x8]
+    11d8: f90003e0     	str	x0, [sp]
+    11dc: 91003be1     	add	x1, sp, #0xe
+    11e0: 910037e2     	add	x2, sp, #0xd
+    11e4: 94000000     	bl	0x11e4 <__ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ne190102Emc+0x28>
+    11e8: f94003e0     	ldr	x0, [sp]
+;     __init(__n, __c);
+    11ec: f9400be1     	ldr	x1, [sp, #0x10]
+    11f0: 39c03fe2     	ldrsb	w2, [sp, #0xf]
+    11f4: 94000000     	bl	0x11f4 <__ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEC2B8ne190102Emc+0x38>
+    11f8: f94003e0     	ldr	x0, [sp]
+;   }
+    11fc: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    1200: 9100c3ff     	add	sp, sp, #0x30
+    1204: d65f03c0     	ret
+
+0000000000001208 <__ZNSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_EC1B8ne190102INS_18__default_init_tagESA_EEOT_OT0_>:
+;       : _Base1(std::forward<_U1>(__t1)), _Base2(std::forward<_U2>(__t2)) {}
+    1208: d100c3ff     	sub	sp, sp, #0x30
+    120c: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    1210: 910083fd     	add	x29, sp, #0x20
+    1214: f81f83a0     	stur	x0, [x29, #-0x8]
+    1218: f9000be1     	str	x1, [sp, #0x10]
+    121c: f90007e2     	str	x2, [sp, #0x8]
+    1220: f85f83a0     	ldur	x0, [x29, #-0x8]
+    1224: f90003e0     	str	x0, [sp]
+    1228: f9400be1     	ldr	x1, [sp, #0x10]
+    122c: f94007e2     	ldr	x2, [sp, #0x8]
+    1230: 94000000     	bl	0x1230 <__ZNSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_EC1B8ne190102INS_18__default_init_tagESA_EEOT_OT0_+0x28>
+    1234: f94003e0     	ldr	x0, [sp]
+    1238: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    123c: 9100c3ff     	add	sp, sp, #0x30
+    1240: d65f03c0     	ret
+
+0000000000001244 <__ZNSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_EC2B8ne190102INS_18__default_init_tagESA_EEOT_OT0_>:
+    1244: d10103ff     	sub	sp, sp, #0x40
+    1248: a9037bfd     	stp	x29, x30, [sp, #0x30]
+    124c: 9100c3fd     	add	x29, sp, #0x30
+    1250: f81f83a0     	stur	x0, [x29, #-0x8]
+    1254: f81f03a1     	stur	x1, [x29, #-0x10]
+    1258: f9000fe2     	str	x2, [sp, #0x18]
+    125c: f85f83a0     	ldur	x0, [x29, #-0x8]
+    1260: f90007e0     	str	x0, [sp, #0x8]
+    1264: 94000000     	bl	0x1264 <__ZNSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_EC2B8ne190102INS_18__default_init_tagESA_EEOT_OT0_+0x20>
+    1268: f94007e0     	ldr	x0, [sp, #0x8]
+    126c: 94000000     	bl	0x126c <__ZNSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_EC2B8ne190102INS_18__default_init_tagESA_EEOT_OT0_+0x28>
+    1270: f94007e0     	ldr	x0, [sp, #0x8]
+    1274: a9437bfd     	ldp	x29, x30, [sp, #0x30]
+    1278: 910103ff     	add	sp, sp, #0x40
+    127c: d65f03c0     	ret
+
+0000000000001280 <__ZNSt3__122__compressed_pair_elemINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repELi0ELb0EEC2B8ne190102ENS_18__default_init_tagE>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR explicit __compressed_pair_elem(__default_init_tag) {}
+    1280: d10043ff     	sub	sp, sp, #0x10
+    1284: f90003e0     	str	x0, [sp]
+    1288: f94003e0     	ldr	x0, [sp]
+    128c: 910043ff     	add	sp, sp, #0x10
+    1290: d65f03c0     	ret
+
+0000000000001294 <__ZNSt3__122__compressed_pair_elemINS_9allocatorIcEELi1ELb1EEC2B8ne190102ENS_18__default_init_tagE>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR explicit __compressed_pair_elem(__default_init_tag) {}
+    1294: d100c3ff     	sub	sp, sp, #0x30
+    1298: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    129c: 910083fd     	add	x29, sp, #0x20
+    12a0: f9000be0     	str	x0, [sp, #0x10]
+    12a4: f9400be0     	ldr	x0, [sp, #0x10]
+    12a8: f90007e0     	str	x0, [sp, #0x8]
+    12ac: 94000000     	bl	0x12ac <__ZNSt3__122__compressed_pair_elemINS_9allocatorIcEELi1ELb1EEC2B8ne190102ENS_18__default_init_tagE+0x18>
+    12b0: f94007e0     	ldr	x0, [sp, #0x8]
+    12b4: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    12b8: 9100c3ff     	add	sp, sp, #0x30
+    12bc: d65f03c0     	ret
+
+00000000000012c0 <__ZNSt3__19allocatorIcEC2B8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 allocator() _NOEXCEPT = default;
+    12c0: d10083ff     	sub	sp, sp, #0x20
+    12c4: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    12c8: 910043fd     	add	x29, sp, #0x10
+    12cc: f90007e0     	str	x0, [sp, #0x8]
+    12d0: f94007e0     	ldr	x0, [sp, #0x8]
+    12d4: f90003e0     	str	x0, [sp]
+    12d8: 94000000     	bl	0x12d8 <__ZNSt3__19allocatorIcEC2B8ne190102Ev+0x18>
+    12dc: f94003e0     	ldr	x0, [sp]
+    12e0: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    12e4: 910083ff     	add	sp, sp, #0x20
+    12e8: d65f03c0     	ret
+
+00000000000012ec <__ZNSt3__116__non_trivial_ifILb1ENS_9allocatorIcEEEC2B8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR __non_trivial_if() _NOEXCEPT {}
+    12ec: d10043ff     	sub	sp, sp, #0x10
+    12f0: f90007e0     	str	x0, [sp, #0x8]
+    12f4: f94007e0     	ldr	x0, [sp, #0x8]
+    12f8: 910043ff     	add	sp, sp, #0x10
+    12fc: d65f03c0     	ret
+
+0000000000001300 <__ZNSt3__112__to_addressB8ne190102IKcEEPT_S3_>:
+; _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR _Tp* __to_address(_Tp* __p) _NOEXCEPT {
+    1300: d10043ff     	sub	sp, sp, #0x10
+    1304: f90007e0     	str	x0, [sp, #0x8]
+;   return __p;
+    1308: f94007e0     	ldr	x0, [sp, #0x8]
+    130c: 910043ff     	add	sp, sp, #0x10
+    1310: d65f03c0     	ret
+
+0000000000001314 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 const_pointer __get_pointer() const _NOEXCEPT {
+    1314: d100c3ff     	sub	sp, sp, #0x30
+    1318: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    131c: 910083fd     	add	x29, sp, #0x20
+    1320: f81f83a0     	stur	x0, [x29, #-0x8]
+    1324: f85f83a0     	ldur	x0, [x29, #-0x8]
+    1328: f9000be0     	str	x0, [sp, #0x10]
+;     return __is_long() ? __get_long_pointer() : __get_short_pointer();
+    132c: 94000000     	bl	0x132c <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerB8ne190102Ev+0x18>
+    1330: 360000c0     	tbz	w0, #0x0, 0x1348 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerB8ne190102Ev+0x34>
+    1334: 14000001     	b	0x1338 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerB8ne190102Ev+0x24>
+    1338: f9400be0     	ldr	x0, [sp, #0x10]
+;     return __is_long() ? __get_long_pointer() : __get_short_pointer();
+    133c: 94000000     	bl	0x133c <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerB8ne190102Ev+0x28>
+    1340: f90007e0     	str	x0, [sp, #0x8]
+    1344: 14000005     	b	0x1358 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerB8ne190102Ev+0x44>
+    1348: f9400be0     	ldr	x0, [sp, #0x10]
+;     return __is_long() ? __get_long_pointer() : __get_short_pointer();
+    134c: 94000000     	bl	0x134c <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerB8ne190102Ev+0x38>
+    1350: f90007e0     	str	x0, [sp, #0x8]
+    1354: 14000001     	b	0x1358 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE13__get_pointerB8ne190102Ev+0x44>
+    1358: f94007e0     	ldr	x0, [sp, #0x8]
+;     return __is_long() ? __get_long_pointer() : __get_short_pointer();
+    135c: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    1360: 9100c3ff     	add	sp, sp, #0x30
+    1364: d65f03c0     	ret
+
+0000000000001368 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__is_longB8ne190102Ev>:
+;   __is_long() const _NOEXCEPT {
+    1368: d10083ff     	sub	sp, sp, #0x20
+    136c: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    1370: 910043fd     	add	x29, sp, #0x10
+    1374: f90007e0     	str	x0, [sp, #0x8]
+    1378: f94007e0     	ldr	x0, [sp, #0x8]
+;     return __r_.first().__s.__is_long_;
+    137c: 94000000     	bl	0x137c <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE9__is_longB8ne190102Ev+0x14>
+    1380: 39405c08     	ldrb	w8, [x0, #0x17]
+    1384: 53077d08     	lsr	w8, w8, #7
+    1388: 71000108     	subs	w8, w8, #0x0
+    138c: 1a9f07e0     	cset	w0, ne
+    1390: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    1394: 910083ff     	add	sp, sp, #0x20
+    1398: d65f03c0     	ret
+
+000000000000139c <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__get_long_pointerB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 const_pointer __get_long_pointer() const _NOEXCEPT {
+    139c: d10083ff     	sub	sp, sp, #0x20
+    13a0: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    13a4: 910043fd     	add	x29, sp, #0x10
+    13a8: f90007e0     	str	x0, [sp, #0x8]
+    13ac: f94007e0     	ldr	x0, [sp, #0x8]
+;     return _LIBCPP_ASAN_VOLATILE_WRAPPER(__r_.first().__l.__data_);
+    13b0: 94000000     	bl	0x13b0 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE18__get_long_pointerB8ne190102Ev+0x14>
+    13b4: f9400000     	ldr	x0, [x0]
+    13b8: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    13bc: 910083ff     	add	sp, sp, #0x20
+    13c0: d65f03c0     	ret
+
+00000000000013c4 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE19__get_short_pointerB8ne190102Ev>:
+;   __get_short_pointer() const _NOEXCEPT {
+    13c4: d10083ff     	sub	sp, sp, #0x20
+    13c8: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    13cc: 910043fd     	add	x29, sp, #0x10
+    13d0: f90007e0     	str	x0, [sp, #0x8]
+    13d4: f94007e0     	ldr	x0, [sp, #0x8]
+;     return _LIBCPP_ASAN_VOLATILE_WRAPPER(pointer_traits<const_pointer>::pointer_to(__r_.first().__s.__data_[0]));
+    13d8: 94000000     	bl	0x13d8 <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE19__get_short_pointerB8ne190102Ev+0x14>
+    13dc: 94000000     	bl	0x13dc <__ZNKSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE19__get_short_pointerB8ne190102Ev+0x18>
+    13e0: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    13e4: 910083ff     	add	sp, sp, #0x20
+    13e8: d65f03c0     	ret
+
+00000000000013ec <__ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR typename _Base1::const_reference first() const _NOEXCEPT {
+    13ec: d10083ff     	sub	sp, sp, #0x20
+    13f0: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    13f4: 910043fd     	add	x29, sp, #0x10
+    13f8: f90007e0     	str	x0, [sp, #0x8]
+    13fc: f94007e0     	ldr	x0, [sp, #0x8]
+;     return static_cast<_Base1 const&>(*this).__get();
+    1400: 94000000     	bl	0x1400 <__ZNKSt3__117__compressed_pairINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repES5_E5firstB8ne190102Ev+0x14>
+    1404: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    1408: 910083ff     	add	sp, sp, #0x20
+    140c: d65f03c0     	ret
+
+0000000000001410 <__ZNKSt3__122__compressed_pair_elemINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE5__repELi0ELb0EE5__getB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR const_reference __get() const _NOEXCEPT { return __value_; }
+    1410: d10043ff     	sub	sp, sp, #0x10
+    1414: f90007e0     	str	x0, [sp, #0x8]
+    1418: f94007e0     	ldr	x0, [sp, #0x8]
+    141c: 910043ff     	add	sp, sp, #0x10
+    1420: d65f03c0     	ret
+
+0000000000001424 <__ZNSt3__114pointer_traitsIPKcE10pointer_toB8ne190102ERS1_>:
+;   pointer_to(__conditional_t<is_void<element_type>::value, __nat, element_type>& __r) _NOEXCEPT {
+    1424: d10043ff     	sub	sp, sp, #0x10
+    1428: f90007e0     	str	x0, [sp, #0x8]
+;     return std::addressof(__r);
+    142c: f94007e0     	ldr	x0, [sp, #0x8]
+    1430: 910043ff     	add	sp, sp, #0x10
+    1434: d65f03c0     	ret
+
+0000000000001438 <__ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC2B8ne190102ERNS_13basic_ostreamIcS2_EE>:
+;   _LIBCPP_HIDE_FROM_ABI ostreambuf_iterator(ostream_type& __s) _NOEXCEPT : __sbuf_(__s.rdbuf()) {}
+    1438: d100c3ff     	sub	sp, sp, #0x30
+    143c: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    1440: 910083fd     	add	x29, sp, #0x20
+    1444: f81f83a0     	stur	x0, [x29, #-0x8]
+    1448: f9000be1     	str	x1, [sp, #0x10]
+    144c: f85f83a8     	ldur	x8, [x29, #-0x8]
+    1450: f90003e8     	str	x8, [sp]
+    1454: f9400be8     	ldr	x8, [sp, #0x10]
+    1458: f9400109     	ldr	x9, [x8]
+    145c: f85e8129     	ldur	x9, [x9, #-0x18]
+    1460: 8b090100     	add	x0, x8, x9
+    1464: 94000000     	bl	0x1464 <__ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC2B8ne190102ERNS_13basic_ostreamIcS2_EE+0x2c>
+    1468: f90007e0     	str	x0, [sp, #0x8]
+    146c: 14000001     	b	0x1470 <__ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC2B8ne190102ERNS_13basic_ostreamIcS2_EE+0x38>
+    1470: f94003e0     	ldr	x0, [sp]
+    1474: f94007e8     	ldr	x8, [sp, #0x8]
+;   _LIBCPP_HIDE_FROM_ABI ostreambuf_iterator(ostream_type& __s) _NOEXCEPT : __sbuf_(__s.rdbuf()) {}
+    1478: f9000008     	str	x8, [x0]
+    147c: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    1480: 9100c3ff     	add	sp, sp, #0x30
+    1484: d65f03c0     	ret
+    1488: 94000000     	bl	0x1488 <__ZNSt3__119ostreambuf_iteratorIcNS_11char_traitsIcEEEC2B8ne190102ERNS_13basic_ostreamIcS2_EE+0x50>
+
+000000000000148c <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5rdbufB8ne190102Ev>:
+; inline _LIBCPP_HIDE_FROM_ABI basic_streambuf<_CharT, _Traits>* basic_ios<_CharT, _Traits>::rdbuf() const {
+    148c: d10083ff     	sub	sp, sp, #0x20
+    1490: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    1494: 910043fd     	add	x29, sp, #0x10
+    1498: f90007e0     	str	x0, [sp, #0x8]
+    149c: f94007e0     	ldr	x0, [sp, #0x8]
+;   return static_cast<basic_streambuf<char_type, traits_type>*>(ios_base::rdbuf());
+    14a0: 94000000     	bl	0x14a0 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5rdbufB8ne190102Ev+0x14>
+    14a4: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    14a8: 910083ff     	add	sp, sp, #0x20
+    14ac: d65f03c0     	ret
+
+00000000000014b0 <__ZNKSt3__18ios_base5rdbufB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI void* rdbuf() const { return __rdbuf_; }
+    14b0: d10043ff     	sub	sp, sp, #0x10
+    14b4: f90007e0     	str	x0, [sp, #0x8]
+    14b8: f94007e8     	ldr	x8, [sp, #0x8]
+    14bc: f9401500     	ldr	x0, [x8, #0x28]
+    14c0: 910043ff     	add	sp, sp, #0x10
+    14c4: d65f03c0     	ret
+
+00000000000014c8 <__ZNKSt3__118_SentinelValueFillINS_11char_traitsIcEEE8__is_setB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI bool __is_set() const { return __fill_val_ != _Traits::eof(); }
+    14c8: d10083ff     	sub	sp, sp, #0x20
+    14cc: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    14d0: 910043fd     	add	x29, sp, #0x10
+    14d4: f90007e0     	str	x0, [sp, #0x8]
+    14d8: f94007e8     	ldr	x8, [sp, #0x8]
+    14dc: b9400108     	ldr	w8, [x8]
+    14e0: b90007e8     	str	w8, [sp, #0x4]
+    14e4: 94000000     	bl	0x14e4 <__ZNKSt3__118_SentinelValueFillINS_11char_traitsIcEEE8__is_setB8ne190102Ev+0x1c>
+    14e8: b94007e8     	ldr	w8, [sp, #0x4]
+    14ec: 6b000108     	subs	w8, w8, w0
+    14f0: 1a9f07e0     	cset	w0, ne
+    14f4: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    14f8: 910083ff     	add	sp, sp, #0x20
+    14fc: d65f03c0     	ret
+
+0000000000001500 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec>:
+; inline _LIBCPP_HIDE_FROM_ABI _CharT basic_ios<_CharT, _Traits>::widen(char __c) const {
+    1500: d10143ff     	sub	sp, sp, #0x50
+    1504: a9047bfd     	stp	x29, x30, [sp, #0x40]
+    1508: 910103fd     	add	x29, sp, #0x40
+    150c: f81f83a0     	stur	x0, [x29, #-0x8]
+    1510: 381f73a1     	sturb	w1, [x29, #-0x9]
+    1514: f85f83a0     	ldur	x0, [x29, #-0x8]
+    1518: d10063a8     	sub	x8, x29, #0x18
+    151c: f90007e8     	str	x8, [sp, #0x8]
+;   return std::use_facet<ctype<char_type> >(getloc()).widen(__c);
+    1520: 94000000     	bl	0x1520 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x20>
+    1524: f94007e0     	ldr	x0, [sp, #0x8]
+    1528: 94000000     	bl	0x1528 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x28>
+    152c: f9000be0     	str	x0, [sp, #0x10]
+    1530: 14000001     	b	0x1534 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x34>
+    1534: f9400be0     	ldr	x0, [sp, #0x10]
+;   return std::use_facet<ctype<char_type> >(getloc()).widen(__c);
+    1538: 38df73a1     	ldursb	w1, [x29, #-0x9]
+    153c: 94000000     	bl	0x153c <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x3c>
+    1540: b90007e0     	str	w0, [sp, #0x4]
+    1544: 14000001     	b	0x1548 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x48>
+    1548: d10063a0     	sub	x0, x29, #0x18
+    154c: 94000000     	bl	0x154c <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x4c>
+    1550: b94007e0     	ldr	w0, [sp, #0x4]
+    1554: a9447bfd     	ldp	x29, x30, [sp, #0x40]
+    1558: 910143ff     	add	sp, sp, #0x50
+    155c: d65f03c0     	ret
+; }
+    1560: f90013e0     	str	x0, [sp, #0x20]
+    1564: aa0103e8     	mov	x8, x1
+    1568: b9001fe8     	str	w8, [sp, #0x1c]
+;   return std::use_facet<ctype<char_type> >(getloc()).widen(__c);
+    156c: d10063a0     	sub	x0, x29, #0x18
+    1570: 94000000     	bl	0x1570 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x70>
+    1574: 14000001     	b	0x1578 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x78>
+    1578: f94013e0     	ldr	x0, [sp, #0x20]
+    157c: 94000000     	bl	0x157c <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne190102Ec+0x7c>
+
+0000000000001580 <__ZNSt3__118_SentinelValueFillINS_11char_traitsIcEEEaSB8ne190102Ei>:
+;   _LIBCPP_HIDE_FROM_ABI _SentinelValueFill& operator=(typename _Traits::int_type __x) {
+    1580: d10043ff     	sub	sp, sp, #0x10
+    1584: f90007e0     	str	x0, [sp, #0x8]
+    1588: b90007e1     	str	w1, [sp, #0x4]
+    158c: f94007e0     	ldr	x0, [sp, #0x8]
+;     __fill_val_ = __x;
+    1590: b94007e8     	ldr	w8, [sp, #0x4]
+    1594: b9000008     	str	w8, [x0]
+;     return *this;
+    1598: 910043ff     	add	sp, sp, #0x10
+    159c: d65f03c0     	ret
+
+00000000000015a0 <__ZNKSt3__118_SentinelValueFillINS_11char_traitsIcEEE5__getB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI typename _Traits::int_type __get() const { return __fill_val_; }
+    15a0: d10043ff     	sub	sp, sp, #0x10
+    15a4: f90007e0     	str	x0, [sp, #0x8]
+    15a8: f94007e8     	ldr	x8, [sp, #0x8]
+    15ac: b9400100     	ldr	w0, [x8]
+    15b0: 910043ff     	add	sp, sp, #0x10
+    15b4: d65f03c0     	ret
+
+00000000000015b8 <__ZNSt3__111char_traitsIcE3eofB8ne190102Ev>:
+;   static inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR int_type eof() _NOEXCEPT { return int_type(EOF); }
+    15b8: 12800000     	mov	w0, #-0x1               ; =-1
+    15bc: d65f03c0     	ret
+
+00000000000015c0 <__ZNSt3__19use_facetB8ne190102INS_5ctypeIcEEEERKT_RKNS_6localeE>:
+; inline _LIBCPP_HIDE_FROM_ABI const _Facet& use_facet(const locale& __l) {
+    15c0: d10083ff     	sub	sp, sp, #0x20
+    15c4: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    15c8: 910043fd     	add	x29, sp, #0x10
+    15cc: f90007e0     	str	x0, [sp, #0x8]
+;   return static_cast<const _Facet&>(*__l.use_facet(_Facet::id));
+    15d0: f94007e0     	ldr	x0, [sp, #0x8]
+    15d4: 90000001     	adrp	x1, 0x1000 <__ZNKSt3__18ios_base5flagsB8ne190102Ev>
+    15d8: f9400021     	ldr	x1, [x1]
+    15dc: 94000000     	bl	0x15dc <__ZNSt3__19use_facetB8ne190102INS_5ctypeIcEEEERKT_RKNS_6localeE+0x1c>
+    15e0: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    15e4: 910083ff     	add	sp, sp, #0x20
+    15e8: d65f03c0     	ret
+
+00000000000015ec <__ZNKSt3__15ctypeIcE5widenB8ne190102Ec>:
+;   _LIBCPP_HIDE_FROM_ABI char_type widen(char __c) const { return do_widen(__c); }
+    15ec: d10083ff     	sub	sp, sp, #0x20
+    15f0: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    15f4: 910043fd     	add	x29, sp, #0x10
+    15f8: f90007e0     	str	x0, [sp, #0x8]
+    15fc: 39001fe1     	strb	w1, [sp, #0x7]
+    1600: f94007e0     	ldr	x0, [sp, #0x8]
+    1604: 39c01fe1     	ldrsb	w1, [sp, #0x7]
+    1608: f9400008     	ldr	x8, [x0]
+    160c: f9401d08     	ldr	x8, [x8, #0x38]
+    1610: d63f0100     	blr	x8
+    1614: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    1618: 910083ff     	add	sp, sp, #0x20
+    161c: d65f03c0     	ret
+
+0000000000001620 <__ZNSt3__18ios_base8setstateB8ne190102Ej>:
+; inline _LIBCPP_HIDE_FROM_ABI void ios_base::setstate(iostate __state) { clear(__rdstate_ | __state); }
+    1620: d10083ff     	sub	sp, sp, #0x20
+    1624: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    1628: 910043fd     	add	x29, sp, #0x10
+    162c: f90007e0     	str	x0, [sp, #0x8]
+    1630: b90007e1     	str	w1, [sp, #0x4]
+    1634: f94007e0     	ldr	x0, [sp, #0x8]
+    1638: b9402008     	ldr	w8, [x0, #0x20]
+    163c: b94007e9     	ldr	w9, [sp, #0x4]
+    1640: 2a090101     	orr	w1, w8, w9
+    1644: 94000000     	bl	0x1644 <__ZNSt3__18ios_base8setstateB8ne190102Ej+0x24>
+    1648: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    164c: 910083ff     	add	sp, sp, #0x20
+    1650: d65f03c0     	ret
+
+0000000000001654 <__ZNSt3__118__constexpr_strlenB8ne190102IcEEmPKT_>:
+; inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 size_t __constexpr_strlen(const _Tp* __str) _NOEXCEPT {
+    1654: d10083ff     	sub	sp, sp, #0x20
+    1658: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    165c: 910043fd     	add	x29, sp, #0x10
+    1660: f90007e0     	str	x0, [sp, #0x8]
+;   return __builtin_strlen(reinterpret_cast<const char*>(__str));
+    1664: f94007e0     	ldr	x0, [sp, #0x8]
+    1668: 94000000     	bl	0x1668 <__ZNSt3__118__constexpr_strlenB8ne190102IcEEmPKT_+0x14>
+    166c: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    1670: 910083ff     	add	sp, sp, #0x20
+    1674: d65f03c0     	ret
+
+0000000000001678 <__ZNSt3__114numeric_limitsIlE3maxB8ne190102Ev>:
+;   _LIBCPP_NODISCARD _LIBCPP_HIDE_FROM_ABI static _LIBCPP_CONSTEXPR type max() _NOEXCEPT { return __base::max(); }
+    1678: a9bf7bfd     	stp	x29, x30, [sp, #-0x10]!
+    167c: 910003fd     	mov	x29, sp
+    1680: 94000000     	bl	0x1680 <__ZNSt3__114numeric_limitsIlE3maxB8ne190102Ev+0x8>
+    1684: a8c17bfd     	ldp	x29, x30, [sp], #0x10
+    1688: d65f03c0     	ret
+
+000000000000168c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m>:
+; __input_c_string(basic_istream<_CharT, _Traits>& __is, _CharT* __p, size_t __n) {
+    168c: d10243ff     	sub	sp, sp, #0x90
+    1690: a9087bfd     	stp	x29, x30, [sp, #0x80]
+    1694: 910203fd     	add	x29, sp, #0x80
+    1698: f81f83a0     	stur	x0, [x29, #-0x8]
+    169c: f81f03a1     	stur	x1, [x29, #-0x10]
+    16a0: f81e83a2     	stur	x2, [x29, #-0x18]
+;   ios_base::iostate __state = ios_base::goodbit;
+    16a4: 52800008     	mov	w8, #0x0                ; =0
+    16a8: b81e43bf     	stur	wzr, [x29, #-0x1c]
+;   typename basic_istream<_CharT, _Traits>::sentry __sen(__is);
+    16ac: f85f83a1     	ldur	x1, [x29, #-0x8]
+    16b0: d10077a0     	sub	x0, x29, #0x1d
+    16b4: f90017e0     	str	x0, [sp, #0x28]
+    16b8: 12000102     	and	w2, w8, #0x1
+    16bc: 94000000     	bl	0x16bc <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x30>
+    16c0: f94017e0     	ldr	x0, [sp, #0x28]
+;   if (__sen) {
+    16c4: 94000000     	bl	0x16c4 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x38>
+    16c8: 360012a0     	tbz	w0, #0x0, 0x191c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x290>
+    16cc: 14000001     	b	0x16d0 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x44>
+;       _CharT* __s               = __p;
+    16d0: f85f03a8     	ldur	x8, [x29, #-0x10]
+    16d4: f81d83a8     	stur	x8, [x29, #-0x28]
+;       const ctype<_CharT>& __ct = std::use_facet<ctype<_CharT> >(__is.getloc());
+    16d8: f85f83a8     	ldur	x8, [x29, #-0x8]
+    16dc: f9400109     	ldr	x9, [x8]
+    16e0: f85e8129     	ldur	x9, [x9, #-0x18]
+    16e4: 8b090100     	add	x0, x8, x9
+    16e8: d100e3a8     	sub	x8, x29, #0x38
+    16ec: 94000000     	bl	0x16ec <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x60>
+    16f0: 14000001     	b	0x16f4 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x68>
+    16f4: d100e3a0     	sub	x0, x29, #0x38
+    16f8: 94000000     	bl	0x16f8 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x6c>
+    16fc: f90013e0     	str	x0, [sp, #0x20]
+    1700: 14000001     	b	0x1704 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x78>
+    1704: d100e3a0     	sub	x0, x29, #0x38
+    1708: 94000000     	bl	0x1708 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x7c>
+    170c: f94013e8     	ldr	x8, [sp, #0x20]
+    1710: f81d03a8     	stur	x8, [x29, #-0x30]
+;       while (__s != __p + (__n - 1)) {
+    1714: 14000001     	b	0x1718 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x8c>
+    1718: f85d83a8     	ldur	x8, [x29, #-0x28]
+    171c: f85f03a9     	ldur	x9, [x29, #-0x10]
+    1720: f85e83aa     	ldur	x10, [x29, #-0x18]
+    1724: f100054a     	subs	x10, x10, #0x1
+    1728: 8b0a0129     	add	x9, x9, x10
+    172c: eb090108     	subs	x8, x8, x9
+    1730: 54000b40     	b.eq	0x1898 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x20c>
+    1734: 14000001     	b	0x1738 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0xac>
+;         typename _Traits::int_type __i = __is.rdbuf()->sgetc();
+    1738: f85f83a8     	ldur	x8, [x29, #-0x8]
+    173c: f9400109     	ldr	x9, [x8]
+    1740: f85e8129     	ldur	x9, [x9, #-0x18]
+    1744: 8b090100     	add	x0, x8, x9
+    1748: 94000000     	bl	0x1748 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0xbc>
+    174c: f9000fe0     	str	x0, [sp, #0x18]
+    1750: 14000001     	b	0x1754 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0xc8>
+    1754: f9400fe0     	ldr	x0, [sp, #0x18]
+;         typename _Traits::int_type __i = __is.rdbuf()->sgetc();
+    1758: 94000000     	bl	0x1758 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0xcc>
+    175c: b90017e0     	str	w0, [sp, #0x14]
+    1760: 14000001     	b	0x1764 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0xd8>
+    1764: b94017e8     	ldr	w8, [sp, #0x14]
+;         typename _Traits::int_type __i = __is.rdbuf()->sgetc();
+    1768: b9003be8     	str	w8, [sp, #0x38]
+;         if (_Traits::eq_int_type(__i, _Traits::eof())) {
+    176c: b9403be8     	ldr	w8, [sp, #0x38]
+    1770: b90013e8     	str	w8, [sp, #0x10]
+    1774: 94000000     	bl	0x1774 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0xe8>
+    1778: aa0003e1     	mov	x1, x0
+    177c: b94013e0     	ldr	w0, [sp, #0x10]
+    1780: 94000000     	bl	0x1780 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0xf4>
+    1784: 36000500     	tbz	w0, #0x0, 0x1824 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x198>
+    1788: 14000001     	b	0x178c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x100>
+;           __state |= ios_base::eofbit;
+    178c: b85e43a8     	ldur	w8, [x29, #-0x1c]
+    1790: 321f0108     	orr	w8, w8, #0x2
+    1794: b81e43a8     	stur	w8, [x29, #-0x1c]
+;           break;
+    1798: 14000040     	b	0x1898 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x20c>
+; }
+    179c: f90023e0     	str	x0, [sp, #0x40]
+    17a0: aa0103e8     	mov	x8, x1
+    17a4: b9003fe8     	str	w8, [sp, #0x3c]
+    17a8: 14000007     	b	0x17c4 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x138>
+    17ac: f90023e0     	str	x0, [sp, #0x40]
+    17b0: aa0103e8     	mov	x8, x1
+    17b4: b9003fe8     	str	w8, [sp, #0x3c]
+;       const ctype<_CharT>& __ct = std::use_facet<ctype<_CharT> >(__is.getloc());
+    17b8: d100e3a0     	sub	x0, x29, #0x38
+    17bc: 94000000     	bl	0x17bc <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x130>
+    17c0: 14000001     	b	0x17c4 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x138>
+;     } catch (...) {
+    17c4: f94023e0     	ldr	x0, [sp, #0x40]
+    17c8: 94000000     	bl	0x17c8 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x13c>
+;       __state |= ios_base::badbit;
+    17cc: b85e43a8     	ldur	w8, [x29, #-0x1c]
+    17d0: 32000108     	orr	w8, w8, #0x1
+    17d4: b81e43a8     	stur	w8, [x29, #-0x1c]
+;       __is.__setstate_nothrow(__state);
+    17d8: f85f83a8     	ldur	x8, [x29, #-0x8]
+    17dc: f9400109     	ldr	x9, [x8]
+    17e0: f85e8129     	ldur	x9, [x9, #-0x18]
+    17e4: 8b090100     	add	x0, x8, x9
+    17e8: b85e43a1     	ldur	w1, [x29, #-0x1c]
+    17ec: 94000000     	bl	0x17ec <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x160>
+    17f0: 14000001     	b	0x17f4 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x168>
+;       if (__is.exceptions() & ios_base::badbit) {
+    17f4: f85f83a8     	ldur	x8, [x29, #-0x8]
+    17f8: f9400109     	ldr	x9, [x8]
+    17fc: f85e8129     	ldur	x9, [x9, #-0x18]
+    1800: 8b090100     	add	x0, x8, x9
+    1804: 94000000     	bl	0x1804 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x178>
+    1808: b9000fe0     	str	w0, [sp, #0xc]
+    180c: 14000001     	b	0x1810 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x184>
+    1810: b9400fe8     	ldr	w8, [sp, #0xc]
+;       if (__is.exceptions() & ios_base::badbit) {
+    1814: 36000708     	tbz	w8, #0x0, 0x18f4 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x268>
+    1818: 14000001     	b	0x181c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x190>
+;         throw;
+    181c: 94000000     	bl	0x181c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x190>
+    1820: 14000046     	b	0x1938 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x2ac>
+;         _CharT __ch = _Traits::to_char_type(__i);
+    1824: b9403be0     	ldr	w0, [sp, #0x38]
+    1828: 94000000     	bl	0x1828 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x19c>
+    182c: 3900dfe0     	strb	w0, [sp, #0x37]
+;         if (__ct.is(__ct.space, __ch))
+    1830: f85d03a0     	ldur	x0, [x29, #-0x30]
+    1834: 39c0dfe2     	ldrsb	w2, [sp, #0x37]
+    1838: 52880001     	mov	w1, #0x4000             ; =16384
+    183c: 94000000     	bl	0x183c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x1b0>
+    1840: b9000be0     	str	w0, [sp, #0x8]
+    1844: 14000001     	b	0x1848 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x1bc>
+    1848: b9400be8     	ldr	w8, [sp, #0x8]
+;         if (__ct.is(__ct.space, __ch))
+    184c: 36000068     	tbz	w8, #0x0, 0x1858 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x1cc>
+    1850: 14000001     	b	0x1854 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x1c8>
+;           break;
+    1854: 14000011     	b	0x1898 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x20c>
+;         *__s++ = __ch;
+    1858: 3940dfe8     	ldrb	w8, [sp, #0x37]
+    185c: f85d83a9     	ldur	x9, [x29, #-0x28]
+    1860: 9100052a     	add	x10, x9, #0x1
+    1864: f81d83aa     	stur	x10, [x29, #-0x28]
+    1868: 39000128     	strb	w8, [x9]
+;         __is.rdbuf()->sbumpc();
+    186c: f85f83a8     	ldur	x8, [x29, #-0x8]
+    1870: f9400109     	ldr	x9, [x8]
+    1874: f85e8129     	ldur	x9, [x9, #-0x18]
+    1878: 8b090100     	add	x0, x8, x9
+    187c: 94000000     	bl	0x187c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x1f0>
+    1880: f90003e0     	str	x0, [sp]
+    1884: 14000001     	b	0x1888 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x1fc>
+    1888: f94003e0     	ldr	x0, [sp]
+;         __is.rdbuf()->sbumpc();
+    188c: 94000000     	bl	0x188c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x200>
+    1890: 14000001     	b	0x1894 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x208>
+;       while (__s != __p + (__n - 1)) {
+    1894: 17ffffa1     	b	0x1718 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x8c>
+;       *__s = _CharT();
+    1898: f85d83a8     	ldur	x8, [x29, #-0x28]
+    189c: 3900011f     	strb	wzr, [x8]
+;       __is.width(0);
+    18a0: f85f83a8     	ldur	x8, [x29, #-0x8]
+    18a4: f9400109     	ldr	x9, [x8]
+    18a8: f85e8129     	ldur	x9, [x9, #-0x18]
+    18ac: 8b090100     	add	x0, x8, x9
+    18b0: d2800001     	mov	x1, #0x0                ; =0
+    18b4: 94000000     	bl	0x18b4 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x228>
+;       if (__s == __p)
+    18b8: f85d83a8     	ldur	x8, [x29, #-0x28]
+    18bc: f85f03a9     	ldur	x9, [x29, #-0x10]
+    18c0: eb090108     	subs	x8, x8, x9
+    18c4: 540000c1     	b.ne	0x18dc <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x250>
+    18c8: 14000001     	b	0x18cc <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x240>
+;         __state |= ios_base::failbit;
+    18cc: b85e43a8     	ldur	w8, [x29, #-0x1c]
+    18d0: 321e0108     	orr	w8, w8, #0x4
+    18d4: b81e43a8     	stur	w8, [x29, #-0x1c]
+    18d8: 14000001     	b	0x18dc <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x250>
+;     } catch (...) {
+    18dc: 14000008     	b	0x18fc <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x270>
+; }
+    18e0: f90023e0     	str	x0, [sp, #0x40]
+    18e4: aa0103e8     	mov	x8, x1
+    18e8: b9003fe8     	str	w8, [sp, #0x3c]
+;     }
+    18ec: 94000000     	bl	0x18ec <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x260>
+    18f0: 1400000a     	b	0x1918 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x28c>
+    18f4: 94000000     	bl	0x18f4 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x268>
+    18f8: 14000001     	b	0x18fc <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x270>
+;     __is.setstate(__state);
+    18fc: f85f83a8     	ldur	x8, [x29, #-0x8]
+    1900: f9400109     	ldr	x9, [x8]
+    1904: f85e8129     	ldur	x9, [x9, #-0x18]
+    1908: 8b090100     	add	x0, x8, x9
+    190c: b85e43a1     	ldur	w1, [x29, #-0x1c]
+    1910: 94000000     	bl	0x1910 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x284>
+;   }
+    1914: 14000002     	b	0x191c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x290>
+;     }
+    1918: 14000005     	b	0x192c <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x2a0>
+;   return __is;
+    191c: f85f83a0     	ldur	x0, [x29, #-0x8]
+    1920: a9487bfd     	ldp	x29, x30, [sp, #0x80]
+    1924: 910243ff     	add	sp, sp, #0x90
+    1928: d65f03c0     	ret
+;     }
+    192c: f94023e0     	ldr	x0, [sp, #0x40]
+    1930: 94000000     	bl	0x1930 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x2a4>
+    1934: 94000000     	bl	0x1934 <__ZNSt3__116__input_c_stringB8ne190102IcNS_11char_traitsIcEEEERNS_13basic_istreamIT_T0_EES7_PS4_m+0x2a8>
+    1938: d4200020     	brk	#0x1
+
+000000000000193c <__ZNSt3__123__libcpp_numeric_limitsIlLb1EE3maxB8ne190102Ev>:
+;   _LIBCPP_NODISCARD _LIBCPP_HIDE_FROM_ABI static _LIBCPP_CONSTEXPR type max() _NOEXCEPT { return __max; }
+    193c: 92f00000     	mov	x0, #0x7fffffffffffffff ; =9223372036854775807
+    1940: d65f03c0     	ret
+
+0000000000001944 <__ZNKSt3__113basic_istreamIcNS_11char_traitsIcEEE6sentrycvbB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI explicit operator bool() const { return __ok_; }
+    1944: d10043ff     	sub	sp, sp, #0x10
+    1948: f90007e0     	str	x0, [sp, #0x8]
+    194c: f94007e8     	ldr	x8, [sp, #0x8]
+    1950: 39400108     	ldrb	w8, [x8]
+    1954: 12000100     	and	w0, w8, #0x1
+    1958: 910043ff     	add	sp, sp, #0x10
+    195c: d65f03c0     	ret
+
+0000000000001960 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE5sgetcB8ne190102Ev>:
+;   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 int_type sgetc() {
+    1960: d100c3ff     	sub	sp, sp, #0x30
+    1964: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    1968: 910083fd     	add	x29, sp, #0x20
+    196c: f9000be0     	str	x0, [sp, #0x10]
+    1970: f9400be9     	ldr	x9, [sp, #0x10]
+    1974: f90007e9     	str	x9, [sp, #0x8]
+;     if (__ninp_ == __einp_)
+    1978: f9400d28     	ldr	x8, [x9, #0x18]
+    197c: f9401129     	ldr	x9, [x9, #0x20]
+    1980: eb090108     	subs	x8, x8, x9
+    1984: 54000101     	b.ne	0x19a4 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE5sgetcB8ne190102Ev+0x44>
+    1988: 14000001     	b	0x198c <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE5sgetcB8ne190102Ev+0x2c>
+    198c: f94007e0     	ldr	x0, [sp, #0x8]
+;       return underflow();
+    1990: f9400008     	ldr	x8, [x0]
+    1994: f9402508     	ldr	x8, [x8, #0x48]
+    1998: d63f0100     	blr	x8
+    199c: b81fc3a0     	stur	w0, [x29, #-0x4]
+    19a0: 14000007     	b	0x19bc <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE5sgetcB8ne190102Ev+0x5c>
+    19a4: f94007e8     	ldr	x8, [sp, #0x8]
+;     return traits_type::to_int_type(*__ninp_);
+    19a8: f9400d08     	ldr	x8, [x8, #0x18]
+    19ac: 39c00100     	ldrsb	w0, [x8]
+    19b0: 94000000     	bl	0x19b0 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE5sgetcB8ne190102Ev+0x50>
+    19b4: b81fc3a0     	stur	w0, [x29, #-0x4]
+    19b8: 14000001     	b	0x19bc <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE5sgetcB8ne190102Ev+0x5c>
+;   }
+    19bc: b85fc3a0     	ldur	w0, [x29, #-0x4]
+    19c0: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    19c4: 9100c3ff     	add	sp, sp, #0x30
+    19c8: d65f03c0     	ret
+
+00000000000019cc <__ZNSt3__111char_traitsIcE11eq_int_typeB8ne190102Eii>:
+;   static inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR bool eq_int_type(int_type __c1, int_type __c2) _NOEXCEPT {
+    19cc: d10043ff     	sub	sp, sp, #0x10
+    19d0: b9000fe0     	str	w0, [sp, #0xc]
+    19d4: b9000be1     	str	w1, [sp, #0x8]
+;     return __c1 == __c2;
+    19d8: b9400fe8     	ldr	w8, [sp, #0xc]
+    19dc: b9400be9     	ldr	w9, [sp, #0x8]
+    19e0: 6b090108     	subs	w8, w8, w9
+    19e4: 1a9f17e0     	cset	w0, eq
+    19e8: 910043ff     	add	sp, sp, #0x10
+    19ec: d65f03c0     	ret
+
+00000000000019f0 <__ZNSt3__111char_traitsIcE12to_char_typeB8ne190102Ei>:
+;   static inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR char_type to_char_type(int_type __c) _NOEXCEPT {
+    19f0: d10043ff     	sub	sp, sp, #0x10
+    19f4: b9000fe0     	str	w0, [sp, #0xc]
+;     return char_type(__c);
+    19f8: b9400fe8     	ldr	w8, [sp, #0xc]
+    19fc: 13001d00     	sxtb	w0, w8
+    1a00: 910043ff     	add	sp, sp, #0x10
+    1a04: d65f03c0     	ret
+
+0000000000001a08 <__ZNKSt3__15ctypeIcE2isB8ne190102Ejc>:
+;   _LIBCPP_HIDE_FROM_ABI bool is(mask __m, char_type __c) const {
+    1a08: d100c3ff     	sub	sp, sp, #0x30
+    1a0c: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    1a10: 910083fd     	add	x29, sp, #0x20
+    1a14: f81f83a0     	stur	x0, [x29, #-0x8]
+    1a18: b81f43a1     	stur	w1, [x29, #-0xc]
+    1a1c: 381f33a2     	sturb	w2, [x29, #-0xd]
+    1a20: f85f83a8     	ldur	x8, [x29, #-0x8]
+    1a24: f90007e8     	str	x8, [sp, #0x8]
+;     return isascii(__c) ? (__tab_[static_cast<int>(__c)] & __m) != 0 : false;
+    1a28: 38df33a0     	ldursb	w0, [x29, #-0xd]
+    1a2c: 94000000     	bl	0x1a2c <__ZNKSt3__15ctypeIcE2isB8ne190102Ejc+0x24>
+    1a30: 34000160     	cbz	w0, 0x1a5c <__ZNKSt3__15ctypeIcE2isB8ne190102Ejc+0x54>
+    1a34: 14000001     	b	0x1a38 <__ZNKSt3__15ctypeIcE2isB8ne190102Ejc+0x30>
+    1a38: f94007e8     	ldr	x8, [sp, #0x8]
+;     return isascii(__c) ? (__tab_[static_cast<int>(__c)] & __m) != 0 : false;
+    1a3c: f9400908     	ldr	x8, [x8, #0x10]
+    1a40: 389f33a9     	ldursb	x9, [x29, #-0xd]
+    1a44: b8697908     	ldr	w8, [x8, x9, lsl #2]
+    1a48: b85f43a9     	ldur	w9, [x29, #-0xc]
+    1a4c: 6a090108     	ands	w8, w8, w9
+    1a50: 1a9f07e8     	cset	w8, ne
+    1a54: b90007e8     	str	w8, [sp, #0x4]
+    1a58: 14000004     	b	0x1a68 <__ZNKSt3__15ctypeIcE2isB8ne190102Ejc+0x60>
+    1a5c: 52800008     	mov	w8, #0x0                ; =0
+    1a60: b90007e8     	str	w8, [sp, #0x4]
+;     return isascii(__c) ? (__tab_[static_cast<int>(__c)] & __m) != 0 : false;
+    1a64: 14000001     	b	0x1a68 <__ZNKSt3__15ctypeIcE2isB8ne190102Ejc+0x60>
+    1a68: b94007e8     	ldr	w8, [sp, #0x4]
+;     return isascii(__c) ? (__tab_[static_cast<int>(__c)] & __m) != 0 : false;
+    1a6c: 12000100     	and	w0, w8, #0x1
+    1a70: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    1a74: 9100c3ff     	add	sp, sp, #0x30
+    1a78: d65f03c0     	ret
+
+0000000000001a7c <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE6sbumpcB8ne190102Ev>:
+;   inline _LIBCPP_HIDE_FROM_ABI_AFTER_V1 int_type sbumpc() {
+    1a7c: d100c3ff     	sub	sp, sp, #0x30
+    1a80: a9027bfd     	stp	x29, x30, [sp, #0x20]
+    1a84: 910083fd     	add	x29, sp, #0x20
+    1a88: f9000be0     	str	x0, [sp, #0x10]
+    1a8c: f9400be9     	ldr	x9, [sp, #0x10]
+    1a90: f90007e9     	str	x9, [sp, #0x8]
+;     if (__ninp_ == __einp_)
+    1a94: f9400d28     	ldr	x8, [x9, #0x18]
+    1a98: f9401129     	ldr	x9, [x9, #0x20]
+    1a9c: eb090108     	subs	x8, x8, x9
+    1aa0: 54000101     	b.ne	0x1ac0 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE6sbumpcB8ne190102Ev+0x44>
+    1aa4: 14000001     	b	0x1aa8 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE6sbumpcB8ne190102Ev+0x2c>
+    1aa8: f94007e0     	ldr	x0, [sp, #0x8]
+;       return uflow();
+    1aac: f9400008     	ldr	x8, [x0]
+    1ab0: f9402908     	ldr	x8, [x8, #0x50]
+    1ab4: d63f0100     	blr	x8
+    1ab8: b81fc3a0     	stur	w0, [x29, #-0x4]
+    1abc: 14000009     	b	0x1ae0 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE6sbumpcB8ne190102Ev+0x64>
+    1ac0: f94007ea     	ldr	x10, [sp, #0x8]
+;     return traits_type::to_int_type(*__ninp_++);
+    1ac4: f9400d48     	ldr	x8, [x10, #0x18]
+    1ac8: 91000509     	add	x9, x8, #0x1
+    1acc: f9000d49     	str	x9, [x10, #0x18]
+    1ad0: 39c00100     	ldrsb	w0, [x8]
+    1ad4: 94000000     	bl	0x1ad4 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE6sbumpcB8ne190102Ev+0x58>
+    1ad8: b81fc3a0     	stur	w0, [x29, #-0x4]
+    1adc: 14000001     	b	0x1ae0 <__ZNSt3__115basic_streambufIcNS_11char_traitsIcEEE6sbumpcB8ne190102Ev+0x64>
+;   }
+    1ae0: b85fc3a0     	ldur	w0, [x29, #-0x4]
+    1ae4: a9427bfd     	ldp	x29, x30, [sp, #0x20]
+    1ae8: 9100c3ff     	add	sp, sp, #0x30
+    1aec: d65f03c0     	ret
+
+0000000000001af0 <__ZNSt3__18ios_base18__setstate_nothrowB8ne190102Ej>:
+;   _LIBCPP_HIDE_FROM_ABI void __setstate_nothrow(iostate __state) {
+    1af0: d10083ff     	sub	sp, sp, #0x20
+    1af4: f9000fe0     	str	x0, [sp, #0x18]
+    1af8: b90017e1     	str	w1, [sp, #0x14]
+    1afc: f9400fe8     	ldr	x8, [sp, #0x18]
+    1b00: f90007e8     	str	x8, [sp, #0x8]
+;     if (__rdbuf_)
+    1b04: f9401508     	ldr	x8, [x8, #0x28]
+    1b08: b4000108     	cbz	x8, 0x1b28 <__ZNSt3__18ios_base18__setstate_nothrowB8ne190102Ej+0x38>
+    1b0c: 14000001     	b	0x1b10 <__ZNSt3__18ios_base18__setstate_nothrowB8ne190102Ej+0x20>
+    1b10: f94007e9     	ldr	x9, [sp, #0x8]
+;       __rdstate_ |= __state;
+    1b14: b94017ea     	ldr	w10, [sp, #0x14]
+    1b18: b9402128     	ldr	w8, [x9, #0x20]
+    1b1c: 2a0a0108     	orr	w8, w8, w10
+    1b20: b9002128     	str	w8, [x9, #0x20]
+    1b24: 14000008     	b	0x1b44 <__ZNSt3__18ios_base18__setstate_nothrowB8ne190102Ej+0x54>
+    1b28: f94007e9     	ldr	x9, [sp, #0x8]
+;       __rdstate_ |= __state | ios_base::badbit;
+    1b2c: b94017e8     	ldr	w8, [sp, #0x14]
+    1b30: 3200010a     	orr	w10, w8, #0x1
+    1b34: b9402128     	ldr	w8, [x9, #0x20]
+    1b38: 2a0a0108     	orr	w8, w8, w10
+    1b3c: b9002128     	str	w8, [x9, #0x20]
+    1b40: 14000001     	b	0x1b44 <__ZNSt3__18ios_base18__setstate_nothrowB8ne190102Ej+0x54>
+;   }
+    1b44: 910083ff     	add	sp, sp, #0x20
+    1b48: d65f03c0     	ret
+
+0000000000001b4c <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE10exceptionsB8ne190102Ev>:
+;   _LIBCPP_HIDE_FROM_ABI iostate exceptions() const { return ios_base::exceptions(); }
+    1b4c: d10083ff     	sub	sp, sp, #0x20
+    1b50: a9017bfd     	stp	x29, x30, [sp, #0x10]
+    1b54: 910043fd     	add	x29, sp, #0x10
+    1b58: f90007e0     	str	x0, [sp, #0x8]
+    1b5c: f94007e0     	ldr	x0, [sp, #0x8]
+    1b60: 94000000     	bl	0x1b60 <__ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE10exceptionsB8ne190102Ev+0x14>
+    1b64: a9417bfd     	ldp	x29, x30, [sp, #0x10]
+    1b68: 910083ff     	add	sp, sp, #0x20
+    1b6c: d65f03c0     	ret
+
+0000000000001b70 <__ZNSt3__111char_traitsIcE11to_int_typeB8ne190102Ec>:
+;   static inline _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR int_type to_int_type(char_type __c) _NOEXCEPT {
+    1b70: d10043ff     	sub	sp, sp, #0x10
+    1b74: 39003fe0     	strb	w0, [sp, #0xf]
+;     return int_type((unsigned char)__c);
+    1b78: 39403fe0     	ldrb	w0, [sp, #0xf]
+    1b7c: 910043ff     	add	sp, sp, #0x10
+    1b80: d65f03c0     	ret
+
+0000000000001b84 <__Z7isasciii>:
+; {
+    1b84: d10043ff     	sub	sp, sp, #0x10
+    1b88: b9000fe0     	str	w0, [sp, #0xc]
+; 	return ((_c & ~0x7F) == 0);
+    1b8c: b9400fe8     	ldr	w8, [sp, #0xc]
+    1b90: 12800fe9     	mov	w9, #-0x80              ; =-128
+    1b94: 6a090108     	ands	w8, w8, w9
+    1b98: 1a9f17e0     	cset	w0, eq
+    1b9c: 910043ff     	add	sp, sp, #0x10
+    1ba0: d65f03c0     	ret
+
+0000000000001ba4 <__ZNKSt3__18ios_base10exceptionsB8ne190102Ev>:
+; inline _LIBCPP_HIDE_FROM_ABI ios_base::iostate ios_base::exceptions() const { return __exceptions_; }
+    1ba4: d10043ff     	sub	sp, sp, #0x10
+    1ba8: f90007e0     	str	x0, [sp, #0x8]
+    1bac: f94007e8     	ldr	x8, [sp, #0x8]
+    1bb0: b9402500     	ldr	w0, [x8, #0x24]
+    1bb4: 910043ff     	add	sp, sp, #0x10
+    1bb8: d65f03c0     	ret

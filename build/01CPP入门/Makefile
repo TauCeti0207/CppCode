@@ -154,6 +154,30 @@ main.cpp.s:
 	cd /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build && $(MAKE) $(MAKESILENT) -f 01CPP入门/CMakeFiles/01.dir/build.make 01CPP入门/CMakeFiles/01.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+singleList.o: singleList.cpp.o
+.PHONY : singleList.o
+
+# target to build an object file
+singleList.cpp.o:
+	cd /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build && $(MAKE) $(MAKESILENT) -f 01CPP入门/CMakeFiles/01.dir/build.make 01CPP入门/CMakeFiles/01.dir/singleList.cpp.o
+.PHONY : singleList.cpp.o
+
+singleList.i: singleList.cpp.i
+.PHONY : singleList.i
+
+# target to preprocess a source file
+singleList.cpp.i:
+	cd /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build && $(MAKE) $(MAKESILENT) -f 01CPP入门/CMakeFiles/01.dir/build.make 01CPP入门/CMakeFiles/01.dir/singleList.cpp.i
+.PHONY : singleList.cpp.i
+
+singleList.s: singleList.cpp.s
+.PHONY : singleList.s
+
+# target to generate assembly for a file
+singleList.cpp.s:
+	cd /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build && $(MAKE) $(MAKESILENT) -f 01CPP入门/CMakeFiles/01.dir/build.make 01CPP入门/CMakeFiles/01.dir/singleList.cpp.s
+.PHONY : singleList.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -166,6 +190,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... singleList.o"
+	@echo "... singleList.i"
+	@echo "... singleList.s"
 .PHONY : help
 
 
