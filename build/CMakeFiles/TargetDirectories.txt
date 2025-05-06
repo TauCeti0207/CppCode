@@ -3,3 +3,6 @@
 /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/01CPP入门/CMakeFiles/01.dir
 /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/01CPP入门/CMakeFiles/edit_cache.dir
 /Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/01CPP入门/CMakeFiles/rebuild_cache.dir
+/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/02类与对象/CMakeFiles/02.dir
+/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/02类与对象/CMakeFiles/edit_cache.dir
+/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/02类与对象/CMakeFiles/rebuild_cache.dir

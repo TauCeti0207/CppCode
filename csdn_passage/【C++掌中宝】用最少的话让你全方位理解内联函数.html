@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【C++掌中宝】用最少的话让你全方位理解内联函数</title>
+</head>
+<body>
+<h1>【C++掌中宝】用最少的话让你全方位理解内联函数</h1>
+<article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+                <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p><img src="https://i-blog.csdnimg.cn/direct/144372615eaf4fb8ac58e32d25095e54.gif#pic_center" alt="在这里插入图片描述"></p> 
+<p></p> 
+<div class="toc"> 
+ <h4>文章目录</h4> 
+ <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul> 
+</div> 
+<p></p> 
+<h2>引言</h2> 
+<p>在C++编程中，函数的调用开销是程序运行效率的一个重要影响因素。为了解决频繁调用函数时的性能问题，C++提供了内联函数（<strong>inline</strong>），这是一种可以在编译阶段进行优化的技术。本文将详细介绍内联函数的概念、工作原理、使用限制以及与宏的比较。</p> 
+<h2>1. 什么是内联函数</h2> 
+<p>内联函数是使用<strong>inline</strong>关键字修饰的函数，目的是让编译器在函数调用时，将函数体直接展开到调用处，而不是通过常规的函数调用机制。其设计初衷是为了减少函数调用的开销，特别是在需要频繁调用的<font color="ligblue">小型函数</font>中。</p> 
+<p>例如，在以下代码中：</p> 
+<pre><code class="prism language-c"><span class="token keyword">inline</span> <span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>当调用<code>add(3, 5)</code>时，编译器会将该调用替换为<code>3 + 5</code>，从而避免了函数调用时的开销。</p> 
+<h2>2. 工作原理</h2> 
+<p>在程序执行过程中，常规函数的调用会涉及到<font color="ligblue">参数传递、栈帧的建立与销毁</font>，这一过程虽然对单次调用影响不大，但对于频繁调用的函数，这种开销将明显增加。内联函数通过在调用处直接展开函数体，消除了这些额外开销。</p> 
+<p>需要注意的是，内联仅仅是对编译器的<font color="red">建议</font>，编译器可以根据实际情况决定是否展开内联函数。C++标准并没有规定编译器必须在何种情况下展开内联，因此不同编译器的处理可能有所不同。</p> 
+<p>例如：</p> 
+<pre><code class="prism language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string"><iostream></span></span>
+<span class="token keyword">inline</span> <span class="token keyword">char</span><span class="token operator">*</span> <span class="token function">checkOddEven</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>a <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">"奇"</span> <span class="token operator">:</span> <span class="token string">"偶"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">100</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+        std<span class="token operator">::</span>cout <span class="token operator"><<</span> <span class="token string">"i:"</span> <span class="token operator"><<</span> i <span class="token operator"><<</span> <span class="token string">" 奇偶性:"</span> <span class="token operator"><<</span> <span class="token function">checkOddEven</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator"><<</span> std<span class="token operator">::</span>endl<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>在上面的代码中，编译器将直接将<code>checkOddEven(i)</code>展开为<code>(i % 2 > 0) ? "奇" : "偶"</code>，避免了每次循环调用函数的开销。</p> 
+<h2>3. 内联函数的编程风格</h2> 
+<ul><li><strong>inline</strong>必须与函数定义放在一起。仅仅在函数声明时加上<strong>inline</strong>关键字并不会使函数成为内联函数。</li><li>内联函数一般应定义在<font color="ligblue">头文件</font>中，因为它们会在每个调用它的地方展开。</li><li>不建议内联函数的声明和定义分离，可能会导致<font color="ligblue">链接错误</font>，因为<strong>inline</strong>被展开，就没有函数地址，链接时会出现报错。</li></ul> 
+<p>错误示例：</p> 
+<pre><code class="prism language-c"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 声明不生效</span>
+<span class="token keyword">void</span> <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token comment">// 函数体</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>正确示例：</p> 
+<pre><code class="prism language-c"><span class="token keyword">inline</span> <span class="token keyword">void</span> <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token comment">// 函数体</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<h2>4. 使用限制</h2> 
+<ul><li><strong>函数体必须足够简单</strong>：内联函数适用于小型、频繁调用的函数，过于复杂的函数不适合内联，因为代码膨胀会带来内存开销问题。</li><li><strong>递归函数不适合内联</strong>：内联函数不支持直接递归，即函数不能调用自身，因为这会导致无限展开，编译器将忽略内联请求。</li><li><strong>不适用于带有复杂控制结构的函数</strong>：如<code>while</code>、<code>switch</code>等结构控制语句。</li></ul> 
+<h2>5. 内联函数与宏的比较</h2> 
+<p>在C语言中，宏提供了类似的功能，但内联函数相比宏具有多项优势：</p> 
+<ul><li><strong>类型检查</strong>：内联函数在编译时进行<font color="red">类型检查</font>，而宏仅进行文本替换，可能导致难以发现的错误。</li><li><strong>调试友好</strong>：内联函数的调试信息更丰富，调试器能够识别函数的调用和执行路径，而宏则不易调试。</li><li><strong>作用范围</strong>：宏的文本替换可能会引发命名冲突和作用域污染，而内联函数则使用标准的函数调用机制。</li></ul> 
+<p>示例：</p> 
+<pre><code class="prism language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name function">SQUARE</span><span class="token expression"><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span></span></span>
+<span class="token keyword">inline</span> <span class="token keyword">int</span> <span class="token function">square</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token keyword">return</span> x <span class="token operator">*</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>相比宏，内联函数的调用方式更安全，也更加可控。</p> 
+<h2>6. 优缺点</h2> 
+<p><strong>优点</strong>：</p> 
+<ol><li><strong>提高运行速度</strong>：通过避免函数调用的开销，内联函数可以加速程序执行。</li><li><strong>减少栈内存开销</strong>：不需要为每次函数调用建立栈帧。</li><li><strong>更好的调试支持</strong>：内联函数在调试时更加直观。</li></ol> 
+<p><strong>缺点</strong>：</p> 
+<ol><li><strong>代码膨胀</strong>：内联函数在调用处展开，会增加程序的代码体积，特别是在函数体较大时。</li><li><strong>编译时间增加</strong>：内联函数可能增加编译时间，因为每次调用都需要展开函数体。</li><li><strong>内联的局限性</strong>：并非所有函数都适合内联，编译器也可能选择不进行内联。</li></ol> 
+<h2>7. 何时使用内联函数</h2> 
+<p>内联函数适用于小型、频繁调用且不涉及复杂逻辑的函数。以下场景适合使用内联函数：</p> 
+<ul><li><strong>性能要求高</strong>：当函数的调用开销影响到程序性能时，内联可以帮助优化执行效率。</li><li><strong>替代宏定义</strong>：内联函数可以替代宏，避免宏带来的不安全性。</li></ul> 
+<p><font color="red">在类内部定义的函数默认是内联函数，适合隐藏类实现细节</font>。</p> 
+<h2>8. 补充</h2> 
+<blockquote> 
+ <p>vs编译器 debug版本下面默认是不展开inline的，这样方便调试，debug版本想展开需要设置一下以下两个地方。</p> 
+</blockquote> 
+<p><img src="https://i-blog.csdnimg.cn/direct/c2acde34641845c0961a78c6fde28cd1.png#pic_center" alt="在这里插入图片描述"></p> 
+<p><img src="https://i-blog.csdnimg.cn/direct/27d87f6f2fd74602875f215ae3adb8e3.png#pic_center" alt="在这里插入图片描述"></p> 
+<p><img src="https://i-blog.csdnimg.cn/direct/a87150ec179a49c38cb1f967873ace60.png#pic_center" alt="在这里插入图片描述"></p> 
+<h2>9. 总结</h2> 
+<p>内联函数是C++中一种重要的优化手段，通过减少函数调用的开销来提高程序的运行效率。但它也有一定的局限性，特别是在<strong>代码膨胀和编译时间</strong>方面。因此，开发者在使用内联函数时应权衡利弊，合理选择合适的函数进行内联。总的来说，内联函数在优化小型、频繁调用函数时，能够带来显著的性能提升。</p> 
+<h2>结语</h2> 
+<p>这篇博客详细介绍了C++内联函数的概念、使用场景和优缺点，相信读者能够通过学习本文对内联函数有更深入的理解，并在实际开发中灵活运用内联技术来优化代码。</p> 
+<p>今天的分享到这里就结束啦！如果觉得文章还不错的话，可以<font color="blue">三连</font>支持一下。</p> 
+<p>也可以点点关注，避免以后找不到我哦！</p> 
+<p>还有很多有趣的文章，欢迎小伙伴们前去点评，您的支持就是作者前进的动力！</p> 
+<p><img src="https://i-blog.csdnimg.cn/direct/3967b827bf8d467ea1cbba8c9f92604a.gif#pic_center" alt="在这里插入图片描述"></p>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-a5d25dd831.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-e504d6a974.css" rel="stylesheet">
+        </div>
+    </article></body>
+</html>

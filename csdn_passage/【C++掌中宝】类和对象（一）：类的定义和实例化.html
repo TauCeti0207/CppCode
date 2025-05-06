@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【C++掌中宝】类和对象（一）：类的定义和实例化</title>
+</head>
+<body>
+<h1>【C++掌中宝】类和对象（一）：类的定义和实例化</h1>
+<article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+                <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p><img src="https://i-blog.csdnimg.cn/direct/4a4a5dd7318b40d1905290cbea9b073b.gif#pic_center" alt="在这里插入图片描述"></p> 
+<p></p> 
+<div class="toc"> 
+ <h4>文章目录</h4> 
+ <ul><li></li><li></li><li><ul><li></li><li><ul><li></li><li></li><li></li></ul> 
+   </li><li></li></ul> 
+  </li><li></li><li><ul><li></li><li></li><li></li></ul> 
+  </li><li></li><li><ul><li></li><li><ul><li></li><li></li></ul> 
+  </li></ul> 
+  </li><li></li></ul> 
+</div> 
+<p></p> 
+<h2>引言</h2> 
+<p><font color="ligblue">面向对象编程</font>（OOP）是一种编程范式，它通过将现实世界中的事物抽象为对象来组织和管理代码。OOP的核心概念包括类、对象、封装、继承和多态。</p> 
+<p><strong>面向对象编程（OOP）的概念及其重要性</strong>：</p> 
+<ol><li><strong>概念</strong>： 
+  <ul><li><strong>对象</strong>：对象是现实世界中事物的抽象表示，包含了事物的属性和行为。在编程中，对象是一个具体的实例，拥有状态（属性）和行为（方法）。</li><li><strong>类</strong>：类是对象的模板或蓝图，定义了对象的属性和方法。类是创建对象的蓝图，描述了具有相同属性和行为的对象应当具备的特征。</li><li><strong>封装</strong>：封装是将对象的属性和方法<font color="ligblue">隐藏</font>在对象内部，只通过对象提供的接口与外界交互。这有助于保护对象的状态，防止外部直接访问和修改对象的私有属性。</li><li><strong>继承</strong>：继承是类与类之间的关系，它允许一个类继承另一个类的属性和方法。通过继承，可以实现代码的重用和扩展。</li><li><strong>多态</strong>：多态是指允许一个接口被多个类实现，或一个父类引用指向多个子类对象。这使得程序在运行时能够根据对象的实际类型来调用相应的方法，增加了程序的灵活性和可扩展性。</li></ul> </li><li><strong>重要性</strong>： 
+  <ul><li><strong>模块化</strong>：OOP将代码组织成独立的对象，使得代码更加模块化，易于管理和维护。</li><li><strong>可重用性</strong>：通过继承和多态，OOP实现了代码的重用，减少了重复代码，提高了开发效率。</li><li><strong>可扩展性</strong>：OOP的结构使得代码易于扩展，可以在不修改现有代码的情况下添加新功能。</li><li><strong>易维护性</strong>：封装特性使得对象的内部实现细节对外部隐藏，减少了代码之间的耦合，提高了代码的可维护性。</li></ul> </li></ol> 
+<p><img src="https://i-blog.csdnimg.cn/direct/ebec7a960a8841f6a47fc4b22eac2e4d.png#pic_center" alt="在这里插入图片描述"></p> 
+<p>类和对象是OOP的核心，因为它们提供了一个结构化的方式来组织和管理代码，使得代码更加模块化、可重用和易于维护。</p> 
+<h2>1. 什么是类？</h2> 
+<p>类是对象的模板或蓝图，定义了对象的属性和方法。类描述了一类对象的<font color="ligblue">共同特征和行为</font>。例如，一个“汽车”类可以包含属性如颜色、品牌、速度，以及方法如加速、减速等。</p> 
+<h3>1.1 类的定义</h3> 
+<p><img src="https://i-blog.csdnimg.cn/direct/5ea0f698b67543dcbfb944f9ae96e173.png#pic_center" alt="在这里插入图片描述"></p> 
+<h4>1.1.1 类定义格式</h4> 
+<ul><li> <p><strong>class</strong>为定义类的关键字，Stack为类的名字（类名由自己决定，这里以下面例子为例），{}中为类的主体，注意类定义结束时后面<font color="red">分号</font>不能省略。类体中内容称为类的成员：</p> 
+  <ul><li>类中的变量称为类的属性或成员变量;</li><li>类中的函数称为类的方法或者成员函数。</li></ul> </li><li> <p>为了区分成员变量，一般习惯上成员变量会加一个特殊标识，如成员变量前面或者后面加_ 或者m开头，注意C++中这个并不是强制的，只是一些惯例，具体看公司的要求。</p> </li><li> <p>C++中<strong>struct</strong>也可以定义类，C++兼容C中<strong>struct</strong>的用法，同时也将<strong>struct</strong>升级成了类，明显的变化是<strong>struct</strong>中可以定义函数，一般情况下我们还是推荐用<strong>class</strong>定义类。</p> </li><li> <p>定义在类面的成员函数默认为<strong>inline</strong>（<mark>但是最终要不要做内联，展开，还是看C++编译器自己去做决定</mark>）。</p> </li></ul> 
+<p><strong>示例代码1</strong>：</p> 
+<pre><code class="prism language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string"><iostream></span></span>
+using namespace std<span class="token punctuation">;</span>
+class Stack
+<span class="token punctuation">{<!-- --></span>
+public<span class="token operator">:</span>
+	<span class="token comment">// 成员函数</span>
+	<span class="token keyword">void</span> <span class="token function">Init</span><span class="token punctuation">(</span><span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		array <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token operator">*</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>nullptr <span class="token operator">==</span> array<span class="token punctuation">)</span>
+		<span class="token punctuation">{<!-- --></span>
+			<span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"malloc申请空间失败"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token keyword">return</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+		capacity <span class="token operator">=</span> n<span class="token punctuation">;</span>
+		top <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">void</span> <span class="token function">Push</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		<span class="token comment">// ...扩容</span>
+		array<span class="token punctuation">[</span>top<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">int</span> <span class="token function">Top</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		<span class="token function">assert</span><span class="token punctuation">(</span>top <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span> array<span class="token punctuation">[</span>top <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">void</span> <span class="token function">Destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		<span class="token function">free</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		array <span class="token operator">=</span> nullptr<span class="token punctuation">;</span>
+		top <span class="token operator">=</span> capacity <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+private<span class="token operator">:</span>
+	<span class="token comment">// 成员变量</span>
+	<span class="token keyword">int</span><span class="token operator">*</span> array<span class="token punctuation">;</span>
+	<span class="token class-name">size_t</span> capacity<span class="token punctuation">;</span>
+	<span class="token class-name">size_t</span> top<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment">// 分号不能省略</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	Stack st<span class="token punctuation">;</span>
+	st<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	st<span class="token punctuation">.</span><span class="token function">Push</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	st<span class="token punctuation">.</span><span class="token function">Push</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> st<span class="token punctuation">.</span><span class="token function">Top</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	st<span class="token punctuation">.</span><span class="token function">Destroy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p><strong>示例代码2</strong>：</p> 
+<pre><code class="prism language-c">class Date
+<span class="token punctuation">{<!-- --></span>
+public<span class="token operator">:</span>
+	<span class="token keyword">void</span> <span class="token function">Init</span><span class="token punctuation">(</span><span class="token keyword">int</span> year<span class="token punctuation">,</span> <span class="token keyword">int</span> month<span class="token punctuation">,</span> <span class="token keyword">int</span> day<span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		_year <span class="token operator">=</span> year<span class="token punctuation">;</span>
+		_month <span class="token operator">=</span> month<span class="token punctuation">;</span>
+		_day <span class="token operator">=</span> day<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+private<span class="token operator">:</span>
+	<span class="token comment">// 为了区分成员变量，一般习惯上成员变量</span>
+	<span class="token comment">// 会加一个特殊标识，如_ 或者 m开头</span>
+	<span class="token keyword">int</span> _year<span class="token punctuation">;</span> <span class="token comment">// year_ m_year</span>
+	<span class="token keyword">int</span> _month<span class="token punctuation">;</span>
+	<span class="token keyword">int</span> _day<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	Date d<span class="token punctuation">;</span>
+	d<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span><span class="token number">2024</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">31</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p><strong>示例代码3</strong>：</p> 
+<pre><code class="prism language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string"><iostream></span></span>
+using namespace std<span class="token punctuation">;</span>
+<span class="token comment">// C++升级struct升级成了类</span>
+<span class="token comment">// 1、类里面可以定义函数</span>
+<span class="token comment">// 2、struct名称就可以代表类型</span>
+<span class="token comment">// C++兼容C中struct的用法</span>
+<span class="token keyword">typedef</span> <span class="token keyword">struct</span> <span class="token class-name">ListNodeC</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">struct</span> <span class="token class-name">ListNodeC</span><span class="token operator">*</span> next<span class="token punctuation">;</span>
+	<span class="token keyword">int</span> val<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>LTNode<span class="token punctuation">;</span>
+<span class="token comment">// 不再需要typedef，ListNodeCPP就可以代表类型</span>
+<span class="token keyword">struct</span> <span class="token class-name">ListNodeCPP</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">void</span> <span class="token function">Init</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		next <span class="token operator">=</span> nullptr<span class="token punctuation">;</span>
+		val <span class="token operator">=</span> x<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	ListNodeCPP<span class="token operator">*</span> next<span class="token punctuation">;</span>
+	<span class="token keyword">int</span> val<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<h4>1.1.2 访问限定符</h4> 
+<ul><li> <p>C++一种实现<font color="ligblue">封装</font>的方式，用类将对象的属性与方法结合在一块，让对象更加完善，通过访问权限选择性的将其接口提供给外部的用户使用。</p> </li><li> <p><strong>public</strong>修饰的成员在类外可以直接被访问；<strong>protected</strong>和<strong>private</strong>修饰的成员在类外不能直接被访问，<strong>protected</strong>和<strong>private</strong>是一样的，以后继承的地方才能体现出他们的区别。</p> </li><li> <p>访问权限作用域从该访问限定符出现的位置开始直到下一个访问限定符出现时为止，如果后面没有访问限定符，作用域就到 <code>}</code>即类结束。</p> </li><li> <p><mark><strong>class</strong>定义成员没有被访问限定符修饰时默认为<strong>private</strong>，<strong>struct</strong>默认为<strong>public</strong></mark>。</p> </li><li> <p>一般<font color="red">成员变量</font>都会被限制为<strong>private/protected</strong>，需要给别人使用的<font color="red">成员函数</font>会放为<strong>public</strong>。</p> </li></ul> 
+<p><img src="https://i-blog.csdnimg.cn/direct/7b623cb813f042189c80df5c7f70efef.png#pic_center" alt="在这里插入图片描述"></p> 
+<h4>1.1.3 类域</h4> 
+<ul><li> <p>类定义了一个新的作用域，类的所有成员都在类的作用域中，在类体外定义成员时，需要使用<code>::</code>作用域操作符指明成员属于哪个类域。</p> </li><li> <p>类域影响的是编译的查找规则，下面程序中Init如果不指定类域Stack，那么编译器就把Init当成全局函数，那么编译时，找不到array等成员的声明/定义在哪里，就会报错。指定类域Stack，就是知道Init是成员函数，<mark>当前域找不到的array等成员，就会到类域中去查找</mark>。</p> </li></ul> 
+<p><strong>示例代码</strong>：</p> 
+<pre><code class="prism language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string"><iostream></span></span>
+using namespace std<span class="token punctuation">;</span>
+class Stack
+<span class="token punctuation">{<!-- --></span>
+public<span class="token operator">:</span>
+	<span class="token comment">// 成员函数</span>
+	<span class="token keyword">void</span> <span class="token function">Init</span><span class="token punctuation">(</span><span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+private<span class="token operator">:</span>
+	<span class="token comment">// 成员变量</span>
+	<span class="token keyword">int</span><span class="token operator">*</span> array<span class="token punctuation">;</span>
+	<span class="token class-name">size_t</span> capacity<span class="token punctuation">;</span>
+	<span class="token class-name">size_t</span> top<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// 声明和定义分离，需要指定类域</span>
+<span class="token keyword">void</span> Stack<span class="token operator">::</span><span class="token function">Init</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	array <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token operator">*</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>nullptr <span class="token operator">==</span> array<span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		<span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"malloc申请空间失败"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">return</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	capacity <span class="token operator">=</span> n<span class="token punctuation">;</span>
+	top <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	Stack st<span class="token punctuation">;</span>
+	st<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<h3>1.2 类在编程中的作用——抽象与封装</h3> 
+<ol><li><strong>抽象</strong>：抽象是将复杂的现实世界事物简化为编程中的模型。通过类，我们可以忽略对象的复杂细节，只关注其主要特征和行为。例如，汽车类可以抽象为具有属性（如颜色、品牌）和行为（如启动、停止）的模型。</li><li><strong>封装</strong>：封装是将数据和操作数据的方法绑定在一起，并隐藏对象的内部实现细节。通过封装，类的内部状态只能通过特定的方法进行访问和修改，从而提高了代码的安全性和可维护性。</li></ol> 
+<h2>2. 类的基本组成</h2> 
+<h3>2.1 成员变量：类的属性（变量）</h3> 
+<p>成员变量（也称为<strong>数据成员</strong>）是类的属性，用于描述类对象的状态。它们定义了对象拥有的特征。每个类对象会拥有自己的一组成员变量，并且这些成员变量可以在对象的生命周期内保存特定的数据。</p> 
+<blockquote> 
+ <p>成员变量可以是各种数据类型，例如<code>int</code>、<code>double</code>、<code>string</code>，甚至可以是其他类的对象。通常，成员变量会被设置为<code>private</code>或<code>protected</code>以实现封装，防止外部代码直接修改这些属性。</p> 
+</blockquote> 
+<p><strong>示例代码</strong>：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{<!-- --></span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+    string name<span class="token punctuation">;</span>  <span class="token comment">// 成员变量，存储人的名字</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>      <span class="token comment">// 成员变量，存储人的年龄</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre> 
+<p>在这个例子中，<code>name</code>和<code>age</code>是<code>Person</code>类的成员变量，它们描述了<code>Person</code>对象的名字和年龄。</p> 
+<h3>2.2 成员函数：类的行为（函数）</h3> 
+<p>成员函数（也称为<strong>方法</strong>）定义了类的行为，它们操作对象的成员变量或执行某些功能。通过成员函数，外部代码可以访问和修改对象的成员变量，或执行与对象相关的操作。</p> 
+<blockquote> 
+ <p>成员函数通常设置为<code>public</code>，以便能够被外部代码调用。在成员函数中，可以使用类的成员变量，且不需要通过对象来访问这些变量。</p> 
+</blockquote> 
+<p><strong>示例代码</strong>：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{<!-- --></span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+    string name<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token comment">// 构造函数，用于初始化成员变量</span>
+    <span class="token function">Person</span><span class="token punctuation">(</span>string n<span class="token punctuation">,</span> <span class="token keyword">int</span> a<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">name</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">age</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span>
+
+    <span class="token comment">// 成员函数，用于输出对象的介绍</span>
+    <span class="token keyword">void</span> <span class="token function">introduce</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+        cout <span class="token operator"><<</span> <span class="token string">"Hi, my name is "</span> <span class="token operator"><<</span> name <span class="token operator"><<</span> <span class="token string">" and I am "</span> <span class="token operator"><<</span> age <span class="token operator"><<</span> <span class="token string">" years old."</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre> 
+<p>在这个例子中，<code>introduce()</code>是<code>Person</code>类的成员函数，它可以访问成员变量<code>name</code>和<code>age</code>，并输出这些变量的值。</p> 
+<h3>2.3 完整代码示例</h3> 
+<p>以下是一个完整的代码示例，展示如何定义成员变量和成员函数，以及如何使用它们。</p> 
+<pre><code class="prism language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string"><iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{<!-- --></span>
+<span class="token keyword">private</span><span class="token operator">:</span>
+    string name<span class="token punctuation">;</span>  <span class="token comment">// 成员变量：人的名字</span>
+    <span class="token keyword">int</span> age<span class="token punctuation">;</span>      <span class="token comment">// 成员变量：人的年龄</span>
+
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token comment">// 构造函数，用于初始化成员变量</span>
+    <span class="token function">Person</span><span class="token punctuation">(</span>string n<span class="token punctuation">,</span> <span class="token keyword">int</span> a<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">name</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">age</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span>
+
+    <span class="token comment">// 成员函数，用于设置名字</span>
+    <span class="token keyword">void</span> <span class="token function">setName</span><span class="token punctuation">(</span>string n<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+        name <span class="token operator">=</span> n<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 成员函数，用于获取名字</span>
+    string <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+        <span class="token keyword">return</span> name<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 成员函数，用于设置年龄</span>
+    <span class="token keyword">void</span> <span class="token function">setAge</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+        age <span class="token operator">=</span> a<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 成员函数，用于获取年龄</span>
+    <span class="token keyword">int</span> <span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+        <span class="token keyword">return</span> age<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 成员函数，用于介绍自己</span>
+    <span class="token keyword">void</span> <span class="token function">introduce</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+        cout <span class="token operator"><<</span> <span class="token string">"Hi, my name is "</span> <span class="token operator"><<</span> name <span class="token operator"><<</span> <span class="token string">" and I am "</span> <span class="token operator"><<</span> age <span class="token operator"><<</span> <span class="token string">" years old."</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token comment">// 创建对象并初始化成员变量</span>
+    Person <span class="token function">person1</span><span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 调用成员函数</span>
+    person1<span class="token punctuation">.</span><span class="token function">introduce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 输出 "Hi, my name is John and I am 30 years old."</span>
+
+    <span class="token comment">// 修改成员变量并输出</span>
+    person1<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"Mike"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    person1<span class="token punctuation">.</span><span class="token function">setAge</span><span class="token punctuation">(</span><span class="token number">35</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    person1<span class="token punctuation">.</span><span class="token function">introduce</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 输出 "Hi, my name is Mike and I am 35 years old."</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>在这个代码示例中，<code>Person</code>类有两个成员变量<code>name</code>和<code>age</code>，以及多个成员函数，用于设置和获取名字与年龄，并输出对象的介绍。</p> 
+<h2>3. 什么是对象？</h2> 
+<p><strong>对象</strong>：对象是类的实例。通过类创建的具体实例称为对象。每个对象都有自己的<font color="ligblue">属性值和方法实现</font>。例如，通过“汽车”类创建的具体汽车对象可以有不同的颜色和品牌。</p> 
+<h3>2.1 实例化</h3> 
+<h4>2.1.1 实例化概念</h4> 
+<ul><li> <p>用类类型在<font color="ligblue">物理内存</font>中创建对象的过程，称为类实例化出对象。</p> </li><li> <p>类是对象进行一种抽象描述，是一个模型一样的东西，限定了类有哪些成员变量，这些成员变量<font color="ligblue">只是声明，没有分配空间</font>，用类实例化出对象时，才会分配空间。</p> </li><li> <p>一个类可以实例化出多个对象，实例化出的对象占用实际的物理空间，存储类成员变量。</p> <p>打个比方：类实例化出对象就像现实中使用建筑设计图建造出房子，类就像是设计图，设计图规划了有多少个房间，房间大小功能等，但是并没有实体的建筑存在，也不能住人，用设计图修建出房子，房子才能住人。同样类就像设计图一样，不能存储数据，实例化出的对象分配物理内存存储数据。</p> </li></ul> 
+<p><img src="https://i-blog.csdnimg.cn/direct/845b25c74cfc4cc1a50a41568963c2a1.png#pic_center" alt="在这里插入图片描述"></p> 
+<pre><code class="prism language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string"><iostream></span></span>
+using namespace std<span class="token punctuation">;</span>
+class Date
+<span class="token punctuation">{<!-- --></span>
+public<span class="token operator">:</span>
+	<span class="token keyword">void</span> <span class="token function">Init</span><span class="token punctuation">(</span><span class="token keyword">int</span> year<span class="token punctuation">,</span> <span class="token keyword">int</span> month<span class="token punctuation">,</span> <span class="token keyword">int</span> day<span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		_year <span class="token operator">=</span> year<span class="token punctuation">;</span>
+		_month <span class="token operator">=</span> month<span class="token punctuation">;</span>
+		_day <span class="token operator">=</span> day<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">void</span> <span class="token function">Print</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		cout <span class="token operator"><<</span> _year <span class="token operator"><<</span> <span class="token string">"/"</span> <span class="token operator"><<</span> _month <span class="token operator"><<</span> <span class="token string">"/"</span> <span class="token operator"><<</span> _day <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+private<span class="token operator">:</span>
+	<span class="token comment">// 这里只是声明，没有开空间</span>
+	<span class="token keyword">int</span> _year<span class="token punctuation">;</span>
+	<span class="token keyword">int</span> _month<span class="token punctuation">;</span>
+	<span class="token keyword">int</span> _day<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token comment">// Date类实例化出对象d1和d2</span>
+	Date d1<span class="token punctuation">;</span>
+	Date d2<span class="token punctuation">;</span>
+	d1<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span><span class="token number">2024</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">31</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	d1<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	d2<span class="token punctuation">.</span><span class="token function">Init</span><span class="token punctuation">(</span><span class="token number">2024</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	d2<span class="token punctuation">.</span><span class="token function">Print</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<h4>2.1.2 对象大小（内存中的体现）</h4> 
+<p>分析一下类对象中哪些成员呢？</p> 
+<p>类实例化出的每个对象，都有独立的数据空间，所以对象中肯定包含成员变量。</p> 
+<p><mark>那么成员函数是否包含呢？</mark></p> 
+<p><strong>首先函数被编译后是一段指令，对象中没办法存储，这些指令存储在一个单独的区域(代码段)，那么对象中非要存储的话，只能是成员函数的指针。</strong></p> 
+<p>再分析一下，对象中是否有存储指针的必要呢，Date实例化d1和d2两个对象，d1和d2都有各自独立的成员变量_year/_month/_day存储各自的数据，但是d1和d2的成员函数Init/Print指针却是一样的，<font color="red">存储在对象中就浪费了</font>。如果用Date实例化100个对象，那么成员函数指针就重复存储100次，太浪费了。这里需要再额外哆嗦⼀下，其实函数指针是不需要存储的，函数指针是一个地址，调用函数被编译成汇编指令[call 地址]， <strong>其实编译器在编译链接时，就要找到函数的地址，不是在运行时找</strong>，只有动态多态是在运行时找，就需要存储函数地址，这个我们以后会讲解。</p> 
+<p><img src="https://i-blog.csdnimg.cn/direct/ad91bfdd87d04e708d5d6815d1a841e6.png#pic_center" alt="在这里插入图片描述"></p> 
+<p>上面我们分析了对象中只存储成员变量，C++规定类实例化的对象也要符合内存对齐的规则。</p> 
+<blockquote> 
+ <p>📌<strong>内存对齐规则</strong></p> 
+ <ol><li> <p>第一个成员在与结构体偏移量为0的地址处。</p> </li><li> <p>其他成员变量要对齐到某个数字（对齐数）的整数倍的地址处。</p> </li><li> <p>注意：对齐数 = 编译器默认的一个对齐数与该成员大小（所占字节）的较小值。</p> </li><li> <p>VS中默认的对齐数为8</p> </li><li> <p>结构体总大小为：最大对齐数（所有变量类型最大者与默认对齐参数取最小）的整数倍。</p> </li><li> <p>如果嵌套了结构体的情况，嵌套的结构体对齐到自己的最大对齐数的整数倍处，结构体的整体大小就是所有最大对齐数（含嵌套结构体的对齐数）的整数倍。</p> </li></ol> 
+</blockquote> 
+<pre><code class="prism language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string"><iostream></span></span>
+using namespace std<span class="token punctuation">;</span>
+<span class="token comment">// 计算一下A/B/C实例化的对象是多大？</span>
+class A
+<span class="token punctuation">{<!-- --></span>
+public<span class="token operator">:</span>
+	<span class="token keyword">void</span> <span class="token function">Print</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		cout <span class="token operator"><<</span> _ch <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+private<span class="token operator">:</span>
+	<span class="token keyword">char</span> _ch<span class="token punctuation">;</span>
+	<span class="token keyword">int</span> _i<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+class B
+<span class="token punctuation">{<!-- --></span>
+public<span class="token operator">:</span>
+	<span class="token keyword">void</span> <span class="token function">Print</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		<span class="token comment">//...</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+class C
+<span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	A a<span class="token punctuation">;</span>
+	B b<span class="token punctuation">;</span>
+	C c<span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>上面的程序运行后，我们看到没有成员变量的B和C类对象的大小是1，为什么没有成员变量还要给1个字节呢？</p> 
+<p><mark>因为如果一个字节都不给，怎么表示对象存在过呢！所以这里给1字节，纯粹是为了占位标识对象存在。</mark></p> 
+<h2>结语</h2> 
+<p>今天的分享到这里就结束啦！如果觉得文章还不错的话，可以<font color="blue">三连</font>支持一下。</p> 
+<p>也可以点点关注，避免以后找不到我哦！</p> 
+<p>还有很多有趣的文章，欢迎小伙伴们前去点评，您的支持就是作者前进的动力！ <img src="https://i-blog.csdnimg.cn/direct/710eadd5b1034fac999d759634e8f154.gif#pic_center" alt="在这里插入图片描述"></p>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-a5d25dd831.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-e504d6a974.css" rel="stylesheet">
+        </div>
+    </article></body>
+</html>

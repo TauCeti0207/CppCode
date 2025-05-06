@@ -1,3 +1,0 @@
-D:/code/2022code/Cpp_Code/3-8 lanqiao/build/CMakeFiles/LANQIAO.dir
-D:/code/2022code/Cpp_Code/3-8 lanqiao/build/CMakeFiles/edit_cache.dir
-D:/code/2022code/Cpp_Code/3-8 lanqiao/build/CMakeFiles/rebuild_cache.dir

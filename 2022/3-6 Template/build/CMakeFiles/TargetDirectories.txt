@@ -1,3 +1,0 @@
-D:/code/2022code/Cpp_Code/3-6 Template/build/CMakeFiles/TEMPLATE.dir
-D:/code/2022code/Cpp_Code/3-6 Template/build/CMakeFiles/edit_cache.dir
-D:/code/2022code/Cpp_Code/3-6 Template/build/CMakeFiles/rebuild_cache.dir

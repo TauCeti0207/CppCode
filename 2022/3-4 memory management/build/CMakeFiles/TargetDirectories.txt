@@ -1,3 +1,0 @@
-D:/code/2022code/Cpp_Code/3-4 memory management/build/CMakeFiles/Memory-management.dir
-D:/code/2022code/Cpp_Code/3-4 memory management/build/CMakeFiles/edit_cache.dir
-D:/code/2022code/Cpp_Code/3-4 memory management/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【C++掌中宝】C++ 中的空指针救世主——nullptr</title>
+</head>
+<body>
+<h1>【C++掌中宝】C++ 中的空指针救世主——nullptr</h1>
+<article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+                <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p><img src="https://i-blog.csdnimg.cn/direct/aaf5a37b68cd4e26a2cf29556d6ee2fb.gif#pic_center" alt="在这里插入图片描述"></p> 
+<p></p> 
+<div class="toc"> 
+ <h4>文章目录</h4> 
+ <ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul> 
+</div> 
+<p></p> 
+<h2>1. 什么是 NULL？</h2> 
+<p>在 C 和 C++ 编程中，<code>NULL</code> 常用于表示空指针，但它<mark>本质上是一个宏定义</mark>。</p> 
+<ul><li>在C语言中，<code>NULL</code> 通常被定义为 <code>(void *)0</code>，也就是一个指向空的 <code>void</code> 指针。</li><li>但在 C++ 中，<code>NULL</code> 常常被定义为整数常量 <code>0</code>。</li></ul> 
+<p>在传统的C头文件（<strong>stddef.h</strong>）中，可以看到如下代码：</p> 
+<pre><code class="prism language-c"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifndef</span> <span class="token expression"><span class="token constant">NULL</span></span></span>
+	<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">ifdef</span> <span class="token expression">__cplusplus</span></span>
+		<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NULL</span> <span class="token expression"><span class="token number">0</span></span></span>
+	<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">else</span></span>
+		<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">define</span> <span class="token macro-name">NULL</span> <span class="token expression"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0</span><span class="token punctuation">)</span></span></span>
+	<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">endif</span></span>
+</code></pre> 
+<p>由于在 C++ 中，<code>void*</code> 不能隐式转<font color="red">换为其他类型的指针</font>，因此将 <code>NULL</code> 定义为 <code>0</code>。这导致在函数重载时可能会出现<font color="red">二义性问题</font>。</p> 
+<h2>2. NULL 在 C 和 C++ 中的区别</h2> 
+<p>在 C 语言中，<code>NULL</code> 定义为 <code>(void *)0</code>，它可以隐式转换为任何类型的指针。这使得以下代码在 C 中可以正常编译和运行：</p> 
+<pre><code class="prism language-c"><span class="token keyword">int</span> <span class="token operator">*</span>pi <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+<span class="token keyword">char</span> <span class="token operator">*</span>pc <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+</code></pre> 
+<p>然而，在 C++ 中，由于更严格的类型检查，<code>void*</code> 不能隐式转换为其他指针类型。因此，C++ 中的 <code>NULL</code> 通常被定义为整数常量 <code>0</code>。这导致了以下代码在 C++ 中的<font color="red">编译错误</font>：</p> 
+<pre><code class="prism language-c"><span class="token keyword">int</span> <span class="token operator">*</span>pi <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">void</span><span class="token operator">*</span><span class="token punctuation">)</span><span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment">// OK in C, error in C++</span>
+</code></pre> 
+<p><strong>报错如下</strong>：</p> 
+<p><img src="https://i-blog.csdnimg.cn/direct/2c85596d4d5b4a5099ddec1fcf0f9c44.png#pic_center" alt="在这里插入图片描述"></p> 
+<hr> 
+<p>除此之外，<code>NULL</code> 在函数重载时也会导致意外行为。例如，考虑以下代码：</p> 
+<pre><code class="prism language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string"><iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	cout <span class="token operator"><<</span> <span class="token string">"f(int x)"</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span> ptr<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	cout <span class="token operator"><<</span> <span class="token string">"f(int* ptr)"</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token function">f</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">f</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token comment">// 这会调用哪个版本的 f()？</span>
+</code></pre> 
+<p><strong>运行结果如下</strong>： <img src="https://i-blog.csdnimg.cn/direct/c93c45ab8ee44915ae98091954192bdf.png#pic_center" alt="在这里插入图片描述"></p> 
+<p>由于 <code>NULL</code> 被定义为 <code>0</code>，这里会调用 <code>int</code> 参数的版本，而不是我们期望的指针版本，所以最后两个结果都是选择<code>int</code> 参数的版本。</p> 
+<h2>3. C++11 引入 nullptr 的原因</h2> 
+<p>为了消除 <code>NULL</code> 在 C++ 中的二义性问题，C++11 引入了 <code>nullptr</code> 作为一种新型<strong>空指针常量</strong>。<code>nullptr</code> 是一个<mark>关键字</mark>，代表一种特殊类型，使用<code>nullptr</code>定义空指针可以避免类型转换的问题，因为<font color="red">它只能转换为任意指针类型，但不能转换为整数类型</font>。</p> 
+<p>例如，以下代码可以正确运行并调用我们期望的函数版本：</p> 
+<pre><code class="prism language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string"><iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    cout <span class="token operator"><<</span> <span class="token string">"foo(int x)"</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token operator">*</span> ptr<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    cout <span class="token operator"><<</span> <span class="token string">"foo(int* ptr)"</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// 调用 f(int* ptr)</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p><code>nullptr</code> 的引入解决了函数重载中的二义性问题，确保空指针总是正确地匹配到指针类型的重载函数。</p> 
+<h2>4. nullptr 与 NULL 的区别</h2> 
+<p>虽然 <code>NULL</code> 仍然可以在 C++ 中使用，但它在特定场景下会引发错误或误解。相比之下，<code>nullptr</code> 是一种更加安全且明确的选择：</p> 
+<ul><li>在C++中<code>NULL</code> 通常是整数 <code>0</code>，会引发二义性问题。</li><li><code>nullptr</code> 是一个指针常量，可以隐式转换为任意指针类型，不会引发二义性问题。</li></ul> 
+<p>例如：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">void</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    cout <span class="token operator"><<</span> <span class="token string">"func(int)"</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token operator">*</span> p<span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    cout <span class="token operator"><<</span> <span class="token string">"func(char*)"</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment">// 调用 func(int)</span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 调用 func(char*)</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<h2>5. nullptr 的应用场景</h2> 
+<p>在 C++11 及更高版本中，推荐使用 <code>nullptr</code> 代替 <code>NULL</code> 来表示空指针，特别是在函数重载的场景下。例如：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span><span class="token operator">*</span> p1 <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>p1 <span class="token operator">==</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span> <span class="token punctuation">{<!-- --></span>
+    cout <span class="token operator"><<</span> <span class="token string">"p1 是空指针"</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>需要注意的是，<code>nullptr</code> 不能赋值给整数类型，因此以下代码会导致编译错误：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>  <span class="token comment">// 编译错误</span>
+</code></pre> 
+<p><strong>报错如下</strong>： <img src="https://i-blog.csdnimg.cn/direct/a07e178aca054c6cb1fc12117eb7052a.png#pic_center" alt="在这里插入图片描述"></p> 
+<h2>6. 模拟 nullptr 的实现</h2> 
+<p>对于不支持 C++11 的编译器，我们可以自己模拟实现 <code>nullptr</code>。以下是一个简单的实现：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">const</span> <span class="token keyword">class</span> <span class="token class-name">nullptr_t</span> <span class="token punctuation">{<!-- --></span>
+<span class="token keyword">public</span><span class="token operator">:</span>
+    <span class="token keyword">template</span><span class="token operator"><</span><span class="token keyword">class</span> <span class="token class-name">T</span><span class="token operator">></span>
+    <span class="token keyword">operator</span> T<span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{<!-- --></span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+    <span class="token keyword">template</span><span class="token operator"><</span><span class="token keyword">class</span> <span class="token class-name">C</span><span class="token punctuation">,</span> <span class="token keyword">class</span> <span class="token class-name">T</span><span class="token operator">></span>
+    <span class="token keyword">operator</span> T C<span class="token operator">::</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{<!-- --></span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">private</span><span class="token operator">:</span>
+    <span class="token keyword">void</span> <span class="token keyword">operator</span><span class="token operator">&amp;</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">nullptr</span> <span class="token operator">=</span> <span class="token punctuation">{<!-- --></span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre> 
+<h2>7. 总结</h2> 
+<p><code>NULL</code> 是一个历史遗留的宏定义，虽然在 C++ 中仍然可以使用，但它会在特定场景下引发意外的行为和错误。为了消除这些问题，C++11 引入了 <code>nullptr</code>，作为一种类型安全的空指针表示。</p> 
+<p>在现代 C++ 编程中，强烈推荐使用 <code>nullptr</code> 代替 <code>NULL</code>，确保代码在空指针处理上更加明确和安全。</p> 
+<h2>结语</h2> 
+<p>通过本文，读者应当已经掌握了 <code>nullptr</code> 的基本概念、与 <code>NULL</code> 的区别以及如何在实际编程中应用它。如果你还在用 <code>NULL</code>，是时候拥抱 <code>nullptr</code>，让你的代码更加健壮吧！</p> 
+<p>今天的分享到这里就结束啦！如果觉得文章还不错的话，可以<font color="blue">三连</font>支持一下。</p> 
+<p>也可以点点关注，避免以后找不到我哦！</p> 
+<p>还有很多有趣的文章，欢迎小伙伴们前去点评，您的支持就是作者前进的动力！ <img src="https://i-blog.csdnimg.cn/direct/07ce5092ade24fa49bb5ebb56efe9fc9.gif#pic_center" alt="在这里插入图片描述"></p>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-a5d25dd831.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-e504d6a974.css" rel="stylesheet">
+        </div>
+    </article></body>
+</html>

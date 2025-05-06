@@ -129,6 +129,19 @@ depend:
 	$(MAKE) $(MAKESILENT) -f 01CPP入门/CMakeFiles/01.dir/build.make 01CPP入门/CMakeFiles/01.dir/build
 .PHONY : 01/fast
 
+#=============================================================================
+# Target rules for targets named 02
+
+# Build rule for target.
+02: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 02
+.PHONY : 02
+
+# fast build rule for target.
+02/fast:
+	$(MAKE) $(MAKESILENT) -f 02类与对象/CMakeFiles/02.dir/build.make 02类与对象/CMakeFiles/02.dir/build
+.PHONY : 02/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -138,6 +151,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... 01"
+	@echo "... 02"
 .PHONY : help
 
 

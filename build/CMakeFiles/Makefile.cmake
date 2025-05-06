@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
   "/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/01CPP入门/CMakeLists.txt"
+  "/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/02类与对象/CMakeLists.txt"
   "/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/CMakeLists.txt"
   "CMakeFiles/4.0.0/CMakeCCompiler.cmake"
   "CMakeFiles/4.0.0/CMakeCXXCompiler.cmake"
@@ -54,9 +55,11 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "01CPP入门/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "02类与对象/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "01CPP入门/CMakeFiles/01.dir/DependInfo.cmake"
+  "02类与对象/CMakeFiles/02.dir/DependInfo.cmake"
   )

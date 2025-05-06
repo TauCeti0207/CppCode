@@ -42,6 +42,11 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/01CPP入门/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/Users/yzq0207/Library/CloudStorage/OneDrive-个人/learn/programming/CppCode/build/02类与对象/cmake_install.cmake")
+endif()
+
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
