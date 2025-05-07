@@ -4,13 +4,14 @@
  * @version:
  * @Date: 2025-05-07 00:19:37
  * @LastEditors: tauceti0207
- * @LastEditTime: 2025-05-07 00:26:52
+ * @LastEditTime: 2025-05-07 00:42:33
  */
 // stack.cpp
 #include "Stack.h"
 
 template <typename T>
-Stack<T>::Stack(int initialCapacity) : capacity(initialCapacity), top(-1)
+Stack<T>::Stack(int initialCapacity)
+	: capacity(initialCapacity), top(-1)
 {
 	data = new T[capacity];
 }

@@ -4,9 +4,10 @@
  * @version:
  * @Date: 2025-05-07 00:19:28
  * @LastEditors: tauceti0207
- * @LastEditTime: 2025-05-07 00:29:03
+ * @LastEditTime: 2025-05-07 12:22:54
  */
 // stack.h
+#pragma once
 #ifndef STACK_H
 #define STACK_H
 

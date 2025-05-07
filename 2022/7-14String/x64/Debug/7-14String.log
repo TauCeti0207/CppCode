@@ -1,3 +1,0 @@
-﻿  Test.cpp
-D:\code\2022code\Cpp_Code\7-14String\Test.cpp(107,7): warning C4834: 放弃具有 "nodiscard" 属性的函数的返回值
-  7-14String.vcxproj -> D:\code\2022code\Cpp_Code\7-14String\x64\Debug\7-14String.exe

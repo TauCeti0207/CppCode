@@ -7,6 +7,7 @@
  * @LastEditTime: 2025-05-06 21:36:21
  */
 // person.h
+#pragma once
 #ifndef PERSON_H
 #define PERSON_H
 

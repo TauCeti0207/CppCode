@@ -1,5 +1,5 @@
 // person.cpp
-#include "person.h"
+#include "Person.h"
 
 // 构造函数实现
 Person::Person(const char *name, const char *sex, int age)

@@ -1,3 +1,0 @@
-﻿  Heap.c
-D:\code\2022code\Cpp_Code\4-25Heap\Heap.c(133,19): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
-  4-25Heap.vcxproj -> D:\code\2022code\Cpp_Code\4-25Heap\x64\Debug\4-25Heap.exe
