@@ -4,7 +4,7 @@
  * @version:
  * @Date: 2025-05-06 21:35:01
  * @LastEditors: tauceti0207
- * @LastEditTime: 2025-05-09 16:56:35
+ * @LastEditTime: 2025-05-13 13:23:23
  */
 // main.cpp
 #include "Person.h"
@@ -392,6 +392,7 @@ void testDate01()
 	std::cout << "d3: " << d3 << std::endl;
 }
 
+#if 0
 class A
 {
 public:
@@ -405,6 +406,9 @@ private:
 	int _x;
 };
 
+#endif
+
+#if 0
 class Date2
 {
 public:
@@ -435,6 +439,193 @@ void testDate2()
 	Date2 d1;
 	Date2 d2(2024, 5, 20);
 }
+#endif
+
+#if 0
+
+class A
+{
+public:
+	A()
+	{
+		++totalCreated;
+		++activeInstances;
+		std::cout << "构造函数调用，当前活跃对象: " << activeInstances << std::endl;
+	}
+
+	A(const A &a)
+	{
+		++totalCreated;
+		++activeInstances;
+		std::cout << "拷贝构造函数调用，当前活跃对象: " << activeInstances << std::endl;
+	}
+
+	~A()
+	{
+		--activeInstances;
+		std::cout << "析构函数调用，当前活跃对象: " << activeInstances << std::endl;
+	}
+
+	static int getTotalCreated()
+	{
+		return totalCreated;
+	}
+
+	// 静态成员函数，没有 this 指针
+	static int getActiveInstances()
+	{
+		return activeInstances;
+	}
+
+private:
+	// 静态成员变量声明
+	static int totalCreated;	// 累计创建的对象总数
+	static int activeInstances; // 当前活跃的对象数量
+};
+
+// 静态成员变量定义和初始化
+int A::totalCreated = 0;
+int A::activeInstances = 0;
+
+A f(A a)
+{
+	std::cout << "进入f函数，参数传递后活跃对象: " << A().getActiveInstances() << std::endl;
+	return a;
+}
+
+#if 0
+void testStaticMember()
+{
+	std::cout << "=== 开始测试 ===" << std::endl;
+
+	// 创建a1和a2
+	A a1;
+	A a2;
+	std::cout << "创建a1和a2后，活跃对象: " << A::activeInstances << std::endl;
+
+	// 临时对象
+	{
+		A();
+		std::cout << "临时对象析构后，活跃对象: " << A::activeInstances << std::endl;
+	}
+
+	// 函数调用测试
+	std::cout << "=== 测试f(a1) ===" << std::endl;
+	// a1 传给 f的形参拷贝构造一次，f 函数传值返回又有一次拷贝构造
+	f(a1);
+	std::cout << "f(a1)调用结束后，活跃对象: " << A::activeInstances << std::endl;
+
+	// 输出各种信息
+	std::cout << "\n=== 最终统计 ===" << std::endl;
+	std::cout << "类A的大小: " << sizeof(A) << std::endl;
+	std::cout << "累计创建对象总数: " << A::totalCreated << std::endl;
+	std::cout << "a1对象访问totalCreated: " << a1.totalCreated << std::endl;
+	std::cout << "a2对象访问totalCreated: " << a2.totalCreated << std::endl;
+
+	// 临时对象测试
+	std::cout << "\n=== 临时对象测试 ===" << std::endl;
+	std::cout << "创建临时对象，其totalCreated值: " << A().totalCreated << std::endl;
+	std::cout << "临时对象析构后，活跃对象: " << A::activeInstances << std::endl;
+
+	std::cout << "=== 测试结束 ===" << std::endl;
+}
+#endif
+
+void testStaticMember2()
+{
+	A a1;
+	A a2;
+	// 对象调用
+	std::cout << "a1: " << a1.getTotalCreated() << std::endl;
+	std::cout << "a2: " << a2.getTotalCreated() << std::endl;
+	// 类域调用
+	std::cout << "A::" << A::getTotalCreated() << std::endl;
+	// 匿名对象调用
+	std::cout << "A()" << A().getTotalCreated() << std::endl;
+}
+
+#endif
+
+#if 1
+
+class A
+{
+public:
+	// 普通构造函数
+	A(int a = 0)
+		: _a(a)
+	{
+		std::cout << "普通构造函数被调用" << std::endl;
+	}
+
+	// 拷贝构造函数
+	A(const A &other) : _a(other._a)
+	{
+		std::cout << "拷贝构造函数被调用" << std::endl;
+	}
+
+	// 析构函数
+	~A()
+	{
+		std::cout << "析构函数被调用，_a = " << _a << std::endl;
+	}
+
+	// Print必须加const，不然const对象不能不能调用 非const成员函数
+	void Print() const
+	{
+		std::cout << "Print->" << _a << std::endl;
+	}
+
+private:
+	int _a;
+};
+
+void f1(const A &aa)
+{
+	// 使用引用传参，只是给已存在的对象起了一个别名，而不是创建一个新的对象，所以不会调用拷贝构造函数
+	aa.Print();
+}
+
+A f2()
+{
+	return 1;
+	// 正常是要用 1 去构造，然后再拷贝构造给临时对象，
+}
+
+void test()
+{
+	// 调用普通构造函数创建对象aa1
+	A aa1;
+	f1(aa1);
+	std::cout << "=======================" << std::endl;
+
+	// 调用普通构造函数创建匿名对象，由于 f1 形参是 const & ，减少了一次拷贝构造
+	// 既构造又拷贝构造，编译器直接优化成了构造
+	f1(A(1));
+	std::cout << "=======================" << std::endl;
+
+	// 这里会发生隐式类型转换，int类型的2通过A的普通构造函数转换为A类型的临时对象
+	// 由于const & ，减少了一次拷贝构造
+	// 隐式类型转换，先构造，再拷贝构造，会被编译器优化成一次构造
+	f1(2);
+	std::cout << "=======================" << std::endl;
+
+	// const引用会延迟匿名对象生命周期
+	const A &ref = A(3);
+	f1(ref);
+	std::cout << "=======================" << std::endl;
+}
+
+void test2()
+{
+	A aa1 = f2(); // 临时对象再拷贝构造给 aa1 的
+	std::cout << "=======================" << std::endl;
+	A aa2 = 1;
+	std::cout << "=======================" << std::endl;
+	A aa3 = A(3);
+}
+
+#endif
 
 int main()
 {
@@ -446,6 +637,10 @@ int main()
 	// testStackCopy();
 	// testDate6();
 	// testDate01();
-	testDate2();
+	// testDate2();
+	// testStaticMember2();
+
+	test2();
+
 	return 0;
 }

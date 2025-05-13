@@ -44,6 +44,8 @@
 		"variant": "cpp",
 		"vector": "cpp",
 		"ostream": "cpp",
-		"version": "cpp"
+		"version": "cpp",
+		"sstream": "cpp",
+		"algorithm": "cpp"
 	}
 }
