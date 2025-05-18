@@ -1,5 +1,6 @@
 #include "test.h"
 #include "singleList.h"
+#include <time.h>
 
 // 自定义命名空间 yzq
 namespace yzq
@@ -516,19 +517,19 @@ void testReturnByRefOrValue()
 	std::cout << "--- 开始测试值返回和引用返回的性能 ---" << std::endl;
 
 	// 以值作为函数的返回值类型
-	std::clock_t begin1 = std::clock();
+	clock_t begin1 = clock();
 	std::cout << "开始执行值返回函数测试..." << std::endl;
 	for (size_t i = 0; i < 100000; ++i)
 		testFunc1();
-	std::clock_t end1 = std::clock();
+	clock_t end1 = clock();
 	std::cout << "值返回函数测试结束。" << std::endl;
 
 	// 以引用作为函数的返回值类型
-	std::clock_t begin2 = std::clock();
+	clock_t begin2 = clock();
 	std::cout << "开始执行引用返回函数测试..." << std::endl;
 	for (size_t i = 0; i < 100000; ++i)
 		testFunc2();
-	std::clock_t end2 = std::clock();
+	clock_t end2 = clock();
 	std::cout << "引用返回函数测试结束。" << std::endl;
 
 	// 计算两个函数运算完成之后的时间

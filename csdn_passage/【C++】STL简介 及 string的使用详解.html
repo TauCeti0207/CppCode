@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【C++】STL简介 及 string的使用详解</title>
+</head>
+<body>
+<h1>【C++】STL简介 及 string的使用详解</h1>
+<article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+                <div id="content_views" class="markdown_views prism-atelier-sulphurpool-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p></p> 
+<div class="toc"> 
+ <h4>文章目录</h4> 
+ <ul><li><ul><li></li><li><ul><li></li><li></li><li></li></ul> 
+   </li><li></li><li><ul><li></li><li></li><li></li><li><ul><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul> 
+    </li><li></li></ul> 
+  </li></ul> 
+ </li></ul> 
+</div> 
+<p></p> 
+<h3>1. STL简介</h3> 
+<h4>1.1 什么是STL</h4> 
+<blockquote> 
+ <p><font color="blue"> <code>STL</code>(standard template libaray-标准模板库)：是C++标准库的重要组成部分，不仅是一个可复用的组件库，而且是一个包罗数据结构与算法的软件框架。</font> <img src="https://i-blog.csdnimg.cn/blog_migrate/628cd859f36860226a6599135ffcd57c.png" alt="在这里插入图片描述"></p> 
+</blockquote> 
+<h4>1.2 STL的版本</h4> 
+<p><strong>原始版本</strong></p> 
+<blockquote> 
+ <p>Alexander Stepanov、Meng Lee 在惠普实验室完成的原始版本，本着开源精神，他们声明允许任何人任意运用、拷贝、修改、传播、商业使用这些代码，无需付费。唯一的条件就是也需要向原始版本一样做开源使用。 <strong>HP 版本——所有STL实现版本的始祖。</strong></p> 
+</blockquote> 
+<p><strong>P. J. 版本</strong></p> 
+<blockquote> 
+ <p>由P. J. Plauger开发，继承自HP版本，被Windows Visual C++采用，不能公开或修改，缺陷：可读性比较低，符号命名比较怪异。</p> 
+</blockquote> 
+<p><strong>RW版本</strong></p> 
+<blockquote> 
+ <p>由Rouge Wage公司开发，继承自HP版本，被C+ + Builder 采用，不能公开或修改，可读性一般。</p> 
+</blockquote> 
+<p><strong>SGI版本</strong></p> 
+<blockquote> 
+ <p>由Silicon Graphics Computer Systems，Inc公司开发，继承自HP版 本。被GCC(Linux)采用，可移植性好，可公开、修改甚至贩卖，从命名风格和编程风格上看，阅读性非常高。 <font color="blue">我们后面学习STL要阅读部分源代码，主要参考的就是这个版本。</font></p> 
+</blockquote> 
+<h4>1.3 STL的六大组件</h4> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/ddd65862e379e1e6181afb4a483655df.png" alt="在这里插入图片描述"></p> 
+<blockquote> 
+ <p>这个大家先了解一下，我们后面都会慢慢的进行学习。</p> 
+</blockquote> 
+<h3>2. string类的使用</h3> 
+<h4>2.1 C语言中的字符串</h4> 
+<blockquote> 
+ <p><strong>C语言中，字符串是以’\0’结尾的一些字符的集合，为了操作方便，C标准库中提供了一些str系列的库函数，但是这些库函数与字符串是分离开的，不太符合OOP的思想，而且底层空间需要用户自己管理，稍不留神可能还会越界访问。</strong></p> 
+</blockquote> 
+<blockquote> 
+ <p><strong>在OJ中，有关字符串的题目基本以string类的形式出现，而且在常规工作中，为了简单、方便、快捷，基本都使用string类，很少有人去使用C库中的字符串操作函数。</strong></p> 
+</blockquote> 
+<h4>2.2 标准库中的string类</h4> 
+<p>那标准库中的string到底是个啥呢？</p> 
+<blockquote> 
+ <p><font color="black">🆗，它其实是一个类模板实例化出来的一个模板类。  <img src="https://i-blog.csdnimg.cn/blog_migrate/6d0b710ffb74f066f8c5f7b465117bd5.png" alt="在这里插入图片描述"> 我们可以看到，<strong>它其实是<code>basic_string</code>这个类模板实例化出来的类的一个<code>typedef</code></strong>。 <img src="https://i-blog.csdnimg.cn/blog_migrate/1c88a450fb3139049a6ed938f4819bdc.png" alt="在这里插入图片描述"> ps：这个页面翻译有些地方可能不恰当。 <img src="https://i-blog.csdnimg.cn/blog_migrate/036e1101583dc755855a3fe566a9198f.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/81c5053e562f2df70453fab24ffdb3bf.png" alt="在这里插入图片描述"> 可以看到，<code>basic_string</code>实例化出来的模板类除了<code>string</code>还有三个。 <img src="https://i-blog.csdnimg.cn/blog_migrate/033fcfc9281c26f0571140d4d0deabc9.png" alt="在这里插入图片描述"> <strong>它们都是<code>basic_string</code>这个类模板实例化出来的模板类，区别在于它们对应的模板参数的类型不同</strong>。</font></p> 
+</blockquote> 
+<p>那对于这个string类呢？</p> 
+<blockquote> 
+ <p><font color="black"><strong>其实它的底层就是一个动态的字符数组，就像我们之前数据结构写的顺序表。</strong> 那string呢就是一个<code>char</code>类型的字符数组，wstring就是对应的<code>wchar_t</code>的字符数组 <img src="https://i-blog.csdnimg.cn/blog_migrate/93f055ee7c1c32e78cb87219cb74aed4.png" alt="在这里插入图片描述"> u16string就是<code>char16_t</code>的字符数组，u32string就是<code>char32_t</code>的字符数组。 <img src="https://i-blog.csdnimg.cn/blog_migrate/cef5ff75eb55cda1a90a786f558971a0.png" alt="在这里插入图片描述"> 那这些不同类型的字符对应的大小也是不同的。</font></p> 
+</blockquote> 
+<p>欸！那大家现在有没有一个疑问，为什么搞出这么多种的string类呢？</p> 
+<blockquote> 
+ <p><font color="black">🆗，那我们在C语言阶段有了解过ASCII编码： <img src="https://i-blog.csdnimg.cn/blog_migrate/a2538e0b31623cc48aa76883d4a61525.png" alt="在这里插入图片描述"> 这里面的所有符号和字母都一个对应的ASCII码值。 那问一下大家假如现在我们要存一个字符串 <code>char str[] = "hello";</code> 那它在内存中存的是啥？ <img src="https://i-blog.csdnimg.cn/blog_migrate/902f7f6b507f537fe0507e526942d1ea.png" alt="在这里插入图片描述"> 我们看到内存里存的并不是字母本身，而是它们对应的ASCII码值（这里以16进制显示）。 那我们去打印的时候呢其实它也是去对照这个表找到这个ASCII码对应的字母然后显示。 所以呢 <img src="https://i-blog.csdnimg.cn/blog_migrate/d16447f8eee47f1b1c428a21395bf611.png" alt="在这里插入图片描述"> ASCII其实主要是来显示英语这些语言的。 那这样的话，随着计算机的发展，只有一个ASCII编码还够用吗？ 是不是就不行了啊，因为世界上还有很多国家，很多种语言呢。比如现在我们要让计算机能显示中文，用ASCII码是不是就不行了啊。而且ASCII只定义了128个字符（一个字节就够用了），中国的汉字大约有10万个呢！ 那基于这样的原因呢，有人就又发明了Unicode——万国码（兼容ASCII）： <img src="https://i-blog.csdnimg.cn/blog_migrate/249c22e4f5ed962b8d7dd39f0c2388bc.png" alt="在这里插入图片描述"> 但是呢各个国家的情况也不同，有的国家文字少，有的多，所以Unicode又进行了划分，分为<code>UTF-8、UTF-16、UTF-32</code>这些。 <img src="https://i-blog.csdnimg.cn/blog_migrate/503bac6c4da15f0fbfa99999ac472e0e.png" alt="在这里插入图片描述"> 所以呢，为了应对这些不同的编码，就产生了这些不同的字符类型，所以就有了<code>basic_string</code>这个泛型字符串类模板，我们可以用它实例化出不同类型的字符串类。</font></p> 
+</blockquote> 
+<p>🆗，那这里面最常用的呢其实还是<code>string</code>。</p> 
+<blockquote> 
+ <ol><li><font color="blue">string是表示字符串的字符串类</font></li><li><font color="blue">该类的接口与常规容器的接口基本相同，再添加了一些专门用来操作string的常规操作。</font></li><li><font color="blue">string在底层实际是：basic_string模板类的别名，<code>typedef basic_string<char, char_traits, allocator> string</code>;</font></li><li><font color="blue">不能操作多字节或者变长字符的序列。 在使用string类时，必须包含#include头文件以及using namespace std</font></li></ol> 
+</blockquote> 
+<h4>2.3 string类的常用接口说明</h4> 
+<h5>1. string类对象的常见构造</h5> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/38b3eeae9889bb659248ae1214af8660.png" alt="在这里插入图片描述"></p> 
+<table><thead><tr><th>(constructor)函数名称</th><th>功能说明</th></tr></thead><tbody><tr><td><strong>string() 空字符串构造函数（默认构造函数）</strong></td><td>构造一个空字符串，长度为零个字符</td></tr><tr><td><code>string (const char* s)</code></td><td>用一个常量字符串来构造字符串类对象</td></tr><tr><td>string (const string&amp; str, size_t pos, size_t len = npos) （<strong>用的不多</strong>）</td><td>复制 str 中从字符位置 pos 开始并跨越 len 字符的部分（如果 str 太短或 len 是string：：npos，则直到 str 的末尾）</td></tr><tr><td>string (const char* s, size_t n)</td><td>拿s指向字符串的前n个字符去构造string对象</td></tr><tr><td>string (size_t n, char c)</td><td>拿n个字符c去构造string对象</td></tr><tr><td><strong>string (const string&amp; str)</strong></td><td>拷贝构造</td></tr><tr><td>template <code><class InputIterator></code>string (InputIterator first, InputIterator last)</td><td>涉及到迭代器，后面再说</td></tr></tbody></table> 
+<p>先来看<code>string()</code>：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/9f03292ff4da2dfe572ace897df266e6.png" alt="在这里插入图片描述"> 构造一个空字符串。</font></p> 
+</blockquote> 
+<p><code>string (const char* s)</code> ：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/ec4eed71ef59ff711c9419a33fb1e765.png" alt="在这里插入图片描述"> 另外呢，这里还支持这样写： <img src="https://i-blog.csdnimg.cn/blog_migrate/ecf42898b558bbd2dae095429f35615d.png" alt="在这里插入图片描述"> 那这个我们之前是不是讲过啊，<strong>单参数的构造函数是支持隐式类型转换的</strong>。 <img src="https://i-blog.csdnimg.cn/blog_migrate/ae690fd800b1d542b894e17287e868ce.png" alt="在这里插入图片描述"></font></p> 
+</blockquote> 
+<p><code>string (const string&amp; str, size_t pos, size_t len = npos)</code>：</p> 
+<blockquote> 
+ <p><font color="black">这个怎么用呢？ 它其实是拿<code>str</code>中的一个子串去去构造string对象，这个字串是从str中下标pos位置开始，长度为len的一个字串。 <img src="https://i-blog.csdnimg.cn/blog_migrate/65c883acfebfc2f1f587ec148f2071ef.png" alt="在这里插入图片描述"> 那这个地方还说了，<strong>如果这里的<code>str</code>比较短，或者这里给的<code>len</code>是<code>string::npos</code>，则这个字串一直到<code>str</code>的末尾</strong>。 什么意思呢？ 举个栗子： <img src="https://i-blog.csdnimg.cn/blog_migrate/4dfd222d8a5f4ec265f238c0a3a47cc9.png" alt="在这里插入图片描述"> 我们现在的len是50，那这时字符串的长度是不是不够啊，比50短，那这个时候怎么办，会报错了？ 不会的，这里它会取到字符串的结尾位置： <img src="https://i-blog.csdnimg.cn/blog_migrate/e3b177ffdca63b970d0305a55b13f85a.png" alt="在这里插入图片描述"> 那我们看到这里还说如果给的len是<code>string::npos</code>，也会一直到str末尾，而且我们发现： <img src="https://i-blog.csdnimg.cn/blog_migrate/b991eb6cba5313b308ccd855df628f6b.png" alt="在这里插入图片描述"> <strong>这里的参数len给的是有缺省值的，而这个缺省值就是<code>npos</code></strong>，那这个<code>npos</code>是个啥呢？ <img src="https://i-blog.csdnimg.cn/blog_migrate/2383cca218fa5ad34018531766ede3e0.png" alt="在这里插入图片描述"> 我们看到<strong>它是一个静态成员变量，值是-1，但是呢，因为这里它的类型是<code>size_t</code>（无符号整型），所以它在这里其实是整型的最大值</strong>： <img src="https://i-blog.csdnimg.cn/blog_migrate/a5396d5a747e88d3b90f250e9e296aeb.png" alt="在这里插入图片描述"> 而我们的字符串长度是不可能大于这个值的，所以这里也是会取到结尾。 <img src="https://i-blog.csdnimg.cn/blog_migrate/8696a7c9af9a7228b5921e982d398a8d.png" alt="在这里插入图片描述"> 这个其实用的不是很多，但这里第一次见，带大家了解一下。</font></p> 
+</blockquote> 
+<p><code>string (const char* s, size_t n)</code>：</p> 
+<blockquote> 
+ <p><strong>拿s指向字符串的前n个字符去构造string对象</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/6f9e7b9e552bd26429f359676917a068.png" alt="在这里插入图片描述"></p> 
+</blockquote> 
+<p><code>string (size_t n, char c)</code>：</p> 
+<blockquote> 
+ <p>拿n个字符c去构造string对象 <img src="https://i-blog.csdnimg.cn/blog_migrate/683b6283fd2b6da26a25dca02371c120.png" alt="在这里插入图片描述"></p> 
+</blockquote> 
+<p><code>string (const string&amp; str)</code>：</p> 
+<blockquote> 
+ <p>拷贝构造： <img src="https://i-blog.csdnimg.cn/blog_migrate/aaf7a5b44474d5a0d2a7c1ad31fea3ce.png" alt="在这里插入图片描述"></p> 
+</blockquote> 
+<h5>2. string类对象的容量操作</h5> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/62e0d91b9dd7357e8fec819865e7c0a8.png" alt="在这里插入图片描述"></p> 
+<blockquote> 
+ <p>总共呢有这么多。</p> 
+</blockquote> 
+<p>首先我们看到有个size，还有个length：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/aaf26edbd4b475b5eebac30855808d1c.png" alt="在这里插入图片描述"> 都是返回字符串长度。 <img src="https://i-blog.csdnimg.cn/blog_migrate/132dc04986f110123d28698bf442d9a7.png" alt="在这里插入图片描述"> 欸！那他们俩的功能一样，为什么要搞两个呢？搞一个size，搞一个length。 🆗，那这里呢其实跟一些历史原因有关，string呢其实出现的比STL早，string其实严格来说是不属于STL的，它是C++标准库产生的，在STL出现之前就已经在标准库出现了。 那string呢其实最早之前设计的就是length，因为字符串的长度嘛，用length就很合适。但是后面STL出现之后，里面的其它数据结构用的都是size，那为了保持一致，就给string也增加了一个size。 <strong>所以size()与length()方法底层实现原理完全相同，引入size()的原因是为了与其他容器的接口保持一 致，一般情况下基本都是用size()。</strong></font></p> 
+</blockquote> 
+<p>然后我们看到有一个<code>max_size</code>：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/87580e7d8a732b5d9c03cc704c9b0e0f.png" alt="在这里插入图片描述"> 它的作用呢是返回字符串的最大长度 <img src="https://i-blog.csdnimg.cn/blog_migrate/d51d03d6d4a01776a4243b49b6e24e5a.png" alt="在这里插入图片描述"> <strong>但是呢，真正在实际中字符串可以并不能开这么长，而且在不同平台下这个值也可能不一样。</strong> 所以这个东西大家了解一下，知道有这么个东西就行了。</font></p> 
+</blockquote> 
+<p>然后我们来看一下<code>capacity</code>：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/90b30c437baae53866dc3b4522239c43.png" alt="在这里插入图片描述"> <code>capacity</code>呢其实就是返回当前string对象的容量（即当前给它分配的空间有多大），我们之前学过数据结构，相信这个大家很好理解。 <img src="https://i-blog.csdnimg.cn/blog_migrate/e25dc492a217ea3b6f9d782a6ca9babe.png" alt="在这里插入图片描述"> 我们看到这里返回的s的容量是15，<strong>但是呢这里想告诉大家这里它是不包含给<code>'\0'</code>的空间的，因为它认为<code>'\0'</code>不是有效字符，所以这里实际上是16个字节的空间。</strong> 我们可以调式观察一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/93576e5267398e9a71e2479bba7a83d1.png" alt="在这里插入图片描述"> 然后其它的呢大家可以自己结合文档先了解一下，我们后面再详细一点去解释剩下的一些比较重要的。</font></p> 
+</blockquote> 
+<h5>3. string类对象的修改操作</h5> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/02db16a2bd7b60ea9affbfb52e18c04e.png" alt="在这里插入图片描述"></p> 
+<blockquote> 
+ <p>ps：有的我们放在比较后面一点讲，还有的不重要的我们就简单了解一下。</p> 
+</blockquote> 
+<p>先来看一下<code>p ush_back</code>：</p> 
+<blockquote> 
+ <p><font color="black">顾名思义<code>p ush_back</code>就是尾插嘛。 <img src="https://i-blog.csdnimg.cn/blog_migrate/bee9527e61781131e295e689abbb32f8.png" alt="在这里插入图片描述"> 演示一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/d9da823322dbfafb2746b0d40ed5cc10.png" alt="在这里插入图片描述"> 那这是尾插或者说追加一个字符，那要是想追加一个字符串呢？ 也是可以的，不过这里不再用<code>push_back</code>，提供了另一个接口——<code>append</code> <img src="https://i-blog.csdnimg.cn/blog_migrate/86ce87daaa346627169291ef336ac57c.png" alt="在这里插入图片描述"> 然后这个<code>append</code>它也是重载了一大堆的版本，但有的其实都不怎么用，所以string的设计其实是被吐槽过的，有些地方设计的不是很好。 那最常用的呢其实还是直接去追加一个字符串： <img src="https://i-blog.csdnimg.cn/blog_migrate/f56b359a86022fa5cac0d676cef15eee.png" alt="在这里插入图片描述"></font></p> 
+</blockquote> 
+<p>但是呢：</p> 
+<blockquote> 
+ <p><font color="black">其实平常我们并不喜欢用<code>push_back</code>和<code>append</code>。 而是去用： <img src="https://i-blog.csdnimg.cn/blog_migrate/b254f0de038da68f7a693a224c8b56da.png" alt="在这里插入图片描述"> 🆗，<strong>string还重载了+=</strong>，用起来就非常爽： +=字符，字符串都可以 <img src="https://i-blog.csdnimg.cn/blog_migrate/b0075e66d393a4a3b744546cd20e3985.png" alt="在这里插入图片描述"> 不过其实+=的底层也是用的<code>push_back</code>和<code>append</code>，对他们进行了一层封装。</font></p> 
+</blockquote> 
+<h5>4. <code>resize</code>和<code>reserve</code></h5> 
+<p>那现在我们再回过头来看一下容量中的<code>resize</code>和<code>reserve</code>：</p> 
+<blockquote> 
+ <p>首先我们来观察一个东西，就是我们定义一个string对象，我们观察一下在<strong>不断插入数据的过程中它是如何进行扩容的</strong>。</p> 
+</blockquote> 
+<p>那这里已经写好了一个程序：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	string s<span class="token punctuation">;</span>
+	size_t sz <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">capacity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> <span class="token string">"making s grow:\n"</span><span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> <span class="token string">"capacity changed: "</span> <span class="token operator"><<</span> sz <span class="token operator"><<</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator"><</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		s<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token char">'c'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token keyword">if</span> <span class="token punctuation">(</span>sz <span class="token operator">!=</span> s<span class="token punctuation">.</span><span class="token function">capacity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+		<span class="token punctuation">{<!-- --></span>
+			sz <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">capacity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			cout <span class="token operator"><<</span> <span class="token string">"capacity changed: "</span> <span class="token operator"><<</span> sz <span class="token operator"><<</span> <span class="token char">'\n'</span><span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<blockquote> 
+ <p><font color="black">我们运行一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/43473d4ee9f682e93544056c6b1fe9ce.png" alt="在这里插入图片描述"> 我们看到是这样一个情况。 首先我们上面说过了嘛，他这里没有算<code>\0</code>的空间，所以这里看到的是15，实际是16个空间，31实际是32 好吧。 <strong>那这样的话我们看到它好像第一次扩容是2倍扩，后面每次都差不多是一个1.5倍扩。但实际呢，想告诉大家，其实在VS上，它这个结构跟我们理解的顺序表还是有一点不同，其实刚开始的数据并没有存到动态开辟的数组上，存到了一个自己的数组里面</strong>。我们可以调式观察一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/11174972369fa3a6c11d34ddf5753154.png" alt="在这里插入图片描述"> <strong>我们看到，它是存到这个Buf数组里面了，这个数组的大小是16（不带<code>\0</code>就是15），所以如果string对象的大小16，就存到这个Buf数组上，大于16才存到Ptr指向的动态开辟的数组上，就不往Buf里面存了。</strong> 可以认为它的结构是一个类似这样的： <img src="https://i-blog.csdnimg.cn/blog_migrate/bdf01868edb233b3f3f7dcf2d9cc432e.png" alt="在这里插入图片描述"> 所以<strong>如果Buf 满了它第一次在堆上开空间就开32 字节，然后后面是1.5倍增长扩容</strong>，所以不能说第一次扩了2倍。 那我们可以验证一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/cc40165c7955eb143a74058f99448786.png" alt="在这里插入图片描述"> <strong>我们打印它的大小发现是28个字节，如果只有指针<code>ptr</code>，<code>size</code>和<code>capacity</code>的话应该是12字节，那现在是28，就是因为它这里还有一个大小16的数组，那这样做的话小块的空间就可以不去堆上开辟了，如果比较大，需要去堆上开辟的话，起始就是32字节，然后不够再扩。</strong> 再来看： <img src="https://i-blog.csdnimg.cn/blog_migrate/90b3779c968de63376b12e18d36c6a9d.png" alt="在这里插入图片描述"> 现在i为100的时候，我们看到这时的字符串就存到<code>Ptr</code>指向的动态开辟的空间上了，就不再用Buf存了。 所以我们<strong>可以认为string的扩容是1.5倍去扩的</strong>，那在所有地方都是这样吗？ 不是的，<strong>在我们目前的Vs上是这样，不同平台的实现可能就不一样的。</strong> 我们可以看一下在Linux的g++下： <img src="https://i-blog.csdnimg.cn/blog_migrate/34a5a54a4f9e1520e9185992c918bc30.png" alt="在这里插入图片描述"> 是2倍扩容的，而且这样看的话它是没有Buf数组的。</font></p> 
+</blockquote> 
+<p>那这里了解了这个扩容的机制之后：</p> 
+<blockquote> 
+ <p><font color="black">我们真正想给大家讲的一个东西是什么呢？ 🆗，其实是想给大家说一下这个<code>reserve</code>和<code>resize</code>。 那上面我们看到如果我们一直插入数据他是会去不断扩容的，那其实我们是有方法去减少扩容的。 如果我们知道要插入多少数据的话，我们可以去调这样一个接口——<code>reserve</code>，注意不是逆置<code>reverse</code> <img src="https://i-blog.csdnimg.cn/blog_migrate/1df9d60cf88e1a93e5a09072861f4ae2.png" alt="在这里插入图片描述"> 那<code>reserve</code>的作用是什么呢？ <img src="https://i-blog.csdnimg.cn/blog_migrate/5c04d0807bae9b977c2b3905ae504ce1.png" alt="在这里插入图片描述"> <font color="red">reserve可以帮助我们更改容量大小，这样如果我们知道需要多大的空间，就可以一次开到位，就不用再一次一次的扩容了。</font> 就拿我们上面那个例子来说： 我们现在直接reserve100个容量，<strong>但是注意，我们指定100，它不一定开的就是100，可能由于对齐啊等等的一些原因，它会给你多开一些空间，但是肯定不会比100小。</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/8096566aa2f4369cdec2b0e410d24d0c.png" alt="在这里插入图片描述"> 这次大家看还有没有扩容啊，是不是就没有了，这里直接开了111，比100多了一些。 Linux下呢： <img src="https://i-blog.csdnimg.cn/blog_migrate/3dfe3a3eb097d5a5c1baf57c5ec783cc.png" alt="在这里插入图片描述"> 我们看到就是给了100，这就是它们底层实现的机制可能不一样，就有一些差异。 所以呢： <strong>如果我们知道需要多少空间的前提下，<code>reserve</code>就可以帮助我们提前把空间开好，然后就可以减少扩容，提升效率，因为频繁扩容也是需要付出代价的。</strong></font></p> 
+</blockquote> 
+<p>那还有一个<code>resize</code>，它的作用是什么呢？</p> 
+<blockquote> 
+ <p><font color="black">我们说<code>reserve</code>可以去改变容量，帮我们开空间；<font color="red">那<code>resize</code>呢，不仅可以开空间，而且还能对开好的空间进行初始化。</font> <strong>另外大家要知道<code>reserve</code>只是开空间改变容量，它是不会改变size的</strong>： <img src="https://i-blog.csdnimg.cn/blog_migrate/4807625f888580f599b6be36e1bc8d12.png" alt="在这里插入图片描述"> 而<code>resize</code>呢： <img src="https://i-blog.csdnimg.cn/blog_migrate/9d9baccae535186de11e82fb4798f8a5.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/f77212c2d9152ae4de3b830b8d79f1e6.png" alt="在这里插入图片描述"> 我们看到<code>capacity</code>和<code>size</code>都变了，<strong>因为它是会对开好的空间进行初始化的，相当于插入了新字符，所以<code>size</code>也变了</strong>： <img src="https://i-blog.csdnimg.cn/blog_migrate/54faca82f1f1ef8f1a9b947fe8e58776.png" alt="在这里插入图片描述"> 这里我们没有指定第二个参数，既要填入的字符，默认给的是<code>\0</code>，当然我们也可以自己指定要填入的字符： <img src="https://i-blog.csdnimg.cn/blog_migrate/c872e67fea30cbf7767451a48ed2e82d.png" alt="在这里插入图片描述"> <strong>当然我们刚才传的第一个参数n是大于当前字符串长度的，那么他就去扩容，如果我们传的n小于当前字符串长度，它还可以帮我们删除多出来的内容：</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/4a3eedf2192f224a1a3ce8cf1a598a3f.png" alt="在这里插入图片描述"> 那大家思考一下，这样做的话，会改变<code>capacity</code>吗？ <img src="https://i-blog.csdnimg.cn/blog_migrate/062e215ed903e491d05c3542ce016d69.png" alt="在这里插入图片描述"> <strong>我们看到只是<code>size</code>变了，<code>capacity</code>并没有改变。</strong> 因为一般情况下是不会轻易缩容的，缩容的话一般是不支持原地缩的，我们之前学习<code>realloc</code>扩容有原地扩和异地扩两种方式，而且原地扩也是有条件的，后面要有足够的空间才能原地扩。 而缩容呢？可以原地缩吗？ 🆗，由于底<strong>层内存管理的一些原因，是没法原地缩的</strong>。 如果支持原地缩，是不是就要支持释放一部分，我们申请一块空间，不用了只释放其中的一部分。 但是是不支持只释放一部分的，就像我们free是不是要求传的指针必须是指向起始位置的。 所以如果真的要缩容的话，只能异地缩，就是开一块新的小空间，把需要的数据拷贝过去，然后把原空间释放掉。所以缩容是要付出性能的代价的，系统原生是不支持的，我们需要自己去搞。所以不到万不得已不要轻易缩容。 <strong>不过其实string是提供了一个可以缩容的接口的</strong>——<code>shrink_to_fit </code> <img src="https://i-blog.csdnimg.cn/blog_migrate/0a8a6b13e3283c0efe7a514551e71a81.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/9b369459f00556c06bb82234a0201fdc.png" alt="在这里插入图片描述"> <strong>但是它是要付出代价的，所以我们要谨慎使用。</strong></font></p> 
+</blockquote> 
+<h5>5. 认识迭代器（正向）</h5> 
+<blockquote> 
+ <p><font color="black">那现在大家思考一个问题，如果我们想遍历一个string对象，可以有哪些方式？ 首先可以循环用<code>[ ]</code>遍历，因为string是重载了<code>[ ]</code>的，或者我也可以用范围for。 <strong>那除了这些方法之外呢，我们还可以用迭代器。</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/b0f05d8ae274c59f07f27122fb3ef1e2.png" alt="在这里插入图片描述"></font></p> 
+</blockquote> 
+<p>举个栗子：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	string <span class="token function">s1</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	string<span class="token double-colon punctuation">::</span>iterator it <span class="token operator">=</span> s1<span class="token punctuation">.</span><span class="token function">begin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">while</span> <span class="token punctuation">(</span>it <span class="token operator">!=</span> s1<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		cout <span class="token operator"><<</span> <span class="token operator">*</span>it <span class="token operator"><<</span> <span class="token string">" "</span><span class="token punctuation">;</span>
+		it<span class="token operator">++</span><span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<blockquote> 
+ <p><img src="https://i-blog.csdnimg.cn/blog_migrate/7dbb0c5b0e1e951be05aa5b10f7623e0.png" alt="在这里插入图片描述"> <font color="black">解释一下：首先这里的it就是我们定义的一个string类的迭代器（<code>string::iterator</code>是类型），那这么理解迭代器这个东西呢？ 🆗，<strong>现阶段呢，大家可以认为它是一个像指针一样的东西（不一定是指针）</strong>。 <img src="https://i-blog.csdnimg.cn/blog_migrate/de4cc7ff5229d7466df11f0c82043dc2.png" alt="在这里插入图片描述"> <strong>那这里的begin呢，会返回指向字符串第一个字符的迭代器。</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/a256984cc54b4765bf5a584a08c8738e.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/e3cfaceda13dedc66e1c1ea1b2c3e62f.png" alt="在这里插入图片描述"> <strong>end返回指向最后一个字符后面位置的迭代器。</strong> 我们就可以理解成指向这个位置的指针： <img src="https://i-blog.csdnimg.cn/blog_migrate/3c9ab75b232a1bab85bf2ef5582dc405.png" alt="在这里插入图片描述"> 那这样我们去循环遍历，解引用it，就可以遍历到整个string对象。 那这样对比一下的话是不是用<strong>范围for</strong>会比较爽一些： <img src="https://i-blog.csdnimg.cn/blog_migrate/d649126ee75708fdf26e6377f021dc2c.png" alt="在这里插入图片描述"> 🆗，那这里想告诉大家的是<strong>范围for看起来好像很牛逼，但是其实它的底层也是用的迭代器。</strong></font></p> 
+</blockquote> 
+<h5>6. 反向迭代器</h5> 
+<p>那迭代器除了像上面那样支持正向从前向后遍历，其实还可以倒着遍历，倒着遍历的叫做<strong>反向迭代器</strong>。</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/4e91db182a7fca947a7a0b856909f22b.png" alt="在这里插入图片描述"> 我们看到除了begin和end这里还有<strong>rbegin和rend</strong>，它们返回的是<code>reverse iterator </code>即反向迭代器。 那<strong>rbegin和rend</strong>返回的是什么呢？ <img src="https://i-blog.csdnimg.cn/blog_migrate/4b07fbcdbabf8d722644220ba20ed0c6.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/5416149fa4d32fa46515630f450ee0e2.png" alt="在这里插入图片描述"> <code>string s1("hello world");</code>那还拿这个对象举例子， 大家就可以理解为<code>rbegin</code>是指向字符<code>d</code>的（但实际实现不一定是这样），<code>rend</code>是指向<strong>字符<code>h</code>的前一个</strong> 那我们来用一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/0956f3822233398648fb3dc8a7547db5.png" alt="在这里插入图片描述"> 那大家先思考一下，这个地方rit应该++还是- -？ 🆗，还是++，大家可能认为这里从后往前倒着走应该是- -了。不要这样理解。 大家想，<strong>正向迭代器++是往后走，那反向迭代器就是方向相反了，那++不就是往前走了嘛。</strong> 我们验证一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/59e808217437626e85a8a0a84b260c8b.png" alt="在这里插入图片描述"> 是不是就反向遍历了。</font></p> 
+</blockquote> 
+<h5>7. const迭代器（正向&amp;反向）</h5> 
+<p>那大家再来看这样一个场景：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/7432578810ee6c05385f38c3f513cca9.png" alt="在这里插入图片描述"> 我们把s1传给一个函数，然后在函数里面用迭代器遍历打印它，但是这里报错了： <img src="https://i-blog.csdnimg.cn/blog_migrate/51bcc9ac1ecc6a2cb3a213f547c6c6ae.png" alt="在这里插入图片描述"> 说不存在什么到什么的适当转换。 为什么呢？ 我们看到函数<strong>func的形参s是s1的引用，但是加了const修饰，也就是说，与我们上面写的代码的区别在于这里的string对象即func中的s是const对象。</strong> 那s是const对象为什么这里就不行了呢？ 🆗，<strong>const对象是不是就不能被修改了啊，那我们上面讲普通迭代器的时候说了，可以认为它是一个像指针一样的东西，那我们对它解引用是不是就可以修改它了，所以这里我们就不能用普通迭代器了，这样是不是就权限放大了，所以这里才报错了。</strong></font></p> 
+</blockquote> 
+<p>那怎么解决呢？</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/272983f95659b035b45bed2ae06ea35f.png" alt="在这里插入图片描述"> 🆗，我们看到begin是有两个版本的，如果是<strong>const对象调用begin，那么返回的是const迭代器<code>const_iterator</code> 普通迭代器可以读容器的数据，也可以去修改，但是const迭代器就只能读，不能修改。</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/0e93fbf8792452a5f96b3ad38ea29dcf.png" alt="在这里插入图片描述"> 所以这里<strong>s调用begin返回的是const迭代器，我们用const迭代器迭代器接收就行了。</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/aae37d9ea79341aaab8a6e5bc8adb59c.png" alt="在这里插入图片描述"> 当然const迭代器我们是不能去修改的（<strong>不能修改它指向的内容，其本身可以修改</strong>）。</font></p> 
+</blockquote> 
+<p>那同样的道理：</p> 
+<blockquote> 
+ <p><font color="black">普通的迭代器有正向和反向，那<strong>const迭代器就也有正向和反向的两个版本。</strong> 刚才我们上面的就是<strong>正向，即const对象调用begin和end返回的迭代器。</strong> 那<strong>const反向迭代器就是const对象调用<code>rbegin</code>和<code>rend</code>返回的迭代器——<code>const_reverse_iterator</code></strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/0a342e056291f66e401da07b46c2f3d8.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/919e49a1252e8685f3900e2d6ad25c72.png" alt="在这里插入图片描述"> 我们来试一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/117952198ee1be9f37dc46df64c1f020.png" alt="在这里插入图片描述"> 当然这里我们看到迭代器的类型是不是有点长啊，那我们可不可以简化一下呢？ 是不是可以用auto啊： <img src="https://i-blog.csdnimg.cn/blog_migrate/63e576c9ba7bb89793c7abc0c161fb35.png" alt="在这里插入图片描述"> 我们说auto是不是可以自动推导类型啊，但是如果你明确知道这里返回的是什么类型，写成auto可以简便一点，那如果给不知道的人看可能会有点懵。 所以说它并不是一个完全完美的东西。</font></p> 
+</blockquote> 
+<p>那还要给大家提一下的就是：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/290f0393f675265047d8073b5cfdaa54.png" alt="在这里插入图片描述"> 我们看到这里C++11又提供了一套迭代器：<code>cbegin cend crbegin crend</code>，它们只返回const迭代器。 为什么搞出这些呢？ 它是这样想的，<strong>我们上面讲的迭代器，比如都是调用begin，普通对象调用返回普通迭代器，const对象调用返回const迭代器，好像有点不清楚，它期望你普通对象就去调上面我们讲的不带c的那一套，const对象就调带c的那一套，规范一点。</strong> 但是呢，好像不是很必要，而且大家一般也不太喜欢用这些新的，所以这个大家了解一下就行了。</font></p> 
+</blockquote> 
+<h5>8. 元素访问</h5> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d87399b391e862aaaa5759487f642fc2.png" alt="在这里插入图片描述">那首先呢就是<code>[]</code>，string是重载了<code>[]</code>的，我们可以直接用：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/01d7b3277cc4b51e28d257aa5b534aa7.png" alt="在这里插入图片描述"> 然后这里想跟大家说的是： <img src="https://i-blog.csdnimg.cn/blog_migrate/2f0c3f7acbbbb913e7c536ad21fc41e5.png" alt="在这里插入图片描述"> <strong><code>operator[]</code>也是有普通版本和const版本的，普通对象调[]就返回<code>char&amp;</code>，可以去修改它，const对象就返回<code>const char&amp;</code>，不能修改。</strong></font></p> 
+</blockquote> 
+<p>然后我们看到还有一个<code>at</code>：</p> 
+<blockquote> 
+ <p><font color="black"><strong><code>at</code>作用跟<code>[]</code>是一样的</strong>，而且它同样也有const和非const版本： <img src="https://i-blog.csdnimg.cn/blog_migrate/4a4e1586acb6f38f642d66865cfbfc93.png" alt="在这里插入图片描述"> 但是呢，它们两个还是有区别的，区别在于： <strong>用<code>[]</code>如果越界访问的话是直接报错的，它内部是断言去判断的</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/fef46d74410a55e1ebf3f5f1da11da6e.png" alt="在这里插入图片描述"> 但是<code>at</code>呢 <img src="https://i-blog.csdnimg.cn/blog_migrate/b93a980ce25e8fd30147e24f3815ad73.png" alt="在这里插入图片描述"> 我们看到是这样的，它<strong>其实是抛了个异常</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/04949486d6bbc547380688f9ce1633ea.png" alt="在这里插入图片描述"> 异常是可以捕获的，但是现在我们还没学，大家先了解一些就行了。 但是在实际当中其实我们很少会用<code>at</code>。</font></p> 
+</blockquote> 
+<p>然后还有一个<code>back</code>和<code>front</code>：</p> 
+<blockquote> 
+ <p>其实就是返回最后一个和第一个字符，但是这个我们用<code>[]</code>就能搞定，所以大家简单了解一下就行了。</p> 
+</blockquote> 
+<h5>9. insert和erase</h5> 
+<blockquote> 
+ <p>那到这里我们再回过头来看几个之前跳过的接口。</p> 
+</blockquote> 
+<p>先来看一下<code>insert</code>：</p> 
+<blockquote> 
+ <p><font color="black">借助<code>insert</code>我们可以向string对象中插入字符和字符串 <img src="https://i-blog.csdnimg.cn/blog_migrate/aba051f43093859f27765b77e2aaee55.png" alt="在这里插入图片描述"> 我们看到这里也是提供了好多版本，但是有的并不常用。 那我们来练习几个比较常用一点的。 <img src="https://i-blog.csdnimg.cn/blog_migrate/3a5c7bd7df36d51bdea816ebaf256d30.png" alt="在这里插入图片描述"> 现在有一个string对象s，那我们现在想在world前面插入一个字符串hello，怎么搞？ 那我们就可以考虑用这个： <img src="https://i-blog.csdnimg.cn/blog_migrate/796a57e143c60ad91f2db8de8c570e1e.png" alt="在这里插入图片描述"> 第一个参数指定我们要从哪个位置开始插入，第二个参数指定要插入的字符串： <img src="https://i-blog.csdnimg.cn/blog_migrate/c0b4e2e4fd08fd4bba6d72d1c0b72949.png" alt="在这里插入图片描述"> 然后我们又想在hello后面插入一个空格，怎么搞？ 首先可以这样： <img src="https://i-blog.csdnimg.cn/blog_migrate/b15ad09def09286164d3d8b45a06a1d1.png" alt="在这里插入图片描述"> 或者我们可以去调这个： <img src="https://i-blog.csdnimg.cn/blog_migrate/4672f2099ccb98ddfc6b2a901afd928c.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/1aee78b755c14200c599bfd5e6b408eb.png" alt="在这里插入图片描述"> 除此之外还有这个接口： <img src="https://i-blog.csdnimg.cn/blog_migrate/cc5d9415f5dfe7371d8e7d0605f9c72c.png" alt="在这里插入图片描述"> 我们看到这个<strong>不是传下标，而是传目标位置的迭代器</strong>： <img src="https://i-blog.csdnimg.cn/blog_migrate/da0c8e243c8d0eafcc47ac8d6da8745d.png" alt="在这里插入图片描述"> 这样就可以了。</font></p> 
+</blockquote> 
+<p>🆗，那然后大家思考一个问题：</p> 
+<blockquote> 
+ <p><font color="black">对于string来说，大家觉得可以频繁使用insert吗？或者说经常用insert好不好？ 那我们其实是<strong>不推荐经常使用insert的</strong>，为什么呢？ 我们说了string底层是字符数组，那我们学过数据结构知道在顺序表里<strong>插入元素是不是要挪动数据啊，效率是比较低的</strong>，所以呢insert我们<strong>能少用就少用</strong>。</font></p> 
+</blockquote> 
+<p>与insert对应，接下来我们看一下<code>erase</code>：</p> 
+<blockquote> 
+ <p><font color="black">那erase呢其实就是去删除string对象里的元素。 <img src="https://i-blog.csdnimg.cn/blog_migrate/3ea5d70f3f19386713e3664352388a33.png" alt="在这里插入图片描述"> 举个栗子： <img src="https://i-blog.csdnimg.cn/blog_migrate/9e81fb489d9407ff2951e7e9c35d1aa6.png" alt="在这里插入图片描述"> 现在我们想删除s里面hello后面的空格，怎么搞？ <img src="https://i-blog.csdnimg.cn/blog_migrate/4b07c8e7a26b3f5dc2c117fe917195af.png" alt="在这里插入图片描述"> 可以用这个，从第5个位置开始删除一个字符： <img src="https://i-blog.csdnimg.cn/blog_migrate/798b0b2fed3bd5991c9914317f44ecb7.png" alt="在这里插入图片描述"> <strong>然后我们看到这里len的缺省值是npos，npos我们之前是不是说过啊，在这里是整型最大值，所以这里如果我们传的len比字符串长度大，或者不传，它都会删除字符串结尾。</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/ee2f3ed88367cc40772a43bd594a2ca4.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/3a2873741acf1382b115ae8fffa20137.png" alt="在这里插入图片描述"> 还可以用这个： <img src="https://i-blog.csdnimg.cn/blog_migrate/c34b2b42407d1e08a3d7261ad88dda85.png" alt="在这里插入图片描述"> 传迭代器的位置 <img src="https://i-blog.csdnimg.cn/blog_migrate/b53cfa1f24eb695339000e2966dd075d.png" alt="在这里插入图片描述"> 然后还有一个接口涉及到迭代器区间，我们这里先不说。 那同样的道理，对于erase来说，如果我们只删除中间的一部分，是不是也要挪动数据啊，所以，erase也不推荐频繁使用。</font></p> 
+</blockquote> 
+<h5>10. replace、find、rfind、substr</h5> 
+<p>我们再来了解一下replace：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/57e5e0da2d2da2c0d649b19ac2973259.png" alt="在这里插入图片描述"> replace其实就是可以把字符串中的一部分替换成新内容。 也有很多版本，我们不可能全部都讲，必要时大家可以自己查阅文档。</font></p> 
+</blockquote> 
+<p>我们看这样一个场景：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/5d879c7a644c274cfb2228f752adecba.png" alt="在这里插入图片描述"> 现在想把s里面的空格替换成"%%d"，怎么搞？ <img src="https://i-blog.csdnimg.cn/blog_migrate/640898f7b5c9fc7c8f9a92263502b009.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/847a4b5b9d5eab34b89a00325650f3cc.png" alt="在这里插入图片描述"> 确实完成了，但是大家看，这样做真的好吗？ 有什么问题？ <strong>首先可能会需要挪动数据，我们当前这个例子就有，其次，空间如果不够还得扩容，所以这个东西我们也尽量避免去用。</strong></font></p> 
+</blockquote> 
+<p>然后我们再来看一下find：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/27ce33c8480e646cb6f18c63c15235e5.png" alt="在这里插入图片描述"> <font color="red">find可以在字符串里查找字串或者字符，返回对应的下标。 找不到返回npos</font> 举个栗子： <img src="https://i-blog.csdnimg.cn/blog_migrate/00748e63b160850d94c98ac52b2416e8.png" alt="在这里插入图片描述"> 在s里查找空格，怎么搞？ <img src="https://i-blog.csdnimg.cn/blog_migrate/2f7c683e5c9e8eb86edd382cb40782cc.png" alt="在这里插入图片描述"> 当然也可以查找字符串： <img src="https://i-blog.csdnimg.cn/blog_migrate/9337a8aee4be07b60939adf6475d80bd.png" alt="在这里插入图片描述"> 然后我们还看到： <img src="https://i-blog.csdnimg.cn/blog_migrate/5c7053597c683857605ff86ae60a6380.png" alt="在这里插入图片描述"> <strong>它还给了一个缺省参数pos，缺省值是0，其实pos呢是用来指定我们开始查找的位置的，我们自己不指定那就默认从0开始，我们指定了，就从指定的位置开始找。</strong> 我们可以试一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/d2c5323e99eb5cf1756533f3dbb7418a.png" alt="在这里插入图片描述"> 大家看这个，我们要找<code>ll</code>，但是我们指定从下标5的位置开始找，那是不是就找不到了，所以返回npos，打印出来的就是npos对应的值。</font></p> 
+</blockquote> 
+<p>那我们来看这样一个问题：</p> 
+<blockquote> 
+ <p><font color="black">假设现在有一个文件名的字符串，比如说<code>string.cpp</code>，我们想把后缀名取出来，怎么搞？ 这时我们就可以考虑使用<code>substr</code>这个成员函数。 <img src="https://i-blog.csdnimg.cn/blog_migrate/35ca6a4a33c1d1104689a065255f950f.png" alt="在这里插入图片描述"> 它的作用是什么呢？ <font color="red">它可以帮助我们获取string对象中指定的一个子串。</font> 参数： <img src="https://i-blog.csdnimg.cn/blog_migrate/194effc9c26a7d744a24b06cfbcd8a08.png" alt="在这里插入图片描述"> 那有了substr，我们就可以怎么解决上面的问题： 我们是不是可以<strong>先用find找的<code>.</code>的位置，然后计算出后缀名的长度len，从<code>.</code>的位置开始，向后获取长度为len的字串。</strong></font></p> 
+</blockquote> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	string <span class="token function">s</span><span class="token punctuation">(</span><span class="token string">"string.cpp"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	size_t pos <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token char">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">if</span> <span class="token punctuation">(</span>pos <span class="token operator">!=</span> string<span class="token double-colon punctuation">::</span>npos<span class="token punctuation">)</span>
+	<span class="token punctuation">{<!-- --></span>
+		string suf <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>pos<span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> pos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+		cout <span class="token operator"><<</span> suf <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<blockquote> 
+ <p>运行测试一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/21e5e1f248bda0dde58a74b09587c67e.png" alt="在这里插入图片描述"> 这不就拿到了嘛。</p> 
+</blockquote> 
+<p>那再看，如果是这种情况呢？</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/0b1b9f576fac95aaf9860527e27058dc.png" alt="在这里插入图片描述"> 它有多个后缀，但是我们只取最后一个，这下应该怎么办？ 🆗，那除了我们上面学过的<code>find</code>，还有<code>rfind</code>： <img src="https://i-blog.csdnimg.cn/blog_migrate/85ebb89aa9b15cc4730289b4a6e18cda.png" alt="在这里插入图片描述"> 那rfind和find有什么区别呢？ <font color="red">区别在于find是从前往后找第一个匹配项，而rfind是从后往前找倒数第一个匹配项。</font> 所以当前这种情况，我们是不是把find换成 rfind就行了啊： <img src="https://i-blog.csdnimg.cn/blog_migrate/4f77f51b67107dcdaf991c45eeed1334.png" alt="在这里插入图片描述"> 当然其实刚才这两个场景我们使用substr可以不传第二个参数的 <img src="https://i-blog.csdnimg.cn/blog_migrate/3e5d695e605fc8bb7ead5b93004ad678.png" alt="在这里插入图片描述"> <strong>这里给了缺省值npos，也就是我们不传的话，它默认从我们给的位置一直取到结尾。</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/fa83729c55ba8c5fdbadb8a4e0c040ba.png" alt="在这里插入图片描述"></font></p> 
+</blockquote> 
+<p>然后呢：</p> 
+<blockquote> 
+ <p><font color="black">我们看到<code>substr</code>后面还有一个<code>compare</code>，就是进行string对象之间的比较嘛，但是这个<code>compare</code>我们一般用不上。 <img src="https://i-blog.csdnimg.cn/direct/d5a75639490e46368b79a4a2430d30cd.png" alt="在这里插入图片描述"> <strong>因为string还重载了关系运算符</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/7df03d952e99a5b6283e3c83761fc471.png" alt="在这里插入图片描述"> <strong>我们可以直接用来比较</strong> 但是这里我们看到光是<code>==</code>它就重载了3个版本，但是其实根本没必要，所以string类的设计其实是被吐槽过的： <img src="https://i-blog.csdnimg.cn/blog_migrate/14c3d0e18ac056edc0d3391be7498232.png" alt="在这里插入图片描述"></font></p> 
+</blockquote> 
+<h5>11. swap与string::swap</h5> 
+<p>string里面呢，还有一个成员函数叫做swap：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/644cf2ee3f07c214269116eb32f14c44.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/ae3c6b2622a3b44b944086aaadf508cb.png" alt="在这里插入图片描述"> 它可以接收一个string对象，与当前对象进行交换。 演示一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/1f8882435d6a984d207bfef26aae4735.png" alt="在这里插入图片描述"> 🆗，那除了这个swap之外，我们之前不是提到过说C++的<strong>库里面也有一个swap，它是一个模板函数。</strong> 所以我们也可以这样交换两个string对象： <img src="https://i-blog.csdnimg.cn/blog_migrate/095c8597ec4ec631f972f03238cd7911.png" alt="在这里插入图片描述"> 🆗，也可以完成交换。</font></p> 
+</blockquote> 
+<p>那大家来思考一下，这两个swap哪一个效率更高一点？</p> 
+<blockquote> 
+ <p><font color="black">🆗，那这里<strong>肯定是string的swap是更高效的一点</strong>的，因为string：：swap作为string的成员函数，那它里面想交换这两个对象，就可以怎么办，是不是可以直接改变指针的指向（交换它们两个的成员变量）啊： <img src="https://i-blog.csdnimg.cn/blog_migrate/10d675c004783c3c6d6423101303d137.png" alt="在这里插入图片描述"> 而库里面的这个swap是怎么交换的： <img src="https://i-blog.csdnimg.cn/blog_migrate/d63f4b32d17288ac43ee785133250752.png" alt="在这里插入图片描述"> 🆗，我们看到这里是构造一个临时变量，然后又有两个赋值，而string的拷贝是需要深拷贝的，所以它这里是比较低效的。 那这里我们先简单的说一下结论，后面我们模拟实现的时候会对这里有一个更深的理解。</font></p> 
+</blockquote> 
+<h5>12. c_str</h5> 
+<p>下面我们再来看一个string的成员函数叫做<code>c_str</code>：</p> 
+<blockquote> 
+ <p><font color="black"><img src="https://i-blog.csdnimg.cn/blog_migrate/2017cbd85e23a6f0468ede33ca9ebae2.png" alt="在这里插入图片描述"> 那它的作用是什么呢？ <img src="https://i-blog.csdnimg.cn/blog_migrate/a9b38836e6fdd54365a1d4a4e513d255.png" alt="在这里插入图片描述"> 它其实是去<font color="red">返回一个指向当前string对象对应的字符数组的指针，类型为<code>const char*</code>。</font> 所以，如果我们想打印一个string对象，就可以有这样两种方式： <img src="https://i-blog.csdnimg.cn/blog_migrate/1af0a7dddf99c10bbb39d5412f5e5555.png" alt="在这里插入图片描述"> 你可以认为<strong>c_str返回的指针就类似于这里的指针<code>p</code></strong>： <img src="https://i-blog.csdnimg.cn/blog_migrate/46332d03954ce43ecfe650789803f42e.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/9eeff0c3428676651fb2c6572cb6f7cb.png" alt="在这里插入图片描述"> 那这里第一个打印其实调的是string重载的<code><<</code>： <img src="https://i-blog.csdnimg.cn/blog_migrate/0fc02d05b24e06e92a846eaf9a47b7e2.png" alt="在这里插入图片描述"> 第二个调的就是库里面的那个。</font></p> 
+</blockquote> 
+<p>那上面那个例子我们看到两种方式打印出来没什么区别，那如果这样呢？</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	string <span class="token function">s1</span><span class="token punctuation">(</span><span class="token string">"hello world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	s1 <span class="token operator">+=</span> <span class="token char">'\0'</span><span class="token punctuation">;</span>
+	s1 <span class="token operator">+=</span> <span class="token char">'\0'</span><span class="token punctuation">;</span>
+	s1 <span class="token operator">+=</span> <span class="token string">"*******"</span><span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> s1 <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> s1<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<blockquote> 
+ <p><font color="black">这时我们再用这两种方式打印： <img src="https://i-blog.csdnimg.cn/blog_migrate/1426fcb37ce759d96246a8d26e550847.png" alt="在这里插入图片描述"> 我们看到结果就有区别了。 为什么呢？ 因为第一种方式我们直接打印string对象s1，它是去看s1对应的size 的，size是多大，总共有多少字符，全部打印完。 但是我们第二种打印<code>c_str</code>返回的<code>const char*</code>的指针，它是遇到<code>'\0'</code>就停止了。<strong>所以大家可以理解成<code>c_str</code>就是返回C格式字符串。</strong> <img src="https://i-blog.csdnimg.cn/blog_migrate/881250fa2f7c05a94f3e83ef85571fa5.png" alt="在这里插入图片描述"> 所以这次就有差异了。</font></p> 
+</blockquote> 
+<h5>13. getline</h5> 
+<p>我们来看这样一个场景：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	string s<span class="token punctuation">;</span>
+	cin <span class="token operator">>></span> s<span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> s <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<blockquote> 
+ <p><font color="black">这里定义了一个string对象，现在我们要自己给它输入一个值，然后打印输出。 我们来试一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/356e0c5d6bf49565b596fcea6b0a53ed.png" alt="在这里插入图片描述"> 嗯？？？但是我们发现这里出现了一点问题。 我们输入的是<code>hello world</code>，但是为什么打印s出来只有<code>hello</code>啊，怎么回事？ 🆗，大家要知道，<font color="blue">C语言里的scanf，包括这里的cin，我们在用它们输入的时候是不是有可能输入多个值啊，那当我们输入多个值的时候，它们默认是以<strong>空格或者换行</strong>来区分我们输入的多个值的。 所以我们这里输入的<code>hello world</code>，会被认为是两个值以空格分隔开了，所以cin值读到了空格前面的hello，后面的world就被留在缓冲区了。</font></font></p> 
+</blockquote> 
+<p>那这种情况怎么解决呢？</p> 
+<blockquote> 
+ <p><font color="black">🆗，我们就可以用一个函数叫做——<code>getline</code> <img src="https://i-blog.csdnimg.cn/blog_migrate/45e12b27f702ef804a2fd224cc68e827.png" alt="在这里插入图片描述"> <img src="https://i-blog.csdnimg.cn/blog_migrate/89be3bcb76b2e839841ba5f53f9321da.png" alt="在这里插入图片描述"> <font color="red">getline呢它读取到换行才结束，当然它还支持我们自己指定结束符。 第一个参数就是接收cin，第二个参数接收我们要输入的string对象。</font> 我们试一下： <img src="https://i-blog.csdnimg.cn/blog_migrate/c609e5a50cd0240a7900aee629e3bab4.png" alt="在这里插入图片描述"> 🆗，这下就可以了。</font></p> 
+</blockquote> 
+<h4>2.4 总结</h4> 
+<p>那我们简单总结一下：</p> 
+<blockquote> 
+ <p>我们这篇文章关于string使用的讲解差不多就到这里了，string提供的接口是比较多的，我们不可能全部都讲完，当然其中大部分我们平时可能都不会怎么用到，常用的其实是比较少的，有些没讲到的后续如果大家有需要，可以查阅文档进行学习——链接: </p> 
+</blockquote> 
+<p>那我们这篇文章就到这里，欢迎大家指正！！！ 后续我们还会对string进行模拟实现，到时候有些地方我们或许能够理解的更深刻一点。 <img src="https://i-blog.csdnimg.cn/blog_migrate/493abce776ab1f9c741ca3b3a3cd20c8.png" alt="在这里插入图片描述"></p>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-a5d25dd831.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-e504d6a974.css" rel="stylesheet">
+        </div>
+        <div id="blogExtensionBox" style="width:400px;margin:auto;margin-top:12px" class="blog-extension-box"></div>
+    </article></body>
+</html>

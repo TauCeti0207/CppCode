@@ -46,6 +46,15 @@
 		"ostream": "cpp",
 		"version": "cpp",
 		"sstream": "cpp",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"__tree": "cpp",
+		"complex": "cpp",
+		"memory": "cpp",
+		"iomanip": "cpp",
+		"list": "cpp",
+		"map": "cpp",
+		"set": "cpp",
+		"__config": "cpp",
+		"__undef_macros": "cpp"
 	}
 }
