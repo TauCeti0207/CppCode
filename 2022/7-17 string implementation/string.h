@@ -1,4 +1,4 @@
-#define  _CRT_SECURE_NO_WARNINGS 1
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <iostream>
 #include <assert.h>
 #include <string>
@@ -9,9 +9,9 @@ namespace yzq
 	class string
 	{
 	public:
-		// stringµÄµü´úÆ÷ÆäÊµ¾ÍÊÇÖ¸Õë
-		typedef char* iterator;
-		typedef const char* const_iterator;
+		// stringçš„è¿­ä»£å™¨å…¶å®å°±æ˜¯æŒ‡é’ˆ
+		typedef char *iterator;
+		typedef const char *const_iterator;
 		iterator begin()
 		{
 			return _str;
@@ -22,8 +22,8 @@ namespace yzq
 			return _str + _size;
 		}
 
-		// Ìá¹©Ò»¸öconst°æ±¾µÄµü´úÆ÷£¬×¢ÒâĞèÒª·µ»Øconst char*
-		// Òò´ËĞèÒªÒ²¸úconstµü´úÆ÷
+		// æä¾›ä¸€ä¸ªconstç‰ˆæœ¬çš„è¿­ä»£å™¨ï¼Œæ³¨æ„éœ€è¦è¿”å›const char*
+		// å› æ­¤éœ€è¦ä¹Ÿè·Ÿconstè¿­ä»£å™¨
 		const_iterator begin() const
 		{
 			return _str;
@@ -34,7 +34,7 @@ namespace yzq
 			return _str + _size;
 		}
 
-		/* Ìá¹©ÎŞ²ÎµÄ±È½ÏÈßÓà£¬²»ÈçÌá¹©Ò»¸öÈ«È±Ê¡
+		/* æä¾›æ— å‚çš„æ¯”è¾ƒå†—ä½™ï¼Œä¸å¦‚æä¾›ä¸€ä¸ªå…¨ç¼ºçœ
 		string()
 			:_size(0)
 			,_capacity(0)
@@ -44,21 +44,20 @@ namespace yzq
 		}
 		*/
 
-		// ""ÊÇÄ¬ÈÏ³£Á¿×Ö·û´®£¬ºóÃæÊÇÓĞ\0µÄ
-		// "\0" ÕâÑùĞ´Ò²ÊÇokµÄ Ö»²»¹ıÕâÑùÊÇÓĞ2¸ö\0ÁË
-		// '\0' Õâ¸ö×Ö·ûµÄASCIIÂëÊÇ0
-		string(const char* str = "")
-			// ³õÊ¼»¯ÁĞ±íµÄ³õÊ¼»¯Ë³ĞòºÍ³ÉÔ±±äÁ¿ÉùÃ÷Ë³ĞòÒ»ÖÂ
-			:_size(strlen(str))
-			, _capacity(_size)
+		// ""æ˜¯é»˜è®¤å¸¸é‡å­—ç¬¦ä¸²ï¼Œåé¢æ˜¯æœ‰\0çš„
+		// "\0" è¿™æ ·å†™ä¹Ÿæ˜¯okçš„ åªä¸è¿‡è¿™æ ·æ˜¯æœ‰2ä¸ª\0äº†
+		// '\0' è¿™ä¸ªå­—ç¬¦çš„ASCIIç æ˜¯0
+		string(const char *str = "")
+			// åˆå§‹åŒ–åˆ—è¡¨çš„åˆå§‹åŒ–é¡ºåºå’Œæˆå‘˜å˜é‡å£°æ˜é¡ºåºä¸€è‡´
+			: _size(strlen(str)), _capacity(_size)
 		{
-			_str = new char[_capacity + 1]; // +1ÊÇÎª\0¿ªµÄ¿Õ¼ä
+			_str = new char[_capacity + 1]; // +1æ˜¯ä¸º\0å¼€çš„ç©ºé—´
 			strcpy(_str, str);
 		}
 
 		/*
-		// s2(s1) s1´«¸øs£¬s2´«¸øthisÖ¸Õë
-		// ×¢Òâ±ÜÃâ¶à´Îµ÷ÓÃstrlen£¬O(N)µÄ¸´ÔÓ¶È
+		// s2(s1) s1ä¼ ç»™sï¼Œs2ä¼ ç»™thisæŒ‡é’ˆ
+		// æ³¨æ„é¿å…å¤šæ¬¡è°ƒç”¨strlenï¼ŒO(N)çš„å¤æ‚åº¦
 		string(const string& s)
 			:_size(strlen(s._str))
 			, _capacity(_size)
@@ -68,48 +67,46 @@ namespace yzq
 		}
 		*/
 
-		void swap(string& s)
+		void swap(string &s)
 		{
 			std::swap(_str, s._str);
 			std::swap(_size, s._size);
 			std::swap(_capacity, s._capacity);
 		}
 
-		// ´«Í³Ğ´·¨µÄ¿½±´¹¹ÔìÉî¿½±´£¬ÀÏÀÏÊµÊµÈ¥¸É»î£¬¸Ã¿ª¿Õ¼ä¾Í¿ª¿Õ¼ä£¬¸Ã¿½±´Êı¾İ¾Í¿½±´Êı¾İ
-		// ÏÖ´úĞ´·¨£ºÒ»ÖÖ°şÏ÷ĞĞÎª£¬°²ÅÅ±ğÈËÈ¥¸É»î
-		string(const string& s)
-			:_str(nullptr)
-			,_size(0)
-			,_capacity(0)
+		// ä¼ ç»Ÿå†™æ³•çš„æ‹·è´æ„é€ æ·±æ‹·è´ï¼Œè€è€å®å®å»å¹²æ´»ï¼Œè¯¥å¼€ç©ºé—´å°±å¼€ç©ºé—´ï¼Œè¯¥æ‹·è´æ•°æ®å°±æ‹·è´æ•°æ®
+		// ç°ä»£å†™æ³•ï¼šä¸€ç§å‰¥å‰Šè¡Œä¸ºï¼Œå®‰æ’åˆ«äººå»å¹²æ´»
+		string(const string &s)
+			: _str(nullptr), _size(0), _capacity(0)
 		{
-			// ¾ÍÊÇÈ¥ÀûÓÃ´«¹ıÀ´µÄsµÄ_strÈ¥¹¹ÔìĞÂµÄtmp
-			// µ«ÊÇtmpÊÇ¸öÁÙÊ±¶ÔÏó£¬³ö×÷ÓÃÓòÊ±»áÏú»Ù
-			// ¶øswap¹ıÈ¥µÄÖ¸ÕëÊÇËæ»úÖµ£¬deleteÊ±¿ÉÄÜ»á±ÀÀ£
-			// Òò´Ë×ÔÉíµÄ³ÉÔ±±äÁ¿×îºÃ³õÊ¼»¯Ò»ÏÂ
+			// å°±æ˜¯å»åˆ©ç”¨ä¼ è¿‡æ¥çš„sçš„_strå»æ„é€ æ–°çš„tmp
+			// ä½†æ˜¯tmpæ˜¯ä¸ªä¸´æ—¶å¯¹è±¡ï¼Œå‡ºä½œç”¨åŸŸæ—¶ä¼šé”€æ¯
+			// è€Œswapè¿‡å»çš„æŒ‡é’ˆæ˜¯éšæœºå€¼ï¼Œdeleteæ—¶å¯èƒ½ä¼šå´©æºƒ
+			// å› æ­¤è‡ªèº«çš„æˆå‘˜å˜é‡æœ€å¥½åˆå§‹åŒ–ä¸€ä¸‹
 			string tmp(s._str);
 			/*
 			swap(_str, tmp._str);
 			swap(_size, tmp._size);
 			swap(_capacity, tmp._capacity);
 			*/
-			// ÀûÓÃ×Ô¼ºĞ´µÄswapº¯Êı
+			// åˆ©ç”¨è‡ªå·±å†™çš„swapå‡½æ•°
 			swap(tmp);
 		}
 
 		/*
-		// s1 = s3 Ò²¾ÍÊÇs1.operator=(&s1, s3)
+		// s1 = s3 ä¹Ÿå°±æ˜¯s1.operator=(&s1, s3)
 		string& operator=(const string& s)
 		{
-			if (this != &s) // ±ÜÃâ×Ô¼º¸³Öµ¸ø×Ô¼º
+			if (this != &s) // é¿å…è‡ªå·±èµ‹å€¼ç»™è‡ªå·±
 			{
-				//ÍòÒ»¿ª¿Õ¼äÊ§°ÜÁË£¬s1È´ÒÑ¾­±»ÊÍ·ÅÁË
-				//delete[] _str;//ÊÍ·Ås1µÄ¿Õ¼ä
+				//ä¸‡ä¸€å¼€ç©ºé—´å¤±è´¥äº†ï¼Œs1å´å·²ç»è¢«é‡Šæ”¾äº†
+				//delete[] _str;//é‡Šæ”¾s1çš„ç©ºé—´
 				//_str = nullptr;
-				//_str = new char[strlen(s._str) + 1];// ¿ª±ÙºÍs3Ò»Ñù´óµÄ¿Õ¼ä
+				//_str = new char[strlen(s._str) + 1];// å¼€è¾Ÿå’Œs3ä¸€æ ·å¤§çš„ç©ºé—´
 				//strcpy(_str, s._str);
-				
 
-				// ÏÈ¿ª¿Õ¼ä±È½ÏºÏÊÊ
+
+				// å…ˆå¼€ç©ºé—´æ¯”è¾ƒåˆé€‚
 				char* tmp = new char[s._capacity + 1];
 				strcpy(tmp, s._str);
 				delete[] _str;
@@ -117,11 +114,11 @@ namespace yzq
 				_size = s._size;
 				_capacity = s._capacity;
 			}
-			return *this; // ÎªÁËÖ§³ÖÁ¬Ğø¸³Öµ£¬·µ»Ø×ó²Ù×÷Êı
+			return *this; // ä¸ºäº†æ”¯æŒè¿ç»­èµ‹å€¼ï¼Œè¿”å›å·¦æ“ä½œæ•°
 		}
 		*/
 
-		// ¸³ÖµÖØÔØÏÖ´úĞ´·¨1 s3 = s1
+		// èµ‹å€¼é‡è½½ç°ä»£å†™æ³•1 s3 = s1
 		/*
 		string& operator=(const string& s)
 		{
@@ -134,9 +131,9 @@ namespace yzq
 		}
 		*/
 
-		// ÏÖ´úĞ´·¨2 ¸ü¼Ó°şÏ÷ s3 = s1
-		// s1´«¹ıÀ´Ö±½Ó¾ÍÊÇ¿½±´¹¹Ôì ¿½±´¹¹ÔìÍê³ÉÉî¿½±´ºó ÔÙÖ±½Ó½»»»
-		string& operator=(string s)
+		// ç°ä»£å†™æ³•2 æ›´åŠ å‰¥å‰Š s3 = s1
+		// s1ä¼ è¿‡æ¥ç›´æ¥å°±æ˜¯æ‹·è´æ„é€  æ‹·è´æ„é€ å®Œæˆæ·±æ‹·è´å å†ç›´æ¥äº¤æ¢
+		string &operator=(string s)
 		{
 			swap(s);
 			return *this;
@@ -152,27 +149,27 @@ namespace yzq
 			}
 		}
 
-		const char* c_str() const
+		const char *c_str() const
 		{
 			return _str;
 		}
 
-		char& operator[](size_t pos)
+		char &operator[](size_t pos)
 		{
 			assert(pos < strlen(_str));
 			return _str[pos];
 		}
 
-		// Ìá¹©¸øconst¶ÔÏóµ÷ÓÃµÄ£¬·µ»ØµÄÊÇconstÒıÓÃ£¬²»ÄÜĞŞ¸ÄÁË
-		const char& operator[](size_t pos) const
+		// æä¾›ç»™constå¯¹è±¡è°ƒç”¨çš„ï¼Œè¿”å›çš„æ˜¯constå¼•ç”¨ï¼Œä¸èƒ½ä¿®æ”¹äº†
+		const char &operator[](size_t pos) const
 		{
 			assert(pos < strlen(_str));
 			return _str[pos];
 		}
 
-		// º¯ÊıÄÚ²¿²»¸Ä±ä³ÉÔ±±äÁ¿¾¡Á¿¶¼¼ÓÉÏconstĞŞÊÎ
-		// ÆÕÍ¨¶ÔÏó¿ÉÒÔµ÷ÓÃ£¬const¶ÔÏóÒ²¿ÉÒÔµ÷ÓÃ
-		//ÆäÊµ¾ÍÊÇsize_t size(const string* this)
+		// å‡½æ•°å†…éƒ¨ä¸æ”¹å˜æˆå‘˜å˜é‡å°½é‡éƒ½åŠ ä¸Šconstä¿®é¥°
+		// æ™®é€šå¯¹è±¡å¯ä»¥è°ƒç”¨ï¼Œconstå¯¹è±¡ä¹Ÿå¯ä»¥è°ƒç”¨
+		// å…¶å®å°±æ˜¯size_t size(const string* this)
 		size_t size() const
 		{
 			return _size;
@@ -183,24 +180,24 @@ namespace yzq
 			return _capacity;
 		}
 
-		// ½ö¶Ôcapacity´¦Àí
+		// ä»…å¯¹capacityå¤„ç†
 		void reserve(size_t n)
 		{
 			if (n > _capacity)
 			{
-				char* tmp = new char[n + 1]; // ÁôÒ»¸ö¿Õ¼ä¸ø\0
+				char *tmp = new char[n + 1]; // ç•™ä¸€ä¸ªç©ºé—´ç»™\0
 				strcpy(tmp, _str);
-				delete[] _str; // ÇåÀí¾É¿Õ¼ä
-				_str = tmp; // Ö¸ÏòĞÂ¿Õ¼ä
+				delete[] _str; // æ¸…ç†æ—§ç©ºé—´
+				_str = tmp;	   // æŒ‡å‘æ–°ç©ºé—´
 				_capacity = n;
 			}
 		}
 
-		// resizeÖ÷ÒªÓÃÓÚÀ©¿Õ¼ä+³õÊ¼»¯¡¢É¾³ı²¿·ÖÊı¾İ±£ÁôÇ°n¸ö
-		// ¿¼ÂÇ3ÖÖÇé¿ö
+		// resizeä¸»è¦ç”¨äºæ‰©ç©ºé—´+åˆå§‹åŒ–ã€åˆ é™¤éƒ¨åˆ†æ•°æ®ä¿ç•™å‰nä¸ª
+		// è€ƒè™‘3ç§æƒ…å†µ
 		void resize(size_t n, char ch = '\0')
 		{
-			// 1.nĞ¡ÓÚsize£¬Ö±½ÓĞŞ¸Äsize²¢Ìí¼Ó\0
+			// 1.nå°äºsizeï¼Œç›´æ¥ä¿®æ”¹sizeå¹¶æ·»åŠ \0
 			if (n < _size)
 			{
 				_size = n;
@@ -208,12 +205,12 @@ namespace yzq
 			}
 			else
 			{
-				// 2.n´óÓÚcapacity£¬À©ÈİºóÔÚÄ©Î²Ìí¼Óch£¬×¢Òâ×îºó·Å\0
+				// 2.nå¤§äºcapacityï¼Œæ‰©å®¹ååœ¨æœ«å°¾æ·»åŠ chï¼Œæ³¨æ„æœ€åæ”¾\0
 				if (n > _capacity)
 				{
 					reserve(n);
 				}
-				// 3.nĞ¡ÓÚcapacityÇÒn´óÓÚsize£¬Ö±½Ó°¤¸ö¸³Öµ¾ÍĞĞ
+				// 3.nå°äºcapacityä¸”nå¤§äºsizeï¼Œç›´æ¥æŒ¨ä¸ªèµ‹å€¼å°±è¡Œ
 				for (size_t i = _size; i < n; i++)
 				{
 					_str[i] = ch;
@@ -227,11 +224,11 @@ namespace yzq
 		{
 			if (_size == _capacity)
 			{
-				//reserve(_capacity * 2); // »á±ÀÀ£
+				// reserve(_capacity * 2); // ä¼šå´©æºƒ
 				reserve(_capacity == 0 ? 4 : _capacity * 2);
 			}
 			_str[_size] = ch;
-			// ×¢Òâ´¦Àí\0
+			// æ³¨æ„å¤„ç†\0
 			++_size;
 			_str[_size] = '\0';
 		}
@@ -241,41 +238,41 @@ namespace yzq
 			insert(_size, ch);
 		}
 
-		string& operator+=(char ch)
+		string &operator+=(char ch)
 		{
 			push_back(ch);
 			return *this;
 		}
 
-		string& operator+=(const char* str)
+		string &operator+=(const char *str)
 		{
 			append(str);
 			return *this;
 		}
 
-		void append(const char* str)
+		void append(const char *str)
 		{
 			size_t len = _size + strlen(str);
 			if (len > _capacity)
 			{
 				reserve(len);
 			}
-			// Ö±½Ó¿½±´µ½ºóÃæ
+			// ç›´æ¥æ‹·è´åˆ°åé¢
 			strcpy(_str + _size, str);
 			_size = len;
 
-			// Ò²¿ÉÒÔ¸´ÓÃinsert
-			//insert(_size, str);
+			// ä¹Ÿå¯ä»¥å¤ç”¨insert
+			// insert(_size, str);
 		}
 
-		string& insert(size_t pos, char ch)
+		string &insert(size_t pos, char ch)
 		{
-			assert(pos <= _size);// =sizeµÄÊ±ºò¾ÍÊÇÎ²²å
+			assert(pos <= _size); // =sizeçš„æ—¶å€™å°±æ˜¯å°¾æ’
 			if (_size == _capacity)
 			{
 				reserve(_capacity == 0 ? 4 : _capacity * 2);
 			}
-			/* ÕâÑùÒ²ĞĞµÄ£¬¾ÍÊÇ±È½Ï´ì
+			/* è¿™æ ·ä¹Ÿè¡Œçš„ï¼Œå°±æ˜¯æ¯”è¾ƒæŒ«
 			size_t end = _size;
 			while ((int)end >= (int)pos)
 			{
@@ -294,7 +291,7 @@ namespace yzq
 			return *this;
 		}
 
-		string& insert(size_t pos, const char* str)
+		string &insert(size_t pos, const char *str)
 		{
 			assert(pos <= _size);
 			size_t len = strlen(str);
@@ -305,13 +302,13 @@ namespace yzq
 			size_t end = _size + 1;
 			while (end > pos)
 			{
-				// _str[_size]¾ÍÊÇ\0µÄÎ»ÖÃ
+				// _str[_size]å°±æ˜¯\0çš„ä½ç½®
 				_str[end + len - 1] = _str[end - 1];
 				--end;
 			}
-			// str¿½±´½øÈ¥
-			// ÓÃstrncpyÒ²ĞĞ£¬×¢Òâ²»ÄÜÓÃstcpy£¬stcpyÓöµ½\0¾Í»áÍ£Ö¹µÄ
-			//strncpy(_str + pos, str, len);
+			// stræ‹·è´è¿›å»
+			// ç”¨strncpyä¹Ÿè¡Œï¼Œæ³¨æ„ä¸èƒ½ç”¨stcpyï¼Œstcpyé‡åˆ°\0å°±ä¼šåœæ­¢çš„
+			// strncpy(_str + pos, str, len);
 			size_t tmp = len;
 			while (tmp--)
 			{
@@ -322,10 +319,10 @@ namespace yzq
 			return *this;
 		}
 
-		string& erase(size_t pos, size_t len = npos)
+		string &erase(size_t pos, size_t len = npos)
 		{
 			assert(pos < _size);
-			// len¹ı³¤×Ô¼ºÇå³ş£¬¼ÓÉÏ\0¾ÍĞĞ
+			// lenè¿‡é•¿è‡ªå·±æ¸…æ¥šï¼ŒåŠ ä¸Š\0å°±è¡Œ
 			if (len == npos || len >= _size - pos)
 			{
 				_str[pos] = '\0';
@@ -353,21 +350,21 @@ namespace yzq
 					return pos;
 				}
 			}
-			// ÕÒ²»µ½
+			// æ‰¾ä¸åˆ°
 			return npos;
 		}
 
-		size_t find(const char* str, size_t pos = 0)
+		size_t find(const char *str, size_t pos = 0)
 		{
-			// KMPÔÚÊµ¼ÊÖĞ²¢²»ÊµÓÃ£¬BMÓÃµÄ²Å±È½Ï¶à
-			const char* p = strstr(_str + pos, str);
+			// KMPåœ¨å®é™…ä¸­å¹¶ä¸å®ç”¨ï¼ŒBMç”¨çš„æ‰æ¯”è¾ƒå¤š
+			const char *p = strstr(_str + pos, str);
 			if (p == nullptr)
 			{
 				return npos;
 			}
 			else
 			{
-				// Ö¸ÕëÏà¼õ·µ»ØµÄ²ÅÊÇĞèÒªµÄÏÂ±ê
+				// æŒ‡é’ˆç›¸å‡è¿”å›çš„æ‰æ˜¯éœ€è¦çš„ä¸‹æ ‡
 				return p - _str;
 			}
 		}
@@ -379,19 +376,19 @@ namespace yzq
 		}
 
 	private:
-		char* _str;
-		size_t _size;// ÓĞĞ§×Ö·û¸öÊı
-		size_t _capacity;// Êµ¼Ê´æ´¢ÓĞĞ§×Ö·û¿Õ¼ä
-		// \0²»ËãÓĞĞ§×Ö·û
+		char *_str;
+		size_t _size;	  // æœ‰æ•ˆå­—ç¬¦ä¸ªæ•°
+		size_t _capacity; // å®é™…å­˜å‚¨æœ‰æ•ˆå­—ç¬¦ç©ºé—´
+		// \0ä¸ç®—æœ‰æ•ˆå­—ç¬¦
 		const static size_t npos;
 	};
 
-	// ¾²Ì¬³ÉÔ±±äÁ¿ÀàÄÚÉùÃ÷£¬ÀàÍâ¶¨Òå
+	// é™æ€æˆå‘˜å˜é‡ç±»å†…å£°æ˜ï¼Œç±»å¤–å®šä¹‰
 	const size_t string::npos = -1;
 
-	ostream& operator<<(ostream& out, const string& s)
+	ostream &operator<<(ostream &out, const string &s)
 	{
-		//out << s.c_str() << endl; // ÕâÖÖ²»ĞĞ£¬ÎŞ·¨ÌåÏÖ\0µÄ´æÔÚ
+		// out << s.c_str() << endl; // è¿™ç§ä¸è¡Œï¼Œæ— æ³•ä½“ç°\0çš„å­˜åœ¨
 		for (auto ch : s)
 		{
 			out << ch;
@@ -399,12 +396,12 @@ namespace yzq
 		return out;
 	}
 
-	istream& operator>>(istream& in, string& s)
+	istream &operator>>(istream &in, string &s)
 	{
 		/*
 		char ch;
-		//in >> ch; // cinÊÇ»ñÈ¡²»ÁË¿Õ¸ñ»òÕß»»ĞĞ·ûµÄ£¬Òò´Ë»áËÀÑ­»·
-		ch = in.get(); // Ò»¸öÒ»¸öÈ¥»º³åÇø»ñÈ¡×Ö·û
+		//in >> ch; // cinæ˜¯è·å–ä¸äº†ç©ºæ ¼æˆ–è€…æ¢è¡Œç¬¦çš„ï¼Œå› æ­¤ä¼šæ­»å¾ªç¯
+		ch = in.get(); // ä¸€ä¸ªä¸€ä¸ªå»ç¼“å†²åŒºè·å–å­—ç¬¦
 		while (ch != ' ' && ch != '\n')
 		{
 			s += ch;
@@ -413,13 +410,13 @@ namespace yzq
 		return in;
 		*/
 
-		// ÉÏÊöĞ´·¨Æµ·±+=£¬»áÆµ·±À©Èİ½µµÍĞ§ÂÊ
-		// ÀûÓÃbuffÓÅ»¯Ò»ÏÂ
+		// ä¸Šè¿°å†™æ³•é¢‘ç¹+=ï¼Œä¼šé¢‘ç¹æ‰©å®¹é™ä½æ•ˆç‡
+		// åˆ©ç”¨buffä¼˜åŒ–ä¸€ä¸‹
 
 		s.clear();
 		char ch;
-		ch = in.get(); // Ò»¸öÒ»¸öÈ¥»º³åÇø»ñÈ¡×Ö·û
-		char buff[128] = { '\0' };
+		ch = in.get(); // ä¸€ä¸ªä¸€ä¸ªå»ç¼“å†²åŒºè·å–å­—ç¬¦
+		char buff[128] = {'\0'};
 		size_t i = 0;
 		while (ch != ' ' && ch != '\n')
 		{
@@ -432,18 +429,18 @@ namespace yzq
 			}
 			ch = in.get();
 		}
-		// ¼ÌĞø¼ÓÉÏÎ´ÌîÂúµÄbuff
+		// ç»§ç»­åŠ ä¸Šæœªå¡«æ»¡çš„buff
 		s += buff;
 		return in;
 	}
 
-	istream& getline(istream& in, string& s)
+	istream &getline(istream &in, string &s)
 	{
-		//ÆäÊµºÍoperator>>ÀàËÆ£¬Ö»ÊÇÓöµ½¿Õ¸ñ²»½áÊø°ÕÁË
+		// å…¶å®å’Œoperator>>ç±»ä¼¼ï¼Œåªæ˜¯é‡åˆ°ç©ºæ ¼ä¸ç»“æŸç½¢äº†
 		s.clear();
 		char ch;
-		ch = in.get(); // Ò»¸öÒ»¸öÈ¥»º³åÇø»ñÈ¡×Ö·û
-		char buff[128] = { '\0' };
+		ch = in.get(); // ä¸€ä¸ªä¸€ä¸ªå»ç¼“å†²åŒºè·å–å­—ç¬¦
+		char buff[128] = {'\0'};
 		size_t i = 0;
 		while (ch != '\n')
 		{
@@ -456,39 +453,39 @@ namespace yzq
 			}
 			ch = in.get();
 		}
-		// ¼ÌĞø¼ÓÉÏÎ´ÌîÂúµÄbuff
+		// ç»§ç»­åŠ ä¸Šæœªå¡«æ»¡çš„buff
 		s += buff;
 		return in;
 	}
 
-	// Ö±½Óµ÷ÓÃc¿âÀïÃæµÄ×Ö·û´®±È½Ïº¯ÊıÀ´±È£¬ÀûÓÃc_strĞ´³ÉÈ«¾Öº¯Êı
-	bool operator<(const string& s1, const string& s2)
+	// ç›´æ¥è°ƒç”¨cåº“é‡Œé¢çš„å­—ç¬¦ä¸²æ¯”è¾ƒå‡½æ•°æ¥æ¯”ï¼Œåˆ©ç”¨c_strå†™æˆå…¨å±€å‡½æ•°
+	bool operator<(const string &s1, const string &s2)
 	{
-		// strcmp ·µ»ØÖµĞ¡ÓÚ0±íÊ¾µÄ¾ÍÊÇs1 < s2
+		// strcmp è¿”å›å€¼å°äº0è¡¨ç¤ºçš„å°±æ˜¯s1 < s2
 		return strcmp(s1.c_str(), s2.c_str()) < 0;
 	}
 
-	bool operator==(const string& s1, const string& s2)
+	bool operator==(const string &s1, const string &s2)
 	{
 		return strcmp(s1.c_str(), s2.c_str()) == 0;
 	}
 
-	bool operator<=(const string& s1, const string& s2)
+	bool operator<=(const string &s1, const string &s2)
 	{
 		return s1 < s2 || s1 == s2;
 	}
 
-	bool operator>(const string& s1, const string& s2)
+	bool operator>(const string &s1, const string &s2)
 	{
 		return !(s1 <= s2);
 	}
 
-	bool operator>=(const string& s1, const string& s2)
+	bool operator>=(const string &s1, const string &s2)
 	{
 		return !(s1 < s2);
 	}
 
-	bool operator!=(const string& s1, const string& s2)
+	bool operator!=(const string &s1, const string &s2)
 	{
 		return !(s1 == s2);
 	}

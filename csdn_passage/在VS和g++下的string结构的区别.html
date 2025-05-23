@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>在VS和g++下的string结构的区别</title>
+</head>
+<body>
+<h1>在VS和g++下的string结构的区别</h1>
+<article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+                <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p></p> 
+<div class="toc"> 
+ <h4>文章目录</h4> 
+ <ul><li><ul><li><ul><li></li><li></li><li></li></ul> 
+  </li></ul> 
+ </li></ul> 
+</div> 
+ 在之前的时间里，我们学习了string类的使用和模拟实现，但是在VS和g++下使用string，发现了一点问题，下面我们通过一段代码来重现一下这个问题 
+<p></p> 
+<pre><code class="prism language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string"><iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string"><string></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	string <span class="token function">s1</span><span class="token punctuation">(</span><span class="token string">"11111"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	string <span class="token function">s2</span><span class="token punctuation">(</span><span class="token string">"22222222222222222222222222222222222"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> <span class="token string">"s1: "</span> <span class="token operator"><<</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	cout <span class="token operator"><<</span> <span class="token string">"s2: "</span> <span class="token operator"><<</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>s2<span class="token punctuation">)</span> <span class="token operator"><<</span> endl<span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p>这段代码在VS2022下和g++下的运行结果如下：</p> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/b71f9c034b4124b53a7484efdb9126a8.png" alt="image-20230418001617693"></p> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/0f748a5d0f2af238caa5c65bf6f9b628.png" alt="image-20230418001525443"></p> 
+<blockquote> 
+ <p>注：g++的版本为<img src="https://i-blog.csdnimg.cn/blog_migrate/31236907757b5ee28d1ff355f3378b89.png" alt="image-20230418001759447"></p> 
+</blockquote> 
+<p>可以看到，同样的代码，string类对象在VS下的x86环境中大小为28个字节，但是在g++下的大小仅仅为8字节，这是为什么呢？</p> 
+<h4>1. 在VS下的结构</h4> 
+<p>这里我们只考虑x86环境下的情况</p> 
+<p><strong>VS下的string类对象总共占28个字节</strong>，其中的结构稍微复杂一点，<strong>先是有一个联合体，联合体用来定义string中字符串的存储空间</strong></p> 
+<ul><li><strong>当字符串长度小于16时，使用内部固定的字符数组来存放(即存放在栈上)</strong></li><li><strong>当字符串长度大于等于16时，再从堆上开辟空间存放</strong></li></ul> 
+<pre><code class="prism language-cpp"><span class="token keyword">union</span> _Bxty
+<span class="token punctuation">{<!-- --></span> 	
+    <span class="token comment">// storage for small buffer or pointer to larger one</span>
+	value_type _Buf<span class="token punctuation">[</span>_BUF_SIZE<span class="token punctuation">]</span><span class="token punctuation">;</span>
+	pointer _Ptr<span class="token punctuation">;</span>
+	<span class="token keyword">char</span> _Alias<span class="token punctuation">[</span>_BUF_SIZE<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// to permit aliasing</span>
+<span class="token punctuation">}</span>_Bx<span class="token punctuation">;</span>
+</code></pre> 
+<p><strong>为什么要这样设计呢</strong>？</p> 
+<blockquote> 
+ <p>因为在大多数情况下，创建的字符串长度都小于16，如果此时一直使用从堆上开辟的空间，然后对象生命周期结束之后再释放，会<strong>导致堆上的空间碎片化</strong>，而且频繁调用内存管理函数，<strong>导致效率很低</strong>。如果采用这种设计方式的话，将会减少很多内存管理函数的调用次数，<strong>效率高</strong>，并且<strong>不易使堆上空间碎片化</strong></p> 
+</blockquote> 
+<p>其次：还有<strong>一个size_t</strong>字段保存字符串长度，一个size_t字段保存从堆上开辟空间总的容量</p> 
+<p>最后：还<strong>有一个指针</strong>做一些其他事情</p> 
+<p>所以string类对象共占<code>16(buff[]的大小) + 4(char*类型的指针在x86环境下的大小) + 4 + 4 = 28</code>个字节</p> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/a5f13b5afa1b95f38cf68e92f03b283d.png" alt="image-20230418003403793"></p> 
+<h4>2.在gcc下的结构</h4> 
+<p>在gcc下，string是通过<strong>写时拷贝</strong>实现的，string对象共占四个字节，其内部只包含了一个指针，该指针指向了一块对空间，内部包含了如下的字段：</p> 
+<blockquote> 
+ <pre><code class="prism language-cpp"><span class="token keyword">struct</span> <span class="token class-name">_Rep_base</span>
+<span class="token punctuation">{<!-- --></span>
+       size_type          _M_length<span class="token punctuation">;</span><span class="token comment">//字符串有效长度</span>
+       size_type          _M_capacity<span class="token punctuation">;</span><span class="token comment">//空间总大小</span>
+       _Atomic_word       _M_refcount<span class="token punctuation">;</span><span class="token comment">//引用计数</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre> 
+</blockquote> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/e5184aeb352226bb1f6d74923fc3fb32.png" alt="image-20230418012507047"></p> 
+<h4>3.写时拷贝/共享内存</h4> 
+<p>在上文上，我们提到了**写时拷贝(Copy-On-Write)**技术。是编程界的“懒惰行为”——拖延战术的产物。</p> 
+<p>下面我们看一段代码：</p> 
+<pre><code class="prism language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	string <span class="token function">s1</span><span class="token punctuation">(</span><span class="token string">"hello wordl"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    string <span class="token function">s2</span><span class="token punctuation">(</span>s1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"写时拷贝前，共享内存\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"s1:%p\n"</span><span class="token punctuation">,</span> s1<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"s2:%p\n"</span><span class="token punctuation">,</span> s2<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    s2 <span class="token operator">+=</span> <span class="token char">'!'</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"写时拷贝后，内存不共享\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"s1:%p\n"</span><span class="token punctuation">,</span> s1<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"s2:%p\n"</span><span class="token punctuation">,</span> s2<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/8bb3e538a72fbb33283813c27543c861.png" alt="image-20230418102355157"></p> 
+<p>按照我们的理解来说，s1和s2是两个不同的对象，所以两个对象的地址应该是不同的，但是我们发现在向s2中写入其他值之前，两个对象指向了同一块堆空间，这就是g++使用写时拷贝的证明。在往s2中写入新的内容之后，两个对象存放的值不同了，所以就没有办法共享内存了。</p> 
+<p>接下来有这么几个问题：</p> 
+<p><strong>1. 写时拷贝的原理是什么？</strong></p> 
+<blockquote> 
+ <p>写时拷贝使用了一个东西叫<strong>引用计数</strong>，所谓引用计数就是如果需要共享内存，那么用一个变量RefCnt来存放共享这块内存的对象个数，当RefCnt==0时，这块地址就没有对象使用，即可释放，否则就不能释放。当销毁一个对象的时候，首先判断他的RefCnt是否为0，如果不为0，那么就让RefCnt–，而不是直接销毁对象，增加一个共享内存的对象时也是同理。</p> 
+</blockquote> 
+<p><strong>2. string类什么时候才共享内存？</strong></p> 
+<blockquote> 
+ <p>让我们想一下，共享内存最必要的条件是什么？<strong>是两个对象指向的内存空间中，存放的值完全相同</strong>，那么我们能想到的应该只有<strong>拷贝构造</strong>和<strong>赋值重载</strong>这两种情况。</p> 
+</blockquote> 
+<p><strong>3. string类什么时候才触发写时拷贝？</strong></p> 
+<blockquote> 
+ <p>显而易见，当两个对象中存放的内容相同时就共享内存，不同时就不共享内存，也就是<strong>当其中的任意一个对象指向的值发生修改时</strong>，就触发写时拷贝。例如：+=，append，insert，erase等。</p> 
+</blockquote> 
+<p><strong>4. 在写时拷贝发生时，具体发生了什么？</strong></p> 
+<blockquote> 
+ <p>在问题1中，我们提到了这个方面，就是访问到RefCnt这个变量，来判断具体需要做什么，我们看下面这段代码：</p> 
+ <pre><code class="prism language-cpp"><span class="token keyword">if</span><span class="token punctuation">(</span>RefCnt <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token comment">//有对象共享这块内存时</span>
+<span class="token punctuation">{<!-- --></span>
+    <span class="token keyword">char</span><span class="token operator">*</span> tmp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>_str <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">strcpy</span><span class="token punctuation">(</span>tmp<span class="token punctuation">,</span> _str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _str <span class="token operator">=</span> tmp<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+ <p>上面的代码是一个假想的拷贝方法，如果有别的类在引用（检查引用计数来获知）这块内存，那么就需要把更改类进行“拷贝”这个动作。<em>我们可以把这个拷的运行封装成一个函数，供那些改变内容的成员函数使用。</em></p> 
+</blockquote> 
+<p><strong>5. 写时拷贝具体时怎么实现的</strong></p> 
+<blockquote> 
+ <p>在上文中，我们提到了需要有一个变量RefCnt，但是最大的问题是这个RefCnt存放在什么位置。我们要满足的情况是<strong>对于所有共享内存的对象，共享一个RefCnt</strong>，相信这句话肯定能给大家启发，我们可以把这个RefCnt存放在共享的内存中。</p> 
+ <p><img src="https://i-blog.csdnimg.cn/blog_migrate/e96ae25c714e173e84406ff8a3604a2a.png" alt="image-20230418105842673"></p> 
+ <p>于是，有了这样一个机制，每当我们为string分配内存时，我们总是要多分配一个空间用来存放这个引用计数的值，只要发生拷贝构造或赋值时，这个内存的值就会加一。而在内容修改时，string类为查看这个引用计数是否为0，如果不为零，表示有人在共享这块内存，那么自己需要先做一份拷贝，然后把引用计数减去一，再把数据拷贝过来。下面的几个程序片段说明了这两个动作</p> 
+ <pre><code class="prism language-cpp"><span class="token comment">//构造函数（分存内存）</span>
+string<span class="token double-colon punctuation">::</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> tmp<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+    _size <span class="token operator">=</span> <span class="token function">strlen</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _str <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">char</span><span class="token punctuation">[</span>_size <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">strcpy</span><span class="token punctuation">(</span> _str <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> tmp <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//在数据区之前一个char用来存放RefCnt</span>
+    _str<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token comment">//设置引用计数  </span>
+<span class="token punctuation">}</span>
+<span class="token comment">//拷贝构造（共享内存）</span>
+string<span class="token double-colon punctuation">::</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token keyword">const</span> string<span class="token operator">&amp;</span> str<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token keyword">this</span> <span class="token operator">!=</span> str<span class="token punctuation">)</span>
+    <span class="token punctuation">{<!-- --></span>
+        _str <span class="token operator">=</span> str<span class="token punctuation">.</span><span class="token function">c_str</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">//共享内存</span>
+        _size <span class="token operator">=</span> str<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        _str<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>  <span class="token comment">//引用计数加一</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//写时才拷贝Copy-On-Write</span>
+<span class="token keyword">void</span> string<span class="token double-colon punctuation">::</span><span class="token function">COW</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+    _str<span class="token punctuation">[</span>_size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>   <span class="token comment">//引用计数减一</span>
+    <span class="token keyword">char</span><span class="token operator">*</span> tmp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">char</span><span class="token punctuation">[</span>_size <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">strncpy</span><span class="token punctuation">(</span>tmp<span class="token punctuation">,</span> _str<span class="token punctuation">,</span> _size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    _str <span class="token operator">=</span> tmp<span class="token punctuation">;</span>
+    _str<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">// 设置新的共享内存的引用计数</span>
+<span class="token punctuation">}</span>
+string<span class="token operator">&amp;</span> string<span class="token double-colon punctuation">::</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token keyword">char</span> ch<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+	<span class="token function">COW</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   
+    <span class="token keyword">if</span><span class="token punctuation">(</span>_size <span class="token operator">==</span> _capacity<span class="token punctuation">)</span>
+    <span class="token punctuation">{<!-- --></span>
+        size_t newCapacity <span class="token operator">=</span> _capacity <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">4</span> <span class="token operator">:</span> <span class="token number">2</span> <span class="token operator">*</span> _capacity<span class="token punctuation">;</span>
+        <span class="token function">reserve</span><span class="token punctuation">(</span>newCapacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    _str<span class="token punctuation">[</span>_size<span class="token punctuation">]</span> <span class="token operator">=</span> ch<span class="token punctuation">;</span>
+    <span class="token operator">++</span>_size<span class="token punctuation">;</span>
+    str<span class="token punctuation">[</span>_size<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token char">'\0'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">char</span><span class="token operator">&amp;</span> string<span class="token double-colon punctuation">::</span><span class="token keyword">operator</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span>size_t pos<span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+    <span class="token function">assert</span><span class="token punctuation">(</span>pos <span class="token operator"><=</span> _size <span class="token operator">||</span> _str <span class="token operator">==</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+	<span class="token function">COW</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> _str<span class="token punctuation">[</span>pos<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">//析构函数的一些处理</span>
+<span class="token operator">~</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{<!-- --></span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>_str<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token comment">//引用计数为0时，释放内存</span>
+    <span class="token punctuation">{<!-- --></span>
+        <span class="token keyword">delete</span><span class="token punctuation">[</span><span class="token punctuation">]</span> _str<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span><span class="token comment">//引用计数不为0时</span>
+    <span class="token punctuation">{<!-- --></span>
+        _str<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span><span class="token comment">//引用计数减一</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> 
+</blockquote> 
+<p><strong>写在最后</strong>：</p> 
+<ol><li>上述对写时拷贝和共享内存的讲解仅仅是原理上的讲解，和stl库中实现的可能会有所差别与简化，请忽略这些，搞懂原理即可。</li><li>这种写法终归是有炫技的成分在其中，使用时可能在某些地方出现bug，甚至使程序crash掉</li><li>在C++的使用和设计中，需要注意的细节点有很多，可能你觉得发现了一个非常巧妙的设计，但是很有可能在某些地方就会出现难以修改的bug，所以在使用C++时，一定要对原理有充分的了解。</li></ol> 
+<p>参考博客：</p>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-a5d25dd831.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-e504d6a974.css" rel="stylesheet">
+        </div>
+        <div id="blogExtensionBox" style="width:400px;margin:auto;margin-top:12px" class="blog-extension-box"></div>
+    </article></body>
+</html>

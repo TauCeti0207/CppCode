@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>【C++】vector的迭代器失效问题（什么是迭代器失效？那些操作会导致迭代器失效？如何避免迭代器失效？）</title>
+</head>
+<body>
+<h1>【C++】vector的迭代器失效问题（什么是迭代器失效？那些操作会导致迭代器失效？如何避免迭代器失效？）</h1>
+<article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+                <div id="content_views" class="htmledit_views atom-one-dark">
+                    <p id="main-toc"><strong>目录</strong></p> 
+<p id="%E4%B8%80%E3%80%81%E5%89%8D%E8%A8%80-toc" style="margin-left:0px;"></p> 
+<p id="%C2%A0%E4%BA%8C%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%EF%BC%9F-toc" style="margin-left:0px;"></p> 
+<p id="%C2%A0%E4%B8%89%E3%80%81%E5%93%AA%E4%BA%9B%E6%93%8D%E4%BD%9C%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%EF%BC%9F-toc" style="margin-left:0px;"></p> 
+<p id="%E5%9B%9B%E3%80%81%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%EF%BC%9F-toc" style="margin-left:0px;"></p> 
+<p id="%F0%9F%A5%9D%20insert%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88-toc" style="margin-left:40px;"></p> 
+<p id="%C2%A0%E2%9C%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%20------%20%E6%89%A9%E5%AE%B9%E5%AF%BC%E8%87%B4%E7%9A%84%E9%87%8E%E6%8C%87%E9%92%88-toc" style="margin-left:80px;"></p> 
+<p id="%C2%A0%E2%9C%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%20------%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%8C%87%E5%90%91%E7%9A%84%E4%BD%8D%E7%BD%AE%E6%84%8F%E4%B9%89%E5%8F%91%E7%94%9F%E6%94%B9%E5%8F%98-toc" style="margin-left:80px;"></p> 
+<p id="%F0%9F%8D%87%20erase%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88-toc" style="margin-left:40px;"></p> 
+<p id="%C2%A0%E4%BA%94%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%E6%80%BB%E7%BB%93-toc" style="margin-left:0px;"></p> 
+<p id="%E5%85%AD%E3%80%81%E5%85%B1%E5%8B%89%C2%A0-toc" style="margin-left:0px;"></p> 
+<hr id="hr-toc"> 
+<p></p> 
+<h2><span style="color:#0d0016;"><strong>一、前言</strong></span></h2> 
+<blockquote> 
+ <p>        最近我们学习了 <span style="color:#956fe7;"><strong>vector类</strong></span> 的<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">用法</span></strong></span>和<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">模拟实现</span></strong></span>，同时呢也提到了<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">C++中的迭代器失效</span></strong></span>问题，在之前的文章只是简单的提了一下，由于<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">迭代器失效问题是非常重要</span></strong></span>的，所以特地整理出来方便后期的复习和学习。如果有老铁还不太清楚 <span style="color:#956fe7;"><strong>vector类 </strong></span>可以看看这几篇文章：<strong>1️⃣：</strong>  <strong>2️⃣：</strong>          这篇文章的要点只有三点：<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">1.什么是迭代器失效？2.vector那些操作会导致迭代器失效？3.如何避免迭代器失效？</span></strong></span></p> 
+</blockquote> 
+<h2 id="%C2%A0%E4%BA%8C%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%EF%BC%9F"><span style="color:#0d0016;"><strong> 二、什么是迭代器失效？</strong></span></h2> 
+<blockquote> 
+ <p>⚡<strong>迭代器的作用</strong>：主要作用就是让算法能够不用关心底层数据结构，其<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">底层实际就是一个指针</span></strong></span>，或者是对指针进行了封装 ⚡<span style="color:#956fe7;"><strong>vector的迭代器</strong></span>：就是原生态<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">指针T*</span></strong></span></p> 
+ <pre><code>template<class T>
+typedef T* iterator;                     // 迭代器某种意义上就是指针
+typedef const T* const_iterator;</code></pre> 
+ <p>⚡<span style="color:#956fe7;"><strong>因此迭代器失效</strong></span>：实际就是迭代器底层对应<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">指针所指向的空间被销毁了</span></strong></span>，<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">而使用一块已经被释放的空间，造成的后果是程序崩溃</span></strong></span>（即如果继续使用已经失效的迭代器，程序可能会崩溃）。具体的可以用一下三步来说明：</p> 
+ <ul><li>[1]<span style="color:#956fe7;"><strong>迭代器的本质</strong></span>就是<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">指针</span></strong></span>，<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">迭代器失效就是指针失效</span></strong></span>。</li><li>[2]<span style="color:#956fe7;"><strong>指针失效</strong></span>：<span style="color:#be191c;"><strong>指针指向的空间是非法的</strong></span>。</li><li>[3]<span style="color:#956fe7;"><strong>指针指向非法空间</strong></span>：指向了<strong><span style="color:#be191c;"><span style="background-color:#fef2f0;">被释放的空间</span></span> </strong>或者 <strong><span style="color:#be191c;"><span style="background-color:#fef2f0;">越界访问</span></span> 。</strong></li></ul> 
+</blockquote> 
+<h2 id="%C2%A0%E4%B8%89%E3%80%81%E5%93%AA%E4%BA%9B%E6%93%8D%E4%BD%9C%E4%BC%9A%E5%AF%BC%E8%87%B4%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%EF%BC%9F"><span style="color:#0d0016;"><strong> 三、哪些操作会导致迭代器失效？</strong></span></h2> 
+<blockquote> 
+ <p><strong>1️⃣：所有可能会引起<span style="color:#be191c;"><span style="background-color:#fef2f0;">扩容的操作</span></span><span style="color:#956fe7;"><span style="background-color:#fef2f0;">都可能会导致迭代器失效</span></span>。如：<span style="color:#956fe7;"><span style="background-color:#fef2f0;">resize、reserve、insert、assign、push_back等 </span></span><span style="color:#be191c;"> --------------  野指针引起的迭代器失效</span></strong><strong>2️⃣：指定位置的<span style="color:#be191c;"><span style="background-color:#fef2f0;">插入和删除</span></span><span style="color:#956fe7;"><span style="background-color:#fef2f0;">都会都可能会导致迭代器失效</span></span>。如: <span style="color:#956fe7;"><span style="background-color:#fef2f0;">insert 、erase ----------------- </span>  </span><span style="color:#be191c;"><span style="background-color:#fef2f0;">迭代器指向的位置意义发生改变</span></span></strong></p> 
+</blockquote> 
+<h2 id="%E5%9B%9B%E3%80%81%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%EF%BC%9F"><span style="color:#0d0016;"><strong>四、如何避免迭代器失效？</strong></span></h2> 
+<blockquote> 
+ <p> 接下来，我将会从 <span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">insert 和 erase</span></strong></span> 这两个接口函数来讲解<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">如何避免 迭代器失效问题</span></strong></span>。</p> 
+</blockquote> 
+<h3 id="%F0%9F%A5%9D%20insert%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88"><span style="color:#0d0016;"><strong>🥝 insert迭代器失效</strong></span></h3> 
+<blockquote> 
+ <p><span style="color:#956fe7;"><strong><span style="background-color:#fef2f0;">insert迭代器失效</span></strong></span>分为<span style="color:#956fe7;"><strong>两类：</strong></span></p> 
+ <ul><li><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">扩容导致野指针</span></strong></span></li><li><strong><span style="color:#be191c;"><span style="background-color:#fef2f0;">迭代器指向的位置意义发生改变</span></span></strong></li></ul> 
+</blockquote> 
+<p> 下面我们先给出<strong><span style="color:#956fe7;">insert的初始版本</span></strong>，然后再<span style="color:#0d0016;"><strong>逐渐的完善</strong></span>：</p> 
+<ul><li><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">注意：</span></strong></span>这里呢我们使用的是 <strong><span style="color:#956fe7;">vector模拟实现</span></strong>中的代码：</li></ul> 
+<pre><code>void insert(iterator pos, const T&amp; x)
+{
+	//检测参数合法性
+	assert(pos >= _start &amp;&amp; pos <= _finish);
+	//检测是否需要扩容
+	if (_finish == _end_of_stoage)
+	{
+		size_t newcapcacity = capacity() == 0 ? 4 : capacity() * 2;
+		reserve(newcapcacity);
+	}
+	//挪动数据
+	iterator end = _finish - 1;
+	while (end >= pos)
+	{
+		*(end + 1) = *(end);
+		end--;
+	}
+	//把值插进去
+	*pos = x;
+	_finish++;
+}</code></pre> 
+<hr> 
+<h4 id="%C2%A0%E2%9C%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%20------%20%E6%89%A9%E5%AE%B9%E5%AF%BC%E8%87%B4%E7%9A%84%E9%87%8E%E6%8C%87%E9%92%88"><span style="color:#0d0016;"><strong> ✨迭代器失效 ------ 扩容导致的野指针</strong></span></h4> 
+<ul><li> 首先我们给出以下<span style="color:#0d0016;"><span style="background-color:#ffd7b9;">两组测试用例</span></span>：</li></ul> 
+<p class="img-center"><img alt="" height="424" src="https://i-blog.csdnimg.cn/blog_migrate/b9970317b725aa57147f16a19fc43b84.png" width="1200"></p> 
+<ul><li>这里为什么 <span style="color:#956fe7;"><strong>push_back 尾插4个后调用insert会出现</strong></span><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">随机值</span></strong></span><span style="color:#956fe7;"><strong>？</strong></span>而<span style="color:#0d0016;"><strong>push_back尾插5个调用insert就没有这个问题？</strong></span></li><li> 此<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">问题就是迭代器失效</span></strong></span>，原因就在于<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">pos没有更新，导致非法访问野指针</span></strong></span>。</li></ul> 
+<p class="img-center"><img alt="" height="409" src="https://i-blog.csdnimg.cn/blog_migrate/02be85bb9da54d3da1548d69e3fba77a.png" width="888"></p> 
+<ul><li>上述当<span style="color:#956fe7;"><strong>尾插4个数字</strong></span>后，再头插一个数字发生<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">扩容</span></strong></span>。根据<span style="color:#956fe7;"><strong>reserve扩容机制</strong></span>，<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">_start和_finish都会更新</span></strong></span>，唯独插入位置pos没有更新，此时<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">pos依旧指向旧空间</span></strong></span>，reserve后会释放旧空间，此时的<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">pos就是野指针</span></strong></span>，这也就导致后续执行<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">*pos=x就是非法访问野指针</span></strong></span>。</li></ul> 
+<blockquote> 
+ <ul><li><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">解决方法</span></strong></span></li></ul> 
+</blockquote> 
+<p>我们可以设定变量<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">n</span></strong></span>来计算<span style="color:#956fe7;"><strong>扩容前pos指针位置和_start指针位置的相对距离</strong></span>，最后在扩容后，<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">让_start再加上先前算好的相对距离n就是更新后的pos指针的位置了。 </span></strong></span></p> 
+<pre><code>void insert(iterator pos, const T&amp; x)
+{
+	//检测参数合法性
+	assert(pos >= _start &amp;&amp; pos <= _finish);
+	/*扩容以后pos就失效了，需要更新一下*/
+	if (_finish == _end_of_stoage)
+	{
+		size_t n = pos - _start;//计算pos和start的相对距离
+		size_t newcapcacity = capacity() == 0 ? 4 : capacity() * 2;
+		reserve(newcapcacity);
+		pos = _start + n;//防止迭代器失效，要让pos始终指向与_start间距n的位置
+	}
+	//挪动数据
+	iterator end = _finish - 1;
+	while (end >= pos)
+	{
+		*(end + 1) = *(end);
+		end--;
+	}
+	//把值插进去
+	*pos = x;
+	_finish++;
+}</code></pre> 
+<p class="img-center"><img alt="" height="364" src="https://i-blog.csdnimg.cn/blog_migrate/780ce005a41d85d9f2e6855a7c550e0c.png" width="836"></p> 
+<h4 id="%C2%A0%E2%9C%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%20------%20%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%8C%87%E5%90%91%E7%9A%84%E4%BD%8D%E7%BD%AE%E6%84%8F%E4%B9%89%E5%8F%91%E7%94%9F%E6%94%B9%E5%8F%98"><span style="color:#0d0016;"><strong> ✨迭代器失效 ------ 迭代器指向的位置意义发生改变</strong></span></h4> 
+<blockquote> 
+ <p>什么是<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">迭代器指向的位置意义发生改变呢 ？</span></strong></span><span style="color:#956fe7;"><strong>举个例子来说明一下</strong></span></p> 
+</blockquote> 
+<ul><li> 比如现在我要在<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">所有的偶数前面插入2</span></strong></span>，下面我们看测试结果：</li></ul> 
+<pre><code>void test2()
+{
+	xas_vector::vector<int> v1;
+	v1.Push_back(1);
+	v1.Push_back(2);
+	v1.Push_back(3);
+	v1.Push_back(4);
+	v1.Push_back(5);
+	v1.Push_back(6);
+	for (auto ch : v1)
+	{
+		cout << ch << " ";
+	}
+	cout << endl;
+
+	xas_vector::vector<int>::iterator it = v1.begin();
+	while (it != v1.end())
+	{
+		if (*it % 2 == 0)
+		{
+			v1.insert(it, 20);
+			it++;
+		}
+		it++;
+	}
+	for (auto ch : v1)
+	{
+		cout << ch << " ";
+	}
+	cout << endl;
+}</code></pre> 
+<p class="img-center"><img alt="" height="300" src="https://i-blog.csdnimg.cn/blog_migrate/78a7225a99707c70b26d0b9c49cd4607.png" width="1080"></p> 
+<p> 这里发生了<span style="color:#956fe7;"><strong>断言错误</strong></span>，这段代码发生了两个错误：</p> 
+<ol><li><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">it是指向原空间的</span></strong></span>，当insert插入要<span style="color:#956fe7;"><strong>扩容</strong></span>时，原空间的数据拷贝到新空间上，但这也就意味着旧空间全是野指针，而<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">it是一直指向旧空间</span></strong></span>的，<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">随后遍历it时就非法访问野指针，也就失效了</span></strong></span>。形参的改变不会影响实参，即使你内部pos指向改变了，但是并不会影响我外部的it。</li><li>为了解决上述问题，有人觉得提前reserve开辟足够大的空间即可避免发生野指针的现象，但是又会出现一个新的问题，我们看下图：</li></ol> 
+<p class="img-center"><img alt="" height="381" src="https://i-blog.csdnimg.cn/blog_migrate/c743833b9b20fad58417a69a5405892c.png" width="972"></p> 
+<ul><li>此时insert以后虽然没有扩容，it也并没有成为野指针，但是it指向位置意义变了，导致我们这个程序重复插入20。</li></ul> 
+<blockquote> 
+ <ul><li><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">解决方法：</span></strong></span></li></ul> 
+</blockquote> 
+<p><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;"> 给insert函数加上返回值即可解决，返回指向新插入元素的位置。</span></strong></span></p> 
+<pre><code>iterator insert(iterator pos, const T&amp; x)
+{
+	//检测参数合法性
+	assert(pos >= _start &amp;&amp; pos <= _finish);
+	//检测是否需要扩容
+	/*扩容以后pos就失效了，需要更新一下*/
+	if (_finish == _end_of_stoage)
+	{
+		size_t n = pos - _start;//计算pos和start的相对距离
+		size_t newcapcacity = capacity() == 0 ? 4 : capacity() * 2;
+		reserve(newcapcacity);
+		pos = _start + n;//防止迭代器失效，要让pos始终指向与_start间距n的位置
+	}
+	//挪动数据
+	iterator end = _finish - 1;
+	while (end >= pos)
+	{
+		*(end + 1) = *(end);
+		end--;
+	}
+	//把值插进去
+	*pos = x;
+	_finish++;
+	return pos;
+}</code></pre> 
+<p> 我们实际调用的时候也需要改动，让<span style="color:#956fe7;"><strong>it自己接收insert后的返回值：</strong></span></p> 
+<p class="img-center"><img alt="" height="311" src="https://i-blog.csdnimg.cn/blog_migrate/2a65530eab5808554e511c6b8d213dc0.png" width="956"></p> 
+<h3 id="%F0%9F%8D%87%20erase%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88"><span style="color:#0d0016;"><strong>🍇 erase迭代器失效</strong></span></h3> 
+<blockquote> 
+ <p> 我们先给出 <strong><span style="color:#be191c;"><span style="background-color:#fef2f0;">erase</span></span><span style="color:#956fe7;">的初始版本</span></strong>，然后再<span style="color:#0d0016;"><strong>逐渐的完善</strong></span>：</p> 
+</blockquote> 
+<pre><code>void erase(iterator pos)
+{
+	//检查合法性
+	assert(pos >= _start &amp;&amp; pos < _finish);
+	//从pos + 1的位置开始往前覆盖，即可完成删除pos位置的值
+	iterator it = pos + 1;
+	while (it < _finish)
+	{
+		*(it - 1) = *it;		
+        it++;
+	}
+	_finish--;
+}</code></pre> 
+<ul><li>erase的失效都是<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">迭代器指向的位置意义发生改变</span></strong></span>，或者不在有效访问数据的有效范围内</li><li>erase一般不会使用缩容的方案，那么也就导致erase的失效<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">一般不存在野指针的失效</span></strong></span>。</li></ul> 
+<p><span style="color:#956fe7;"><strong> 我们现在对下面代码进行测试：</strong></span></p> 
+<pre><code>void test_vector()
+{
+	vector<int> v;
+	v.push_back(1);
+	v.push_back(2);
+	v.push_back(3);
+	v.push_back(4);
+	cout << v.size() << ":" << v.capacity() << endl;
+	auto it = find(v.begin(), v.end(), 2);
+	if (it != v.end())
+	{
+		v.erase(it);
+	}
+	cout << *it << endl;
+	*pos = 10;
+	cout << *it << endl << endl;
+	cout << v.size() << ":" << v.capacity() << endl;
+	for (auto e : v)
+	{
+		cout << e << " ";
+	}
+}</code></pre> 
+<p class="img-center"><img alt="" height="292" src="https://i-blog.csdnimg.cn/blog_migrate/369159ee51e1484c0befe195c2fb361e.png" width="1033"></p> 
+<ul><li>我们尾插4个数字，比较size和capacity的大小，此时是相等的，接下来删除值为2的数，此时<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">*it</span></strong></span>就是删除数字的下一个数据也就是3，此时有效数据也少了一个，后续修改<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">*it</span></strong></span>也就不存在问题。  </li><li>如果我们这里要删除的值为4，那么结果会是怎么样的呢？</li></ul> 
+<p class="img-center"><img alt="" height="305" src="https://i-blog.csdnimg.cn/blog_migrate/430dccbddb129d5bdff23abc12a426d8.png" width="906"></p> 
+<ul><li> 我们这里一共有4个数据，<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">按理说把最后一个数字删除以后，有效数字-1</span></strong></span>，不存在还会访问最后一个值的现象，<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">但是此结果却是删除4以后又访问了4，而且还修改4为10，这就是典型的erase迭代器失效。 </span></strong></span></li></ul> 
+<hr> 
+<blockquote> 
+ <p> 我们再用<span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">另外一组 例子 来测试</span></strong></span>一下：</p> 
+</blockquote> 
+<pre><code>void test_vector()
+{
+	//删除所有的偶数
+	vector<int> v;
+	v.push_back(1);
+	v.push_back(2);
+    v.push_back(2);
+	v.push_back(3);
+	v.push_back(4);
+	v.push_back(5);
+	auto it = v.begin();
+	while (it != v.end())
+	{
+		if (*it % 2 == 0)
+		{
+			v.erase(it);
+		}
+		it++;
+	}
+	for (auto e : v)
+	{
+		cout << e << " ";
+	}
+ 
+}</code></pre> 
+<p class="img-center"><img alt="" height="530" src="https://i-blog.csdnimg.cn/blog_migrate/a23edc252cfc92d99e36a8d4bcabd246.png" width="912"></p> 
+<p><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;"> 画图演示错误过程： </span></strong></span></p> 
+<p class="img-center"><img alt="" height="471" src="https://i-blog.csdnimg.cn/blog_migrate/cdd6b3ddc0167b980dfb4417ee8c9e88.png" width="956"></p> 
+<ul><li><span style="color:#956fe7;"><strong> 解决方案如下：</strong></span></li></ul> 
+<blockquote> 
+ <p><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">给 erase函数 加上返回值即可解决，返回指向新插入元素的位置。</span></strong></span> </p> 
+</blockquote> 
+<pre><code>iterator erase(iterator pos)
+{
+	//检查合法性
+	assert(pos >= _start &amp;&amp; pos < _finish);
+	//从pos + 1的位置开始往前覆盖，即可完成删除pos位置的值
+	iterator it = pos + 1;
+	while (it < _finish)
+	{
+		*(it - 1) = *it;		
+        it++;
+	}
+	_finish--;
+	return pos;
+}</code></pre> 
+<pre><code>void test_vector()
+{
+	//删除所有的偶数
+	vector<int> v;
+	v.push_back(1);
+	v.push_back(2);
+    v.push_back(2);
+	v.push_back(3);
+	v.push_back(4);
+	v.push_back(5);
+	auto it = v.begin();
+	while (it != v.end())
+	{
+		if (*it % 2 == 0)
+		{
+			it = v.erase(it);
+		}
+		else
+        {
+             it++;
+	    }
+	for (auto e : v)
+	{
+		cout << e << " ";
+	}
+ 
+}</code></pre> 
+<p class="img-center"><img alt="" height="536" src="https://i-blog.csdnimg.cn/blog_migrate/344258abbc8b0ee92206f91e4f97720c.png" width="840"></p> 
+<h2 id="%C2%A0%E4%BA%94%E3%80%81%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%B1%E6%95%88%E6%80%BB%E7%BB%93"><span style="color:#0d0016;"><strong> 五、迭代器失效总结</strong></span></h2> 
+<blockquote> 
+ <p>vector迭代器失效有两种</p> 
+ <ul><li><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">扩容、缩容导致野指针式失效</span></strong></span></li><li><span style="color:#be191c;"><strong><span style="background-color:#fef2f0;">迭代器指向的位置意义变了</span></strong></span></li></ul> 
+ <p>系统越界机制检查，不一定能够检查到。编译实现检查机制，相对比较靠谱。</p> 
+</blockquote> 
+<h2 id="%E5%85%AD%E3%80%81%E5%85%B1%E5%8B%89%C2%A0"><span style="color:#0d0016;"><strong>六、共勉 </strong></span></h2> 
+<p><strong>      以下就是我对 <span style="color:#be191c;"><span style="background-color:#fef2f0;">vector的迭代器失效问题</span></span> 的理解，如果有不懂和发现问题的小伙伴，请在评论区说出来哦，同时我还会继续更新对 <span style="color:#be191c;"><span style="background-color:#fef2f0;">C++ list</span></span> 的理解，<span style="color:#956fe7;">请持续关注我哦！！！</span></strong><span style="color:#956fe7;">   </span> </p> 
+<p style="text-align:center;"><img alt="" src="https://i-blog.csdnimg.cn/blog_migrate/9477398b6705b6b8dbdf9921a4481308.png"></p>
+                </div>
+        </div>
+    </article></body>
+</html>

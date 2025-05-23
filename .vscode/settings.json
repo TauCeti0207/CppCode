@@ -55,6 +55,9 @@
 		"map": "cpp",
 		"set": "cpp",
 		"__config": "cpp",
-		"__undef_macros": "cpp"
+		"__undef_macros": "cpp",
+		"cassert": "cpp",
+		"forward_list": "cpp",
+		"span": "cpp"
 	}
 }

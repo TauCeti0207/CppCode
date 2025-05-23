@@ -5,7 +5,6 @@
 #include <string>
 #include <functional>
 #include <assert.h>
-using namespace std;
 
 namespace yzq
 {
@@ -16,6 +15,8 @@ namespace yzq
 		typedef T *iterator;
 		typedef const T *const_iterator;
 
+		// 注意这个不能删，删了编译通不过，我们下面写有构造函数但不是默认构造，编译器就不会再生成默认构造，
+		// 如果把这个无参的构造删除，找不到默认构造，编译过不了
 		vector()
 			: _start(nullptr), _finish(nullptr), _endofstorage(nullptr)
 		{
@@ -64,12 +65,13 @@ namespace yzq
 		{
 			vector<T> tmp(v.begin(), v.end());
 			swap(tmp);
-			// this->swap(tmp); 等价
 		}
 
-		vector<T> &operator=(vector<T> v)
+		// v2 = v1
+		vector<T> &operator=(vector<T> tmp)
 		{
-			this->swap(v);
+			// 现代写法
+			swap(tmp);
 			return *this;
 		}
 
@@ -121,33 +123,35 @@ namespace yzq
 				T *tmp = new T[n];
 				if (_start) // 有数据才拷贝
 				{
-					// mcpy(tmp, _start, size() * sizeof(T)); 存在浅拷贝问题 要一个一个拷贝
+					// memcpy(tmp, _start, size() * sizeof(T)); // 存在浅拷贝问题 要一个一个拷贝
 					for (size_t i = 0; i < size(); ++i)
 					{
 						tmp[i] = _start[i]; // 如果涉及深拷贝，会去调用自己的赋值重载完成深拷贝
 					}
+					// printf("%p\n", tmp);
+					// printf("%p\n", _start);
 					delete[] _start;
 				}
 				_start = tmp;
 			}
 
 			//_finish = _start + size(); // size()的计算出现了错误，_start已经改变了
-			//_endofstorage = _start + capacity();
 			_finish = _start + sz;
 			_endofstorage = _start + n;
 		}
 
-		// void resize(size_t n, T val = T()) T()是生成匿名对象，调用默认构造函数
-		//  注意：C++的内置类型也是有默认构造函数的 int的就是0 double的就是0.0
+		// T val = T() T()是生成匿名对象，调用默认构造函数，然后再拷贝构造给 val
+		// const T &val = T() 这样写就是延长匿名对象寿命周期，不再使用 val 时才销毁
+		// C++的内置类型也是有默认构造函数的 int的就是0 double的就是0.0
 		void resize(size_t n, const T &val = T())
 		{
 			// 3种情况
-			// 大于capacity
+			// 大于capacity 相当于扩容+插入新值
 			if (n > capacity())
 			{
 				reserve(n);
 			}
-			// 大于size小于capacity
+			// 大于size小于capacity 相当于插入新值
 			if (n > size())
 			{
 				while (_finish < _start + n)
@@ -156,7 +160,7 @@ namespace yzq
 					++_finish;
 				}
 			}
-			else // 小于size
+			else // 小于等于size 相当于删除
 			{
 				_finish = _start + n;
 			}
@@ -165,7 +169,7 @@ namespace yzq
 		// 传引用减少开销，不改变就加const
 		void push_back(const T &x)
 		{
-			/*
+#if 0
 			if (_finish == _endofstorage)
 			{
 				size_t newCapacity = capacity() == 0 ? 4 : capacity() * 2;
@@ -174,9 +178,8 @@ namespace yzq
 
 			*_finish = x;
 			++_finish;
-			*/
-			// 复用insert
-			insert(end(), x);
+#endif
+			insert(end(), x); // 复用insert
 		}
 
 		void pop_back()
@@ -206,15 +209,18 @@ namespace yzq
 
 		iterator insert(iterator pos, const T &x)
 		{
-			assert(pos >= _start && pos <= _finish);
-			// 考虑扩容
+			// 考虑越界，pos=_finish 就是尾插
+			assert(pos >= _start);
+			assert(pos <= _finish);
+			// 考虑空间不够，扩容
 			// 扩容后pos失效了，利用相对距离更新pos
 			if (_finish == _endofstorage)
 			{
-				size_t n = pos - _start;
+				size_t len = pos - _start;
 				size_t newCapacity = capacity() == 0 ? 4 : capacity() * 2;
 				reserve(newCapacity);
-				pos = _start + n;
+				// 扩容后，就有新的_start，记住扩容前 pos 相对_start 的偏移量即可得到新的 pos 位置
+				pos = _start + len;
 			}
 
 			// 挪动数据
@@ -234,7 +240,9 @@ namespace yzq
 		// 因此需要返回迭代器
 		iterator erase(iterator pos)
 		{
-			assert(pos >= _start && pos < _finish);
+			// 边界检查 pos 不能 == _finish，_finish是最后一个元素的下一个位置
+			assert(pos >= _start);
+			assert(pos < _finish);
 			iterator it = pos + 1;
 			while (it != _finish)
 			{
@@ -251,8 +259,8 @@ namespace yzq
 		}
 
 	private:
-		iterator _start;
-		iterator _finish;
-		iterator _endofstorage;
+		iterator _start = nullptr;
+		iterator _finish = nullptr;
+		iterator _endofstorage = nullptr;
 	};
 }
