@@ -5,10 +5,10 @@
 #include <algorithm>
 #include <time.h>
 #include <assert.h>
-using namespace std;
 
 namespace yzq
 {
+	// 这个list_node类默认全部开放，因此用 struct 定义
 	template <class T>
 	struct list_node
 	{
@@ -16,12 +16,16 @@ namespace yzq
 		list_node<T> *_prev;
 		T _data;
 
+		// T() 是一种值初始化（value initialization）表达式，用于创建 T 类型的临时对象并初始化为其默认值。
 		list_node(const T &val = T())
 			: _next(nullptr), _prev(nullptr), _data(val)
 		{
 		}
 	};
 
+	// T：值类型（Value Type） Ref：引用类型（Reference Type）T& 或 const T&。
+	// Ptr：指针类型（Pointer Type） T* 或 const T*。
+	// 这里只是模板，具体类型得由实例化时传参决定
 	template <class T, class Ref, class Ptr>
 	struct __list_iterator
 	{
@@ -29,6 +33,7 @@ namespace yzq
 		typedef __list_iterator<T, Ref, Ptr> self; // 方便后面修改T
 
 		Node *_node;
+		// 一个节点的指针即可构造一个迭代器
 		__list_iterator(Node *node)
 			: _node(node)
 		{
@@ -36,7 +41,7 @@ namespace yzq
 
 		// 不需要写析构，节点不属于迭代器，不需要迭代器去释放。系统自己生成的就够用了，啥也不干
 		// 拷贝构造和赋值重载 默认生成的浅拷贝就可以了 it = lt.begin();
-
+		// 要的就是浅拷贝，反正都是指向链表的指针
 		Ref operator*()
 		{
 			return _node->_data;
@@ -49,20 +54,22 @@ namespace yzq
 			// return &_node->_data;
 		}
 
-		self operator++() // 前置++
+		self &operator++() // 前置++
 		{
 			_node = _node->_next;
 			return *this;
 		}
 
-		self operator++(int) // 后置++
+		// 后置 ++ 通过占位参数 int 来与前置 ++ 区分，该参数在调用时无需显式传递，仅用于语法标识。
+		// 后置 ++ 返回旧值的副本（值返回），而前置 ++ 返回自增后的当前对象引用。
+		self operator++(int)
 		{
 			self tmp(*this);
 			_node = _node->_next;
 			return tmp;
 		}
 
-		self operator--()
+		self &operator--()
 		{
 			_node = _node->_prev;
 			return *this;
@@ -91,6 +98,10 @@ namespace yzq
 	{
 		typedef list_node<T> Node;
 
+	private:
+		Node *_head;
+		size_t _size;
+
 	public:
 		typedef __list_iterator<T, T &, T *> iterator;
 		typedef __list_iterator<T, const T &, const T *> const_iterator;
@@ -108,13 +119,20 @@ namespace yzq
 		iterator begin()
 		{
 			// 构造一个匿名对象，再传值返回
-			// 构造再拷贝构造优化成直接构造
+			// 构造再拷贝构造会被优化成直接构造 其实就是 C++ 的 返回值优化（RVO, Return Value Optimization）
+			// 现代编译器会自动优化掉拷贝构造，直接在返回值位置构造对象
+			// 调用 begin() 前，调用者的栈帧中已为返回的 iterator 对象分配空间。
+			// begin() 执行时，编译器将 it 直接构造在调用者的返回值空间中，而非被调函数的栈帧内。
+			// 这样无需创建临时对象 tmp，也不调用拷贝构造函数。
+
 			/*等价
 			iterator it(_head->_next);
 			return it;*/
 			return iterator(_head->_next);
 
-			// 也可以直接这么写，单参数隐式类型转换
+			// 也可以直接这么写，单参数隐式类型转换，但不推荐
+			// 可读性问题：return _head->_next 掩盖了返回值的真实类型（iterator），可能让调用者误解。
+			// 潜在风险：如果后续迭代器构造函数添加了 explicit 关键字，隐式转换会失效。
 			// return _head->_next;
 		}
 
@@ -147,9 +165,11 @@ namespace yzq
 
 		void empty_init()
 		{
+			// 这里 Node() 会调用list_node构造函数完成初始化
 			_head = new Node();
 			_head->_next = _head;
 			_head->_prev = _head;
+			_size = 0;
 		}
 
 		template <class InputIterator>
@@ -165,11 +185,12 @@ namespace yzq
 
 		void swap(list<T> &lt)
 		{
-			// 只需要换头指针就行
+			// 只需要换头指针和_size
 			std::swap(_head, lt._head);
+			std::swap(_size, lt._size);
 		}
 
-		// 现代写法 拷贝构造
+		// 现代写法 拷贝构造 lt2(lt1)
 		list(const list<T> &lt)
 		{
 			empty_init(); // 不能用随机值和别人交换，得初始化一下自己才行
@@ -177,14 +198,27 @@ namespace yzq
 			swap(tmp);
 		}
 
-		// 赋值重载 lt2 = lt1
+		// 用n个val个构造
+		list(int n, const T &val = T())
+		{
+			_head = new Node;
+			_head->_prev = _head;
+			_head->_next = _head;
+			for (int i = 0; i < n; i++)
+			{
+				push_back(val);
+			}
+		}
+
+		// 赋值重载 现代写法 lt2 = lt1
 		list<T> &operator=(list<T> lt)
 		{
 			swap(lt);
 			return *this;
+			// lt是临时对象，换完之后，出作用域，析构的时候还得释放掉lt2原来的空架子
 		}
-		// lt是临时对象，换完之后，出作用域，析构的时候还得释放掉lt2原来的空架子
 
+		// 析构函数要清理全部资源
 		~list()
 		{
 			clear();
@@ -192,6 +226,7 @@ namespace yzq
 			_head = nullptr;
 		}
 
+		// clear 是不清除头节点
 		void clear()
 		{
 			iterator it = begin();
@@ -202,6 +237,7 @@ namespace yzq
 			}
 		}
 
+		// push_back 就是在end()前面插入
 		void push_back(const T &x)
 		{
 			/*
@@ -217,22 +253,26 @@ namespace yzq
 			insert(end(), x);
 		}
 
+		// push_front 就是在begin()前面插入
 		void push_front(const T &x)
 		{
 			insert(begin(), x);
 		}
 
+		// pop_back 是删除 end()前一个的元素
 		void pop_back()
 		{
 			erase(--end());
 		}
 
+		// pop_front 是删除 begin()位置的元素
 		void pop_front()
 		{
 			erase(begin());
 		}
 
 		// 插在pos之前
+		// list 的迭代器insert 理论上没有迭代器失效的问题
 		iterator insert(iterator pos, const T &val)
 		{
 			Node *newNode = new Node(val);
@@ -243,10 +283,12 @@ namespace yzq
 			newNode->_prev = prev;
 			newNode->_next = cur;
 			cur->_prev = newNode;
+			++_size;
 
 			return iterator(newNode);
 		}
 
+		// erase 之后的迭代器 pos 会失效，因此返回值返回一个迭代器指向 erase后一个迭代器
 		iterator erase(iterator pos)
 		{
 			assert(pos != end());
@@ -258,238 +300,14 @@ namespace yzq
 			next->_prev = prev;
 
 			delete cur;
+			--_size;
 			return iterator(next);
 		}
 
-	private:
-		Node *_head;
+		bool empty() const
+		{
+			return _size == 0;
+		}
 	};
 
-	void test_list1()
-	{
-		list<int> lt;
-		lt.push_back(1);
-		lt.push_back(2);
-		lt.push_back(3);
-		lt.push_back(4);
-
-		list<int>::iterator it = lt.begin();
-		while (it != lt.end())
-		{
-			cout << *it << " ";
-			++it;
-		}
-		cout << endl;
-	}
-
-	struct AA
-	{
-		AA(int a1 = 0, int a2 = 0)
-			: _a1(a1), _a2(a2)
-		{
-		}
-		int _a1;
-		int _a2;
-	};
-
-	void test_list2()
-	{
-		list<AA> lt;
-		lt.push_back(AA(1, 1));
-		lt.push_back(AA(2, 2));
-		lt.push_back(AA(3, 3));
-		lt.push_back(AA(4, 4));
-
-		list<AA>::iterator it = lt.begin();
-		while (it != lt.end())
-		{
-			// err *it返回的是节点的data，data是val，val是T()
-			// 也就是这里返回的是AA 自定义类型不支持流操作的
-			// cout << *it << " ";
-
-			// 如果我们不想自己去写流操作的重载
-			// 因为_a1 _a2都是公有的
-			// cout <<  (*it)._a1 << "-" << (*it)._a2 << " ";
-			cout << it->_a1 << "-" << it->_a2 << " ";
-			++it;
-		}
-		cout << endl;
-	}
-
-	void print_list(const list<int> &l)
-	{
-		list<int>::const_iterator cit = l.begin();
-		while (cit != l.end())
-		{
-			//*cit = 1; // const对象不允许修改，调用的也是const版本迭代器
-			cout << *cit << " ";
-			++cit;
-		}
-		cout << endl;
-	}
-
-	void test_list3()
-	{
-		list<int> lt;
-		lt.push_back(1);
-		lt.push_back(2);
-		lt.push_back(3);
-		lt.push_back(4);
-
-		list<int>::iterator it = lt.begin();
-		while (it != lt.end())
-		{
-			*it += 1;
-			cout << *it << " ";
-			++it;
-		}
-		cout << endl;
-
-		print_list(lt);
-	}
-
-	void test_list4()
-	{
-		list<int> lt;
-		lt.push_back(1);
-		lt.push_back(2);
-		lt.push_back(3);
-		lt.push_back(4);
-		lt.push_front(1);
-		lt.push_front(2);
-		lt.push_front(3);
-		lt.push_front(4);
-
-		for (auto e : lt)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-
-		lt.pop_back();
-		lt.pop_back();
-		lt.pop_front();
-		lt.pop_front();
-
-		for (auto e : lt)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-	}
-
-	void test_list5()
-	{
-		list<int> lt;
-		lt.push_back(1);
-		lt.push_back(2);
-		lt.push_back(2);
-		lt.push_back(3);
-		lt.push_back(4);
-		lt.push_back(4);
-		lt.push_back(5);
-		lt.push_back(6);
-
-		// 要求在偶数前面插入这个数*10
-		auto it1 = lt.begin();
-		while (it1 != lt.end())
-		{
-			if (*it1 % 2 == 0)
-			{
-				lt.insert(it1, *it1 * 10);
-			}
-			++it1;
-		}
-
-		for (auto e : lt)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-	}
-
-	void test_list6()
-	{
-		list<int> lt;
-		lt.push_back(1);
-		lt.push_back(2);
-		lt.push_back(2);
-		lt.push_back(3);
-		lt.push_back(3);
-		lt.push_back(4);
-		lt.push_back(5);
-		lt.push_back(6);
-
-		// 删除所有的偶数
-		auto it1 = lt.begin();
-		while (it1 != lt.end())
-		{
-			if (*it1 % 2 == 0)
-			{
-				it1 = lt.erase(it1);
-			}
-			else
-			{
-				++it1;
-			}
-		}
-
-		for (auto e : lt)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-
-		lt.clear();
-
-		for (auto e : lt)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-
-		lt.push_back(10);
-		lt.push_back(20);
-		lt.push_back(30);
-
-		for (auto e : lt)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-	}
-
-	void test_list7()
-	{
-		list<int> lt;
-		lt.push_back(1);
-		lt.push_back(2);
-		lt.push_back(3);
-		lt.push_back(4);
-		list<int> lt1(lt); // 我们不写，默认生成的完成浅拷贝，指向同一个头，析构时会析构2次，崩溃。
-
-		for (auto e : lt1)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-
-		list<int> lt2;
-		lt2.push_back(10);
-		lt2.push_back(20);
-
-		lt1 = lt2;
-
-		for (auto e : lt2)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-
-		for (auto e : lt1)
-		{
-			cout << e << " ";
-		}
-		cout << endl;
-	}
 }

@@ -2,38 +2,26 @@
 	"version": 8,
 	"configurePresets": [
 		{
-			"name": "project",
-			"displayName": "Clang 17.0.0 arm64-apple-darwin24.4.0",
+			"name": "Release",
+			"displayName": "Release Clang 17.0.0 arm64-apple-darwin24.4.0",
 			"description": "正在使用编译器: C = /usr/bin/clang, CXX = /usr/bin/clang++",
 			"binaryDir": "${sourceDir}/out/build/${presetName}",
 			"cacheVariables": {
 				"CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
 				"CMAKE_C_COMPILER": "/usr/bin/clang",
 				"CMAKE_CXX_COMPILER": "/usr/bin/clang++",
-				"CMAKE_BUILD_TYPE": "Debug"
+				"CMAKE_BUILD_TYPE": "Release"
 			}
 		},
 		{
-			"name": "使用工具链文件配置预设",
-			"displayName": "使用工具链文件配置预设",
-			"description": "设置 Ninja 生成器、版本和安装目录",
-			"generator": "Ninja",
-			"binaryDir": "${sourceDir}/out/build/${presetName}",
-			"cacheVariables": {
-				"CMAKE_BUILD_TYPE": "Debug",
-				"CMAKE_TOOLCHAIN_FILE": "",
-				"CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}"
-			}
-		},
-		{
-			"name": "GCC 14.2.0 aarch64-apple-darwin24",
-			"displayName": "GCC 14.2.0 aarch64-apple-darwin24",
-			"description": "正在使用编译器: C = /opt/homebrew/bin/aarch64-apple-darwin24-gcc-14, CXX = /opt/homebrew/bin/aarch64-apple-darwin24-g++-14",
+			"name": "debug",
+			"displayName": "debug Clang 17.0.0 arm64-apple-darwin24.4.0",
+			"description": "正在使用编译器: C = /usr/bin/clang, CXX = /usr/bin/clang++",
 			"binaryDir": "${sourceDir}/out/build/${presetName}",
 			"cacheVariables": {
 				"CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
-				"CMAKE_C_COMPILER": "/opt/homebrew/bin/aarch64-apple-darwin24-gcc-14",
-				"CMAKE_CXX_COMPILER": "/opt/homebrew/bin/aarch64-apple-darwin24-g++-14",
+				"CMAKE_C_COMPILER": "/usr/bin/clang",
+				"CMAKE_CXX_COMPILER": "/usr/bin/clang++",
 				"CMAKE_BUILD_TYPE": "Debug"
 			}
 		}
