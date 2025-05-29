@@ -58,6 +58,7 @@
 		"__undef_macros": "cpp",
 		"cassert": "cpp",
 		"forward_list": "cpp",
-		"span": "cpp"
+		"span": "cpp",
+		"__assertion_handler": "cpp"
 	}
 }

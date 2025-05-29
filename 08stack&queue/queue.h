@@ -10,11 +10,11 @@
 #include <assert.h>
 #include <deque>
 #include <time.h>
-using namespace std;
+#include <algorithm>
 
 namespace yzq
 {
-	template <class T, class Container = deque<T>>
+	template <class T, class Container = std::deque<T>>
 	class queue
 	{
 	public:
@@ -52,25 +52,6 @@ namespace yzq
 		Container _con;
 	};
 
-	void test_queue1()
-	{
-		queue<int> q;
-		// queue<int, list<int>> q;
-		// queue<int, vector<int>> q; // 不能用vector适配 没有pop_front
-		q.push(1);
-		q.push(2);
-		q.push(3);
-		q.push(4);
-
-		while (!q.empty())
-		{
-			cout << q.front() << "-";
-			cout << q.size() << " ";
-			q.pop();
-		}
-		cout << endl;
-	}
-
 	template <class T>
 	struct less
 	{
@@ -100,7 +81,7 @@ namespace yzq
 	}
 
 	// Container需要支持随机访问
-	template <class T, class Container = vector<T>, class Compare = less<T>>
+	template <class T, class Container = std::vector<T>, class Compare = less<T>>
 	class priority_queue
 	{
 	private:
@@ -115,33 +96,35 @@ namespace yzq
 
 		template <class InputIterator>
 		priority_queue(InputIterator first, InputIterator last, const Compare &comFunc = Compare())
-			: _comFunc(comFunc)
+			: _comFunc(comFunc),
+			  _con(first, last)
 		{
-			while (first != last)
-			{
-				_con.push_back(*first);
-				++first;
-			}
+			// while (first != last)
+			// {
+			// 	_con.push_back(*first);
+			// 	++first;
+			// }
 
 			// 插完数据需要建堆 每插一个往下调整
 			// 从最后一个非叶子节点开始
 			for (int i = (_con.size() - 1 - 1) / 2; i >= 0; --i)
 			{
-				AdjustDown(i);
+				adjust_down(i);
 			}
 		}
 
 		// 底层是个堆，默认是大堆
-		void AdjustUp(int child)
+		void adjust_up(int child)
 		{
 			int parent = (child - 1) / 2;
 			// parent始终>=0，不能用parent判断 (0-1)/2 = 0
+			// child=0就结束了
 			while (child > 0)
 			{
-				// if (_con[parent] < _con[child])
+				// if (_con[child] > _con[parent])
 				if (_comFunc(_con[parent], _con[child]))
 				{
-					swap(_con[parent], _con[child]);
+					std::swap(_con[child], _con[parent]);
 					// 更新孩子、父亲
 					child = parent;
 					parent = (child - 1) / 2;
@@ -153,22 +136,23 @@ namespace yzq
 			}
 		}
 
-		void AdjustDown(int parent)
+		void adjust_down(int parent)
 		{
-			int child = parent * 2 + 1;
+			size_t child = parent * 2 + 1;
+			// child 不超过堆的范围就继续
 			while (child < _con.size())
 			{
-				// 判断右孩子是否更大
-				// 注意避免右孩子越界
-				// if (child + 1 < _con.size() && _con[child] < _con[child + 1])
+				// 判断右孩子是否更大 注意避免右孩子越界
+				// if (child + 1 < _con.size() && _con[child + 1] > _con[child])
 				if (child + 1 < _con.size() && _comFunc(_con[child], _con[child + 1]))
 				{
 					++child;
 				}
-				// if (_con[parent] < _con[child])
+				// 孩子大于父亲就换到上面 大根堆
+				// if (_con[child] > _con[parent])
 				if (_comFunc(_con[parent], _con[child]))
 				{
-					swap(_con[parent], _con[child]);
+					std::swap(_con[child], _con[parent]);
 					parent = child;
 					child = parent * 2 + 1;
 				}
@@ -183,15 +167,16 @@ namespace yzq
 		{
 			_con.push_back(x);
 			// 插完数据需要调整建堆
-			AdjustUp(_con.size() - 1);
+			adjust_up(_con.size() - 1);
 		}
 
 		void pop()
 		{
 			assert(!_con.empty());
-			swap(_con[0], _con[size() - 1]);
+			// 交换首尾数据
+			std::swap(_con[0], _con[size() - 1]);
 			_con.pop_back();
-			AdjustDown(0); // 从根节点开始调整
+			adjust_down(0); // 从根节点开始调整
 		}
 
 		const T &top()
@@ -209,37 +194,4 @@ namespace yzq
 			return _con.empty();
 		}
 	};
-
-	void test_priority_queue2()
-	{
-		priority_queue<int, vector<int>, greater<int>> pq;
-		// priority_queue<int> pq;
-		// priority_queue<int, vector<int>, bool(*)(int, int)> pq(ComIntGreater);
-		pq.push(2);
-		pq.push(5);
-		pq.push(1);
-		pq.push(6);
-		pq.push(8);
-
-		while (!pq.empty())
-		{
-			cout << pq.top() << " ";
-			pq.pop();
-		}
-		cout << endl;
-	}
-
-	void test_priority_queue3()
-	{
-		int a[] = {1, 3, 4, 2, 1, 6};
-		// 借助优先级队列快速建堆，默认大堆
-		// priority_queue<int> pq(a, a + 6);
-		priority_queue<int, vector<int>, greater<int>> pq(a, a + 6);
-		while (!pq.empty())
-		{
-			cout << pq.top() << " ";
-			pq.pop();
-		}
-		cout << endl;
-	}
 }

@@ -7,4 +7,4 @@ project(MyProject)
 set(CMAKE_C_STANDARD 11)
 
 # 添加可执行文件
-add_executable(08 main.cpp)
+add_executable(08 main.cpp Date.cpp)
