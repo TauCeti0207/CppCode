@@ -11,6 +11,7 @@
 #include <deque>
 #include <time.h>
 #include <algorithm>
+#include "Date.h"
 
 namespace yzq
 {
@@ -58,6 +59,16 @@ namespace yzq
 		bool operator()(const T &x, const T &y) const // 支持const对象调用
 		{
 			return x < y;
+		}
+	};
+
+	// 针对Date*类型进行类模板特化
+	template <>
+	struct less<yzq::Date *>
+	{
+		bool operator()(const yzq::Date *d1, const yzq::Date *d2) const // 支持const对象调用
+		{
+			return *d1 < *d2;
 		}
 	};
 

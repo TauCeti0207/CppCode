@@ -4,12 +4,13 @@
  * @version:
  * @Date: 2025-05-13 14:13:01
  * @LastEditors: tauceti0207
- * @LastEditTime: 2025-05-15 00:11:22
+ * @LastEditTime: 2025-06-03 12:40:45
  */
 #include <iostream>
 #include <cassert>
 #include <vector>
 #include <cstring>
+#include "Date.h"
 
 // 函数模板
 template <class T> // Type
@@ -169,8 +170,138 @@ void test9()
 	std::vector<int> v1;
 	v1.push_back(1);
 }
+
+// 静态栈
+// 利用非类型模板参数
+// N是常量，也意味着不可以修改
+template <class T, size_t N = 100> // 也是可以给定缺省参数的
+class Stack
+{
+public:
+	void f()
+	{
+		// N = 20; // err 不允许修改
+	}
+	// 默认构造函数（值初始化）
+	Stack()
+		: _top(0)
+	{
+		for (size_t i = 0; i < N; i++)
+		{
+			_a[i] = T();
+		}
+	}
+
+	// 带初始值的构造函数
+	Stack(const T &initial_value)
+		: _top(N)
+	{
+		for (size_t i = 0; i < N; ++i)
+		{
+			_a[i] = initial_value;
+		}
+	}
+	size_t size() const
+	{
+		return _top;
+	}
+	size_t capacity() const
+	{
+		return N;
+	}
+
+private:
+	T _a[N];
+	size_t _top;
+};
+
+void test10()
+{
+	Stack<int, 50> st1(10); // 存50个
+	st1.f();
+	Stack<double, 500> st2; // 存500个
+	std::cout << st1.capacity() << std::endl;
+	std::cout << st2.capacity() << std::endl;
+}
+
+void test_template3()
+{
+	// v1数据存在堆上的
+	std::vector<int> v1(100, 0);
+	v1[0] = 0;
+	v1[1] = 1;
+	// ...
+	v1[99] = 99;
+	std::cout << sizeof(v1) << std::endl; // 16  32位平台下 4个指针
+
+	// 数据存在栈上，没有初始化的话都是随机数据
+	// array是C++11新增的 -- 其实就是封装过的原生数组
+	// 对比原生数组的优势：operator[] 能严格检查越界
+	// 越界读越界写都能检查到
+	std::array<int, 100> a1;
+	a1[0] = 0;
+	a1[1] = 1;
+	// ...
+	a1[99] = 99;
+	std::cout << sizeof(a1) << std::endl; // 400byte
+	// a1[200] = 1;
+	// cout << a1[200] << endl;
+
+	int a2[100]; // 原生数组 针对越界是抽查，有时检查不到
+				 // a2[110] = 1; //可能检查不到越界
+}
+
+template <class T>
+bool Less(T left, T right)
+{
+	std::cout << "Less(T left, T right)" << std::endl;
+	return left < right;
+}
+
+// 模板特化，针对某些特殊类型特殊化处理
+template <>
+bool Less<yzq::Date *>(yzq::Date *left, yzq::Date *right)
+{
+	std::cout << "Less<yzq::Date *>(yzq::Date *left, yzq::Date *right)" << std::endl;
+	return *left < *right;
+}
+
+// 直接给出函数
+bool Less(yzq::Date *left, yzq::Date *right)
+{
+	std::cout << "Less(yzq::Date *left, yzq::Date *right)" << std::endl;
+	return *left < *right;
+}
+
+// 为了针对int* int*
+template <class T>
+bool Less(T *left, T *right)
+{
+	std::cout << "Less(T *left, T *right)" << std::endl;
+	return *left < *right;
+}
+// 这几个可以同时存在
+
+void test_template5()
+{
+	std::cout << Less(1, 2) << std::endl; // 1 结果正确  调用原生的
+
+	yzq::Date d1(2022, 8, 11);
+	yzq::Date d2(2022, 8, 12);
+	std::cout << Less(d1, d2) << std::endl; // 1 结果正确 调用原生的
+
+	yzq::Date *p1 = new yzq::Date(2022, 8, 10);
+	yzq::Date *p2 = new yzq::Date(2022, 8, 11);
+	std::cout << Less(p1, p2) << std::endl;	  // 模板特化之后，结果就是正确的 调用Date*特化的
+	std::cout << Less(*p1, *p2) << std::endl; // 正确 调用原生的
+
+	int *p3 = new int(1);
+	int *p4 = new int(2);
+	std::cout << Less(p3, p4) << std::endl; // 正确 调用T*特化的
+}
+
 int main()
 {
-	test8();
+	test_template5();
 	return 0;
 }

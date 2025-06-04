@@ -4,7 +4,7 @@
  * @version:
  * @Date: 2025-05-13 14:13:01
  * @LastEditors: tauceti0207
- * @LastEditTime: 2025-05-29 23:57:23
+ * @LastEditTime: 2025-05-30 11:47:13
  */
 #include <iostream>
 #include <cassert>
@@ -286,8 +286,8 @@ void test_Compare_Date()
 	pq1.push(yzq::Date(2025, 1, 30));
 	std::cout << pq1.top() << std::endl;
 
-	yzq::priority_queue<yzq::Date *, std::vector<yzq::Date *>, PDateCompare> pq2;
-	// yzq::priority_queue<yzq::Date *> pq2;
+	// yzq::priority_queue<yzq::Date *, std::vector<yzq::Date *>, PDateCompare> pq2;
+	yzq::priority_queue<yzq::Date *> pq2;
 	pq2.push(new yzq::Date(2025, 1, 1));
 	pq2.push(new yzq::Date(2025, 1, 2));
 	pq2.push(new yzq::Date(2025, 1, 30));
@@ -323,6 +323,6 @@ void test_priority_queue4()
 
 int main(int argc, char const *argv[])
 {
-	test_priority_queue4();
+	test_Compare_Date();
 	return 0;
 }

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <time.h>
 #include <assert.h>
+#include "reverse_iterator.h"
 
 namespace yzq
 {
@@ -82,12 +83,12 @@ namespace yzq
 			return tmp;
 		}
 
-		bool operator!=(const self &it)
+		bool operator!=(const self &it) const
 		{
 			return _node != it._node;
 		}
 
-		bool operator==(const self &it)
+		bool operator==(const self &it) const
 		{
 			return _node == it._node;
 		}
@@ -105,6 +106,8 @@ namespace yzq
 	public:
 		typedef __list_iterator<T, T &, T *> iterator;
 		typedef __list_iterator<T, const T &, const T *> const_iterator;
+		typedef ReverseIterator<iterator, T &, T *> reverse_iterator;
+		typedef ReverseIterator<const_iterator, const T &, const T *> const_reverse_iterator;
 
 		const_iterator begin() const
 		{
@@ -114,6 +117,36 @@ namespace yzq
 		const_iterator end() const
 		{
 			return const_iterator(_head);
+		}
+
+		const_reverse_iterator rbegin() const
+		{
+			// return const_reverse_iterator(--end());
+			// 模仿标准库的实现
+			return const_reverse_iterator(end());
+		}
+
+		const_reverse_iterator rend() const
+		{
+			// return const_reverse_iterator(end());
+			return const_reverse_iterator(begin());
+		}
+
+		reverse_iterator rbegin()
+		{
+			// 反向迭代器的起始位置（ rbegin() ）应对应正向迭代器的 最后一个有效元素
+			// end()是哨兵节点
+			// return reverse_iterator(--end());
+
+			return reverse_iterator(end());
+		}
+
+		reverse_iterator rend()
+		{
+			// 向迭代器的结束位置（ rend() ）应对应正向迭代器的 第一个有效元素的前一个位置，也就是哨兵节点。
+			// return reverse_iterator(end());
+
+			return reverse_iterator(begin());
 		}
 
 		iterator begin()

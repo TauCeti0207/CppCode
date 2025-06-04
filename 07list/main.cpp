@@ -4,7 +4,7 @@
  * @version:
  * @Date: 2025-05-13 14:13:01
  * @LastEditors: tauceti0207
- * @LastEditTime: 2025-05-26 17:45:02
+ * @LastEditTime: 2025-06-03 20:49:51
  */
 #include <iostream>
 #include <cassert>
@@ -479,8 +479,59 @@ void test_list13()
 	std::cout << std::endl;
 }
 
+void test_list14()
+{
+	// 测试反向迭代器
+	yzq::list<int> lt;
+	lt.push_back(1);
+	lt.push_back(2);
+	lt.push_back(3);
+	lt.push_back(4);
+	lt.push_back(5);
+	yzq::list<int>::reverse_iterator rit = lt.rbegin();
+	while (rit != lt.rend())
+	{
+		std::cout << *rit << " ";
+		++rit;
+	}
+	std::cout << std::endl;
+}
+
+void test_func(const yzq::list<int> &lt)
+{
+	yzq::list<int>::const_reverse_iterator rit = lt.rbegin();
+	while (rit != lt.rend())
+	{
+		// *it = 1; // err
+		std::cout << *rit << " ";
+		++rit;
+	}
+	std::cout << std::endl;
+}
+
+void test_list15()
+{
+	// 测试const_reverse_iterator
+	yzq::list<int> lt;
+	lt.push_back(1);
+	lt.push_back(2);
+	lt.push_back(3);
+	lt.push_back(4);
+	lt.push_back(5);
+	test_func(lt); // 5 4 3 2 1
+
+	yzq::list<int>::reverse_iterator rit = lt.rbegin();
+	while (rit != lt.rend())
+	{
+		*rit += 1;
+		std::cout << *rit << " ";
+		++rit;
+	}
+	std::cout << std::endl; // 6 5 4 3 2
+}
+
 int main(int argc, char const *argv[])
 {
-	test_list4();
+	test_list15();
 	return 0;
 }

@@ -1,17 +1,26 @@
+/*
+ * @Descripttion:
+ * @Author: tauceti0207
+ * @version:
+ * @Date: 2025-05-03 21:00:10
+ * @LastEditors: tauceti0207
+ * @LastEditTime: 2025-06-03 13:38:03
+ */
 #pragma once
 namespace yzq
 {
-	// µ±ÊÊÅälistÊ±£¬list´«¹ıÀ´µÄ²ÎÊıÊÇiterator Ò²¾ÍÊÇNode*µÄ·â×°
-	// Ò²¾ÍÊÇ_it Ò²ÊÇÒ»¸ö½áµãÖ¸Õë
-	template<class Iterator, class Ref, class Ptr>
+	// å½“é€‚é…listæ—¶ï¼Œlistä¼ è¿‡æ¥çš„å‚æ•°æ˜¯iterator ä¹Ÿå°±æ˜¯Node*çš„å°è£…
+	// ä¹Ÿå°±æ˜¯_it ä¹Ÿæ˜¯ä¸€ä¸ªç»“ç‚¹æŒ‡é’ˆ
+	template <class Iterator, class Ref, class Ptr>
 	struct Reverse_iterator
 	{
 		Iterator _it;
 		typedef Reverse_iterator<Iterator, Ref, Ptr> Self;
-		
+
 		Reverse_iterator(Iterator it)
-			:_it(it)
-		{}
+			: _it(it)
+		{
+		}
 
 		Ref operator*()
 		{
@@ -36,7 +45,7 @@ namespace yzq
 			return *this;
 		}
 
-		bool operator!=(const Self& s)
+		bool operator!=(const Self &s)
 		{
 			return _it != s._it;
 		}

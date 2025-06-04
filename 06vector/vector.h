@@ -5,6 +5,7 @@
 #include <string>
 #include <functional>
 #include <assert.h>
+#include "reverse_iterator.h"
 
 namespace yzq
 {
@@ -14,6 +15,9 @@ namespace yzq
 	public:
 		typedef T *iterator;
 		typedef const T *const_iterator;
+
+		typedef ReverseIterator<iterator, T &, T *> reverse_iterator;
+		typedef ReverseIterator<const_iterator, const T &, const T *> const_reverse_iterator;
 
 		// 注意这个不能删，删了编译通不过，我们下面写有构造函数但不是默认构造，编译器就不会再生成默认构造，
 		// 如果把这个无参的构造删除，找不到默认构造，编译过不了
@@ -102,6 +106,33 @@ namespace yzq
 		const_iterator end() const
 		{
 			return _finish;
+		}
+
+		reverse_iterator rbegin()
+		{
+			// return reverse_iterator(end() - 1);
+			// 模仿stl库的实现
+			return reverse_iterator(end());
+		}
+
+		reverse_iterator rend()
+		{
+			// return reverse_iterator(begin() - 1);
+			return reverse_iterator(begin());
+		}
+
+		const_reverse_iterator rbegin() const
+		{
+			// 注意，不能--end()，end返回的是临时对象，具有常性，不能修改
+			// return const_reverse_iterator(--end());
+			// return const_reverse_iterator(end() - 1);
+			return const_reverse_iterator(end());
+		}
+
+		const_reverse_iterator rend() const
+		{
+			// return const_reverse_iterator(begin() - 1);
+			return const_reverse_iterator(begin());
 		}
 
 		size_t size() const
