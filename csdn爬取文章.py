@@ -1,3 +1,11 @@
+'''
+Descripttion: 
+Author: tauceti0207
+version: 
+Date: 2025-05-05 22:10:08
+LastEditors: tauceti0207
+LastEditTime: 2025-06-08 11:02:48
+'''
 import requests
 import parsel
 import tomd
@@ -74,7 +82,8 @@ def spider_csdn(title_url):  # 目标文章的链接
 
 def main():
     print("本项目由yzq魔改")
-    url = input("请输入网址：")
+    # url = input("请输入网址：")
+    url = ""
     spider_csdn(url)
 
 
