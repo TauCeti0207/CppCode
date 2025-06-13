@@ -1,7 +1,8 @@
 #pragma once
 #include <algorithm>
 #include <string>
-namespace BST
+#include <iostream>
+namespace yzq
 {
 	template <class K>
 	struct BSTreeNode
@@ -24,19 +25,23 @@ namespace BST
 		typedef BSTreeNode<K> Node;
 		Node *_root = nullptr;
 
-		void DestroyTree(Node *root)
+		void DestroyTree(Node *&root)
 		{
 			if (root == nullptr)
 				return;
+			// 不能先释放当前节点，因为释放了当前节点，左右子树就找不到了 因此要后序遍历
 			DestroyTree(root->_left);
 			DestroyTree(root->_right);
 			delete root;
+			// 传参是引用才能修改_root
+			_root = nullptr;
 		}
 
 		Node *CopyTree(Node *root)
 		{
 			if (root == nullptr)
 				return nullptr;
+			// 拷贝当前节点
 			Node *copyNode = new Node(root->_key);
 			// 递归拷贝左右子树
 			copyNode->_left = CopyTree(root->_left);
@@ -49,7 +54,6 @@ namespace BST
 		~BSTree()
 		{
 			DestroyTree(_root);
-			_root = nullptr;
 		}
 
 		// 强制编译器自己生成默认构造 C++11才支持
@@ -67,7 +71,7 @@ namespace BST
 		BSTree<K> &operator=(BSTree<K> t)
 		{
 			// t是t2的拷贝 t1赋值给*this
-			swap(_root, t._root);
+			std::swap(_root, t._root);
 			return *this;
 		}
 
@@ -83,6 +87,7 @@ namespace BST
 			Node *cur = _root;
 			while (cur)
 			{
+				// 插入的值比当前节点大，往右走
 				if (cur->_key < key)
 				{
 					parent = cur;
@@ -100,12 +105,16 @@ namespace BST
 				}
 			}
 
-			// 链接起来
+			// 链接起来，需要记录parent
 			cur = new Node(key);
 			if (parent->_key < key)
+			{
 				parent->_right = cur;
+			}
 			else
+			{
 				parent->_left = cur;
+			}
 
 			return true;
 		}
@@ -114,7 +123,7 @@ namespace BST
 		void InOrder()
 		{
 			_InOrder(_root);
-			cout << endl;
+			std::cout << std::endl;
 		}
 
 		bool Find(const K &key)
@@ -285,7 +294,7 @@ namespace BST
 					{
 						minRight = minRight->_left;
 					}
-					swap(root->_key, minRight->_key);
+					std::swap(root->_key, minRight->_key);
 					// 引用不起作用了，怎么删除呢 再加个parent？ 太麻烦了
 					// 换下来的值肯定是右子树中最小的，因此直接去右子树中删就行了
 					return _EraseR(root->_right, key);
@@ -328,109 +337,10 @@ namespace BST
 			if (root == nullptr)
 				return;
 			_InOrder(root->_left);
-			cout << root->_key << " ";
+			std::cout << root->_key << " ";
 			_InOrder(root->_right);
 		}
 	};
-
-	void TestBSTree1()
-	{
-		BSTree<int> t;
-		int a[] = {8, 3, 1, 10, 6, 4, 7, 14, 13};
-		for (auto e : a)
-		{
-			t.Insert(e);
-		}
-		t.InOrder(); // 1 3 4 6 7 8 10 13 14
-
-		t.Insert(16);
-		t.Insert(9);
-		t.InOrder(); // 1 3 4 6 7 8 9 10 13 14 16
-	}
-
-	void TestBSTree2()
-	{
-		BSTree<int> t;
-		int a[] = {8, 3, 1, 10, 6, 4, 7, 14, 13};
-		for (auto e : a)
-		{
-			t.Insert(e);
-		}
-		t.InOrder(); // 1 3 4 6 7 8 10 13 14
-		t.Erase(3);
-		t.Erase(8);
-
-		t.InOrder(); // 1 3 4 6 7 10 13 14
-
-		t.Erase(14);
-		t.Erase(7);
-		t.InOrder(); // 1 4 6 10 13
-
-		for (auto e : a)
-		{
-			t.Erase(e);
-		}
-		t.InOrder(); // 空
-	}
-
-	void TestBSTree3()
-	{
-		BSTree<int> t;
-		int a[] = {8, 3, 1, 10, 6, 4, 7, 14, 13};
-		for (auto e : a)
-		{
-			t.Insert(e);
-		}
-		t.InOrder();
-
-		BSTree<int> copy(t);
-		copy.InOrder();
-
-		BSTree<int> copy2 = copy;
-		copy2.InOrder();
-	}
-
-	void TestBSTree4()
-	{
-		BSTree<int> t;
-		int a[] = {8, 3, 1, 10, 6, 4, 7, 14, 13};
-		for (auto e : a)
-		{
-			t.InsertR(e);
-		}
-		t.InOrder();
-
-		BSTree<int> copy(t);
-		copy.InOrder();
-
-		BSTree<int> copy2 = copy;
-		copy2.InOrder();
-	}
-
-	void TestBSTree5()
-	{
-		BSTree<int> t;
-		int a[] = {8, 3, 1, 10, 6, 4, 7, 14, 13};
-		for (auto e : a)
-		{
-			t.Insert(e);
-		}
-		t.InOrder(); // 1 3 4 6 7 8 10 13 14
-		t.EraseR(3);
-		t.EraseR(8);
-
-		t.InOrder(); // 1 3 4 6 7 10 13 14
-
-		t.EraseR(14);
-		t.EraseR(7);
-		t.InOrder(); // 1 4 6 10 13
-
-		for (auto e : a)
-		{
-			t.Erase(e);
-		}
-		t.InOrder(); // 空
-	}
 }
 
 namespace key
@@ -546,7 +456,7 @@ namespace key
 		void InOrder()
 		{
 			_InOrder(_root);
-			cout << endl;
+			std::cout << std::endl;
 		}
 
 		bool Find(const K &key)
@@ -568,7 +478,7 @@ namespace key
 		{
 			Node *parent = nullptr;
 			Node *cur = _root;
-			// 先看看有无要找的节点
+			// 先看看有无要找的节点 并且要记录parent
 			while (cur)
 			{
 				if (cur->_key < key)
@@ -583,8 +493,7 @@ namespace key
 				}
 				else
 				{
-					// 找到了 key相等
-					// 3种情况
+					// 找到了要删除的节点 key相等 3种情况
 					// 1.左为空 叶子节点也满足这种情况
 					if (cur->_left == nullptr)
 					{
@@ -614,6 +523,7 @@ namespace key
 					// 2.右为空
 					else if (cur->_right == nullptr)
 					{
+						// 单独考虑根节点也只有一个孩子的情况
 						if (cur == _root)
 						{
 							_root = cur->_left;
@@ -633,14 +543,12 @@ namespace key
 						delete cur;
 					}
 
-					// 2个孩子 替换法
+					// 左右都不为空 2个孩子 用替换法
 					else
 					{
-						// 用右子树的最小值节点替代
-
+						// 用右子树的最小节点替或者左子树的最大节点替换 这里用右子树的最小节点替换
 						// 如果右子树的第一个节点就是最小值节点，那么就是minRight的左为空 循环都不进去
-						// 后面就会产生空指针解引用的问题 因此minParent不能用nullptr初始化
-						// Node* minParent = nullptr; // 删除8的情况
+						// Node* minParent = nullptr; // 删除根节点情况 会产生空指针解引用的问题 因此minParent不能用nullptr初始化
 						Node *minParent = cur; // 找到minRight后，左一定为空，但可能还会有右孩子，因此不能直接delete minRight
 						Node *minRight = cur->_right;
 						while (minRight->_left)
@@ -648,12 +556,10 @@ namespace key
 							minParent = minRight;
 							minRight = minRight->_left;
 						}
-						// 找到右子树最小值
-						// 交换也可以
-						// swap(cur->_key, minRight->_key);
-						cur->_key = minRight->_key;
+						// 找到右子树最小节点，也就是最左节点
+						std::swap(cur->_key, minRight->_key);
 						// 需要考虑minParent的左指向还是右指向
-						// 右子树的最小值节点是右子树根节点又是一个特殊情况 例如删除8
+						// 右子树的最小值节点是右子树根节点又是一个特殊情况 例如删除根节点
 						if (minParent->_left == minRight)
 						{
 							minParent->_left = minRight->_right;
@@ -694,6 +600,7 @@ namespace key
 		{
 			if (root == nullptr) // 找不到
 				return false;
+			// 先递归找到要删除的节点
 			if (root->_key < key)
 				return _EraseR(root->_right, key);
 			else if (root->_key > key)
@@ -701,7 +608,7 @@ namespace key
 			else
 			{
 				Node *del = root;
-				// 左为空
+				// 左为空 root同时也是parent的左指针或右指针的引用
 				if (root->_left == nullptr)
 					root = root->_right; // 这恰巧也能解决 要删除的如果是根节点且根节点也只有一个孩子的问题
 				// 右为空
@@ -719,7 +626,7 @@ namespace key
 					}
 					swap(root->_key, minRight->_key);
 					// 引用不起作用了，怎么删除呢 再加个parent？ 太麻烦了
-					// 换下来的值肯定是右子树中最小的，因此直接去右子树中删就行了
+					// 换下来的节点肯定是右子树中最小的，因此直接去右子树中删就行了
 					return _EraseR(root->_right, key);
 				}
 				delete del;
@@ -735,6 +642,7 @@ namespace key
 				root = new Node(key);
 				return true;
 			}
+			// 递归子问题，比key小，转换成到右子树插入
 			if (root->_key < key)
 				return _InsertR(root->_right, key);
 			else if (root->_key > key)
@@ -746,13 +654,22 @@ namespace key
 		bool _FindR(Node *root, const K &key)
 		{
 			if (root == nullptr) // 找不到
+			{
 				return false;
+			}
 			if (root->_key < key)
+			{
 				return _FindR(root->_right, key);
+			}
 			else if (root->_key > key)
+			{
 				return _FindR(root->_left, key);
+			}
 			else
+			{
+				// 结果是层层返回的
 				return true;
+			}
 		}
 
 		void _InOrder(Node *root)
@@ -760,7 +677,7 @@ namespace key
 			if (root == nullptr)
 				return;
 			_InOrder(root->_left);
-			cout << root->_key << " ";
+			std::cout << root->_key << " ";
 			_InOrder(root->_right);
 		}
 	};
@@ -795,7 +712,7 @@ namespace key_value
 		void InOrder()
 		{
 			_InOrder(_root);
-			cout << endl;
+			std::cout << std::endl;
 		}
 
 		// 只保留递归版本
@@ -887,15 +804,15 @@ namespace key_value
 			if (root == nullptr)
 				return;
 			_InOrder(root->_left);
-			cout << root->_key << ": " << root->_value << endl;
+			std::cout << root->_key << ": " << root->_value << std::endl;
 			_InOrder(root->_right);
 		}
 	};
 
 	// 中英文字典
-	void TestBSTree1()
+	void testBSTree1()
 	{
-		BSTree<string, string> EToCDict;
+		BSTree<std::string, std::string> EToCDict;
 		EToCDict.InsertR("root", "根");
 		EToCDict.InsertR("left", "左边");
 		EToCDict.InsertR("right", "右边");
@@ -906,31 +823,32 @@ namespace key_value
 		EToCDict.InsertR("project", "项目");
 		EToCDict.InsertR("debug", "调试");
 		// 。。。
-		string str;
-		while (cin >> str)
+		std::string str;
+		std::cout << "请输入英文单词：" << std::endl;
+		while (std::cin >> str)
 		{
-			BSTreeNode<string, string> *ret = EToCDict.FindR(str);
+			BSTreeNode<std::string, std::string> *ret = EToCDict.FindR(str);
 			if (ret != nullptr)
 			{
-				cout << "对应的中文: " << ret->_value << endl;
+				std::cout << "对应的中文: " << ret->_value << std::endl;
 				// 也可以修改value 但不能修改key
-				ret->_value = "****";
+				// ret->_value = "****";
 			}
 			else
 			{
-				cout << "无此单词，请重新输入：" << endl;
+				std::cout << "无此单词，请重新输入：" << std::endl;
 			}
 		}
 	}
 
 	// 统计水果出现次数
-	void TestBSTree2()
+	void testBSTree2()
 	{
-		string arr[] = {"苹果", "西瓜", "苹果", "西瓜", "苹果", "苹果", "西瓜", "苹果", "香蕉", "苹果", "香蕉"};
-		BSTree<string, int> countTree;
+		std::string arr[] = {"苹果", "西瓜", "苹果", "西瓜", "苹果", "苹果", "西瓜", "苹果", "香蕉", "苹果", "香蕉"};
+		BSTree<std::string, int> countTree;
 		for (const auto &str : arr)
 		{
-			BSTreeNode<string, int> *ret = countTree.FindR(str);
+			BSTreeNode<std::string, int> *ret = countTree.FindR(str);
 			if (ret == nullptr)
 			{
 				countTree.InsertR(str, 1);
@@ -1047,7 +965,7 @@ namespace bit
 			if (root == nullptr)
 				return;
 			_InOrder(root->_left);
-			cout << root->_key << ": " << root->_value << endl;
+			std::cout << root->_key << ": " << root->_value << std::endl;
 			_InOrder(root->_right);
 		}
 
@@ -1056,7 +974,7 @@ namespace bit
 
 	void TestBSTree()
 	{
-		BSTree<string, string> dict;
+		BSTree<std::string, std::string> dict;
 		dict.Insert("insert", "插入");
 		dict.Insert("erase", "删除");
 		dict.Insert("left", "左边");
@@ -1076,9 +994,9 @@ namespace bit
 			}
 		}*/
 
-		string strs[] = {"苹果", "西瓜", "苹果", "樱桃", "苹果", "樱桃", "苹果", "樱桃", "苹果"};
-		// 统计水果出现的次
-		BSTree<string, int> countTree;
+		std::string strs[] = {"苹果", "西瓜", "苹果", "樱桃", "苹果", "樱桃", "苹果", "樱桃", "苹果"};
+		// 统计水果出现的次数
+		BSTree<std::string, int> countTree;
 		for (auto str : strs)
 		{
 			auto ret = countTree.Find(str);
