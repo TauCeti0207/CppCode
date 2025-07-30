@@ -10,6 +10,7 @@
 #include <cassert>
 #include <vector>
 #include <cstring>
+#include <array>
 #include "Date.h"
 
 // 函数模板

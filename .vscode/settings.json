@@ -59,6 +59,28 @@
 		"cassert": "cpp",
 		"forward_list": "cpp",
 		"span": "cpp",
-		"__assertion_handler": "cpp"
-	}
+		"__assertion_handler": "cpp",
+		"fstream": "cpp",
+		"atomic": "cpp",
+		"bit": "cpp",
+		"format": "cpp",
+		"iterator": "cpp",
+		"filesystem": "cpp",
+		"unordered_set": "cpp",
+		"__assert": "cpp",
+		"exception": "cpp",
+		"functional": "cpp",
+		"tuple": "cpp",
+		"utility": "cpp",
+		"type_traits": "cpp"
+	},
+	"terminal.integrated.defaultProfile.windows": "PowerShell",
+	"terminal.integrated.profiles.windows": {
+		"PowerShell": {
+			"source": "PowerShell",
+			"args": ["-NoExit", "-Command", "chcp 65001; $OutputEncoding = [System.Text.Encoding]::UTF8; [System.Console]::OutputEncoding = [System.Text.Encoding]::UTF8"]
+		}
+	},
+	"debug.console.fontSize": 14,
+	"debug.console.fontFamily": "Consolas, 'Courier New', monospace"
 }
