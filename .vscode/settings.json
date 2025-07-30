@@ -59,6 +59,12 @@
 		"cassert": "cpp",
 		"forward_list": "cpp",
 		"span": "cpp",
-		"__assertion_handler": "cpp"
+		"__assertion_handler": "cpp",
+		"fstream": "cpp",
+		"atomic": "cpp",
+		"bit": "cpp",
+		"format": "cpp",
+		"iterator": "cpp",
+		"filesystem": "cpp"
 	}
 }

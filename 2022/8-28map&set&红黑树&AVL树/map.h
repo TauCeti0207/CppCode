@@ -1,4 +1,12 @@
-﻿#pragma once
+/*
+ * @Descripttion: 
+ * @Author: tauceti0207
+ * @version: 
+ * @Date: 2025-05-03 21:00:10
+ * @LastEditors: tauceti0207
+ * @LastEditTime: 2025-06-13 20:19:33
+ */
+#pragma once
 #include "RedBlueTree.h"
 namespace yzq {
 	template<class K, class V>
