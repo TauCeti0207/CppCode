@@ -8,4 +8,4 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 添加可执行文件
-add_executable(12 main.cpp)
+add_executable(12 main.cpp test_unordered_map.cpp test_unordered_set.cpp)

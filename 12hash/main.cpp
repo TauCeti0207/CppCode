@@ -4,7 +4,7 @@
  * @version:
  * @Date: 2025-06-13 20:18:46
  * @LastEditors: tauceti0207
- * @LastEditTime: 2025-09-01 14:55:55
+ * @LastEditTime: 2025-09-18 16:45:16
  */
 #include <iostream>
 #include <cassert>
@@ -30,6 +30,17 @@
 #include <iomanip> // 用于格式化输出
 #include "MyUnorderedMap.h"
 #include "MyUnorderedSet.h"
+#include "HashTable.h"
+#include "BitSet.h"
+#include "TwoBitMap.h"
+#include "BloomFilter.h"
+#include "LargeFileIntersection.h"
+#include "IPFrequencyAnalyzer.h"
+
+// 声明外部测试函数
+void test_unordered_map();
+void test_unordered_set();
+void test_unordered_set_string();
 
 // 测试 unordered_set 的基本用法，并与 set 进行对比
 void test_set1()
@@ -403,18 +414,31 @@ void TestHashBucket1()
 		std::cout << "找到了10" << std::endl;
 	}
 
+	std::cout << "=== 插入初始数据后 ===" << std::endl;
 	for (auto e : a)
 	{
 		ht.Insert(std::make_pair(e, e));
 	}
+	ht.Print();
 
+	std::cout << "\n=== 测试扩容和重复插入 ===" << std::endl;
 	// test expand capacity
 	ht.Insert(std::make_pair(15, 15));
-	ht.Insert(std::make_pair(5, 5));
-	ht.Insert(std::make_pair(15, 15));
+	ht.Insert(std::make_pair(5, 5));   // 重复插入
+	ht.Insert(std::make_pair(15, 15)); // 重复插入
 	ht.Insert(std::make_pair(25, 15));
 	ht.Insert(std::make_pair(35, 15));
 	ht.Insert(std::make_pair(45, 15));
+	ht.Print();
+
+	std::cout << "\n=== 测试查找和删除 ===" << std::endl;
+	if (ht.Find(10))
+	{
+		std::cout << "找到了10" << std::endl;
+	}
+	ht.Erase(10);
+	std::cout << "删除10后:" << std::endl;
+	ht.Print();
 }
 
 void TestHashBucket2()
@@ -435,6 +459,8 @@ void TestHashBucket2()
 			countHT.Insert(make_pair(str, 1));
 		}
 	}
+
+	countHT.Print();
 
 	// 对应类型配一个仿函数，仿函数对象实现把key对象转换成映射的整数
 	// HashTable<Date, int, DateHash> countHT;
@@ -646,13 +672,121 @@ void test_my_unordered_map1()
 	// std::cout << std::endl;
 }
 
+// 测试 closeHash::HashTable 的基本功能
+void test_close_hash_table()
+{
+	std::cout << "=== 测试 closeHash::HashTable ===" << std::endl;
+
+	// 创建一个整数到字符串的哈希表
+	closeHash::HashTable<int, std::string> ht;
+
+	// 测试插入功能
+	std::cout << "\n1. 测试插入功能：" << std::endl;
+	bool result1 = ht.Insert({1, "one"});
+	bool result2 = ht.Insert({2, "two"});
+	bool result3 = ht.Insert({3, "three"});
+	bool result4 = ht.Insert({1, "duplicate"}); // 重复插入
+
+	std::cout << "插入 {1, \"one\"}: " << (result1 ? "成功" : "失败") << std::endl;
+	std::cout << "插入 {2, \"two\"}: " << (result2 ? "成功" : "失败") << std::endl;
+	std::cout << "插入 {3, \"three\"}: " << (result3 ? "成功" : "失败") << std::endl;
+	std::cout << "重复插入 {1, \"duplicate\"}: " << (result4 ? "成功" : "失败") << std::endl;
+
+	// 测试查找功能
+	std::cout << "\n2. 测试查找功能：" << std::endl;
+	auto *found1 = ht.Find(1);
+	auto *found2 = ht.Find(2);
+	auto *found3 = ht.Find(4); // 不存在的键
+
+	std::cout << "查找键 1: " << (found1 ? ("找到，值为 \"" + found1->_kv.second + "\"") : "未找到") << std::endl;
+	std::cout << "查找键 2: " << (found2 ? ("找到，值为 \"" + found2->_kv.second + "\"") : "未找到") << std::endl;
+	std::cout << "查找键 4: " << (found3 ? ("找到，值为 \"" + found3->_kv.second + "\"") : "未找到") << std::endl;
+
+	// 打印哈希表状态
+	std::cout << "\n3. 哈希表当前状态：" << std::endl;
+	ht.Print();
+
+	// 测试删除功能
+	std::cout << "\n4. 测试删除功能：" << std::endl;
+	bool erase1 = ht.Erase(2);
+	bool erase2 = ht.Erase(5); // 删除不存在的键
+
+	std::cout << "删除键 2: " << (erase1 ? "成功" : "失败") << std::endl;
+	std::cout << "删除键 5: " << (erase2 ? "成功" : "失败") << std::endl;
+
+	// 验证删除后的查找
+	std::cout << "\n5. 删除后验证：" << std::endl;
+	auto *found_after_erase = ht.Find(2);
+	std::cout << "删除后查找键 2: " << (found_after_erase ? "仍然存在" : "已删除") << std::endl;
+
+	// 打印删除后的哈希表状态
+	std::cout << "\n6. 删除后哈希表状态：" << std::endl;
+	ht.Print();
+
+	// 测试扩容功能（插入更多元素触发扩容）
+	std::cout << "\n7. 测试扩容功能：" << std::endl;
+	for (int i = 1; i < 10; ++i)
+	{
+		ht.Insert({i, "value_" + std::to_string(i)});
+	}
+	std::cout << "插入更多元素后的哈希表状态：" << std::endl;
+	ht.Print();
+
+	std::cout << "\n=== closeHash::HashTable 测试完成 ===\n"
+			  << std::endl;
+}
+
 int main(int argc, char const *argv[])
 {
-	test_set1();
+	// test_set1();
 	// test_op();
 	// test_hash_table2();
 	// TestHashBucket2();
 	// test_op2();
 	// test_my_unordered_map1();
+
+	// 测试完整的 unordered_map 功能
+	// test_unordered_map();
+
+	// 测试完整的 unordered_set 功能
+	// test_unordered_set();
+	// test_unordered_set_string();
+
+	// 测试自定义的 closeHash::HashTable
+	// test_close_hash_table();
+
+	// 测试 HashBucket::HashTable 的链表结构打印
+	// TestHashBucket1();
+	// TestHashBucket2();
+
+	// yzq::test_bitset1();
+	// yzq::test_bitset_complete();
+	// yzq::test_two_bitset();
+
+	// 测试双位图算法
+	// HashBucketForMapSet::test_two_bit_map();
+
+	// 测试布隆过滤器
+	// HashBucketForMapSet::test_bloom_filter();
+
+	// 测试哈希值查看功能
+	// HashBucketForMapSet::test_hash_values();
+
+	// 测试布隆过滤器性能
+	// HashBucketForMapSet::test_bloom_filter_performance();
+
+	// 测试计数布隆过滤器（支持删除操作）
+	// HashBucketForMapSet::test_counting_bloom_filter();
+
+	// 测试新的大文件交集算法
+	// LargeFileProcessing::test_large_file_intersection();
+
+	// 测试IP频次分析算法
+	IPAnalysis::test_ip_frequency_analysis();
+
+	// 生成小规模测试文件并处理（演示完整流程）
+	// HashBucketForMapSet::generateTestFile("test_data.bin", 10000);
+	// HashBucketForMapSet::processLargeFile("test_data.bin", "result.txt");
+
 	return 0;
 }

@@ -72,7 +72,13 @@
 		"functional": "cpp",
 		"tuple": "cpp",
 		"utility": "cpp",
-		"type_traits": "cpp"
+		"type_traits": "cpp",
+		"cstddef": "cpp",
+		"memory_resource": "cpp",
+		"system_error": "cpp",
+		"cerrno": "cpp",
+		"climits": "cpp",
+		"chrono": "cpp"
 	},
 	"terminal.integrated.defaultProfile.windows": "PowerShell",
 	"terminal.integrated.profiles.windows": {
